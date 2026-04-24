@@ -165,9 +165,27 @@
       </footer>
     </div>
 
-    <script>
-      // ▼商品データ（モック）
-      const PRODUCTS = {
+<script>
+  // ▼診断結果 → 商品キーの対応表（モック）
+  const RESULT_PRODUCT_MAP = {
+    "1-A": "instaAI",
+    "1-B": "hpbBasic",
+    "1-C": "consultation",
+    "1-D": "consultation",
+
+    "2-A": "instaAI",
+    "2-B": "hpbBasic",
+    "2-C": "consultation",
+    "2-D": "consultation",
+
+    "3-A": "instaAI",
+    "3-B": "hpbBasic",
+    "3-C": "consultation",
+    "3-D": "consultation"
+  };
+
+  // ▼商品データ（モック）
+  const PRODUCTS = {
     instaAI: {
       name: "インスタ集客AIツール",
       description: "投稿・導線設計を自動化し、集客の負担を減らします",
@@ -195,33 +213,37 @@
       points: ["状態整理", "方向性診断", "具体提案"]
     }
   };
-    
-      // ▼商品データを画面に反映する処理
-      const recommendBox = document.querySelector(".recommend-box");
-    
-      if (recommendBox) {
-        const productKey = recommendBox.dataset.product;
-        const product = PRODUCTS[productKey];
-    
-        if (product) {
-          recommendBox.querySelector(".recommend-title").textContent = product.name;
-          recommendBox.querySelector(".recommend-text").textContent =
-            product.description;
-    
-          const pointsWrap = recommendBox.querySelector(".recommend-points");
-          pointsWrap.innerHTML = product.points
-            .map((point) => `<span>${point}</span>`)
-            .join("");
-    
-          const ctaButton = document.querySelector(".result-card .cta-button");
-          const priceNote = document.querySelector(".result-card .price-note");
-    
-          ctaButton.textContent = `【無料】${product.cta}`;
-          ctaButton.href = product.url;
-          priceNote.textContent = product.price;
-        }
-      }
-    </script>
+
+  // ▼診断結果に応じて商品データを画面に反映する処理
+  const resultCard = document.querySelector(".result-card");
+  const recommendBox = document.querySelector(".recommend-box");
+
+  if (resultCard && recommendBox) {
+    const resultKey = resultCard.dataset.result;
+    const productKey = RESULT_PRODUCT_MAP[resultKey];
+    const product = PRODUCTS[productKey];
+
+    if (product) {
+      recommendBox.dataset.product = productKey;
+
+      recommendBox.querySelector(".recommend-title").textContent = product.name;
+      recommendBox.querySelector(".recommend-text").textContent =
+        product.description;
+
+      const pointsWrap = recommendBox.querySelector(".recommend-points");
+      pointsWrap.innerHTML = product.points
+        .map((point) => `<span>${point}</span>`)
+        .join("");
+
+      const ctaButton = document.querySelector(".result-card .cta-button");
+      const priceNote = document.querySelector(".result-card .price-note");
+
+      ctaButton.textContent = `【無料】${product.cta}`;
+      ctaButton.href = product.url;
+      priceNote.textContent = product.price;
+    }
+  }
+</script>
     
   </body>
 </html>
