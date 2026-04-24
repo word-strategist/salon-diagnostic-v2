@@ -352,6 +352,60 @@ body {
   letter-spacing: 0.04em;
 }
 
+.recommend-box {
+  background: #fff;
+  border: 1px solid #eadede;
+  border-radius: 24px;
+  padding: 22px 18px;
+  margin: 0 0 26px;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(140, 100, 100, 0.06);
+}
+
+.recommend-label {
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #f6ecec;
+  color: var(--pink-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.recommend-title {
+  margin: 0 0 12px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #4f4040;
+  font-weight: 800;
+}
+
+.recommend-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #6a5858;
+}
+
+.recommend-points {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.recommend-points span {
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #fbf4f4;
+  color: #8a7474;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .mock-footer {
   margin-top: 28px;
   text-align: center;
