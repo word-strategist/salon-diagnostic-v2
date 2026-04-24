@@ -164,5 +164,64 @@
         ※ 本番実装前のデザイン確認用モックアップです
       </footer>
     </div>
+
+    <script>
+      // ▼商品データ（モック）
+      const PRODUCTS = {
+    instaAI: {
+      name: "インスタ集客AIツール",
+      description: "投稿・導線設計を自動化し、集客の負担を減らします",
+      price: "月額1,980円（税込）",
+      cta: "インスタ集客を自動化する",
+      url: "#",
+      points: ["投稿設計", "導線構築", "自動化"]
+    },
+
+    hpbBasic: {
+      name: "ホットペッパー改善マニュアル",
+      description: "今の掲載内容を見直し、予約導線を改善します",
+      price: "9,800円（税込）",
+      cta: "ホットペッパーを改善する",
+      url: "#",
+      points: ["掲載改善", "導線修正", "予約率UP"]
+    },
+
+    consultation: {
+      name: "無料個別相談",
+      description: "あなたの状態に合わせて改善ポイントを直接お伝えします",
+      price: "通常90分 30,000円 → 今回無料",
+      cta: "無料相談で整理する",
+      url: "#",
+      points: ["状態整理", "方向性診断", "具体提案"]
+    }
+  };
+    
+      // ▼商品データを画面に反映する処理
+      const recommendBox = document.querySelector(".recommend-box");
+    
+      if (recommendBox) {
+        const productKey = recommendBox.dataset.product;
+        const product = PRODUCTS[productKey];
+    
+        if (product) {
+          recommendBox.querySelector(".recommend-title").textContent = product.name;
+          recommendBox.querySelector(".recommend-text").textContent =
+            product.description;
+    
+          const pointsWrap = recommendBox.querySelector(".recommend-points");
+          pointsWrap.innerHTML = product.points
+            .map((point) => `<span>${point}</span>`)
+            .join("");
+    
+          const ctaButton = document.querySelector(".result-card .cta-button");
+          const priceNote = document.querySelector(".result-card .price-note");
+    
+          ctaButton.textContent = `【無料】${product.cta}`;
+          ctaButton.href = product.url;
+          priceNote.textContent = product.price;
+        }
+      }
+    </script>
+    
   </body>
 </html>
