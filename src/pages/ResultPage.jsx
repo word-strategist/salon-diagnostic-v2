@@ -249,9 +249,18 @@ export default function ResultPage({ result }) {
           products.map((product, index) => {
             if (product.isConsultation) return null
 
-            const priceText = product.price || ''
-            const mainPrice = priceText.replace('（税込）', '')
-            const taxNote = priceText.includes('（税込）') ? '税込' : ''
+        const priceText =
+          typeof product.price === 'number'
+            ? `${product.price.toLocaleString()}円`
+            : product.price || ''
+
+        const mainPrice = priceText.replace('（税込）', '')
+        const taxNote =
+          typeof product.price === 'number'
+            ? '税込'
+            : priceText.includes('（税込）')
+              ? '税込'
+              : ''
 
             return (
               <div key={`${product.name}-${index}`} style={{ padding: '24px 24px 0' }}>
