@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { RESULTS, getBanner } from '../data/results'
 import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
@@ -56,24 +56,39 @@ function getInitialExpired(isConsultation) {
   return Date.now() >= Number(deadline)
 }
 
+function normalizeProductKeys(value) {
+  if (Array.isArray(value)) return value
+  if (typeof value === 'string') return [value]
+  return []
+}
+
 export default function ResultPage({ result }) {
   const key = `${result.level}-${result.type}`
   const data = RESULTS[key] ?? RESULTS['1-A']
-  const productKey = RESULT_PRODUCT_MAP[key] ?? RESULT_PRODUCT_MAP['1-A']
-  const product = PRODUCTS[productKey]
+
+  const productKeys = normalizeProductKeys(
+    RESULT_PRODUCT_MAP[key] ?? RESULT_PRODUCT_MAP['1-A']
+  )
+
+  const products = productKeys
+    .map((productKey) => PRODUCTS[productKey])
+    .filter(Boolean)
+
+  const mainProduct = products[0]
 
   const campaignEnded = isCampaignEnded()
 
   const [isExpired, setIsExpired] = useState(() =>
-    getInitialExpired(product?.isConsultation)
+    getInitialExpired(mainProduct?.isConsultation)
   )
 
   const expiredOrEnded = isExpired || campaignEnded
   const expiredRedirectUrl = 'https://sendenhi-zero.com/line'
-  const ctaUrl = expiredOrEnded ? expiredRedirectUrl : product?.url
+
+  const ctaUrl = expiredOrEnded ? expiredRedirectUrl : mainProduct?.url
   const ctaLabel = expiredOrEnded
     ? 'LINE登録してご案内を受け取る'
-    : (product?.cta ?? '詳細を見る')
+    : mainProduct?.cta ?? '詳細を見る'
 
   if (!data) {
     return (
@@ -86,16 +101,14 @@ export default function ResultPage({ result }) {
   const bannerUrl = getBanner(data.level)
   const { beforeHtml, afterHtml } = splitHtmlContent(data.html)
 
-  const priceText = product?.price || ''
-  const mainPrice = priceText.replace('（税込）', '')
-  const taxNote = priceText.includes('（税込）') ? '税込' : ''
-
   const handleCtaClick = async () => {
     localStorage.setItem('diagnosis_offer_visited', 'true')
 
     const sessionId = getSessionId()
     const resultKey = `${result.level}-${result.type}`
-    const currentProductKey = RESULT_PRODUCT_MAP[resultKey] || ''
+    const currentProductKeys = normalizeProductKeys(
+      RESULT_PRODUCT_MAP[resultKey] ?? []
+    )
 
     await sendTrackingEvent({
       event_type: 'cta_click',
@@ -103,12 +116,12 @@ export default function ResultPage({ result }) {
       result_key: resultKey,
       level: result.level,
       type: result.type,
-      product_key: currentProductKey,
+      product_key: currentProductKeys.join(','),
       cta_url: ctaUrl || '',
       is_expired: expiredOrEnded,
       offer_type: expiredOrEnded
         ? 'line_redirect'
-        : product?.isConsultation
+        : mainProduct?.isConsultation
           ? 'consultation'
           : 'product',
       page_url: window.location.href,
@@ -171,7 +184,7 @@ export default function ResultPage({ result }) {
         {!campaignEnded && (
           <div style={{ padding: '24px 24px 0' }}>
             <Timer
-              isConsultation={product?.isConsultation}
+              isConsultation={mainProduct?.isConsultation}
               onExpireChange={setIsExpired}
             />
           </div>
@@ -232,85 +245,94 @@ export default function ResultPage({ result }) {
           </div>
         )}
 
-        {!expiredOrEnded && product && !product.isConsultation && (
-          <div style={{ padding: '24px 24px 0' }}>
-            <div
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '24px',
-                padding: '24px',
-                textAlign: 'center',
-              }}
-            >
-              {product.originalPrice && (
+        {!expiredOrEnded &&
+          products.map((product, index) => {
+            if (product.isConsultation) return null
+
+            const priceText = product.price || ''
+            const mainPrice = priceText.replace('（税込）', '')
+            const taxNote = priceText.includes('（税込）') ? '税込' : ''
+
+            return (
+              <div key={`${product.name}-${index}`} style={{ padding: '24px 24px 0' }}>
                 <div
                   style={{
-                    color: COLORS.muted,
-                    fontSize: '15px',
-                    textDecoration: 'line-through',
-                    marginBottom: '10px',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: '24px',
+                    padding: '24px',
+                    textAlign: 'center',
                   }}
                 >
-                  通常価格：
-                  {product.billingLabel
-                    ? `${product.billingLabel}${product.originalPrice}`
-                    : product.originalPrice}
-                </div>
-              )}
+                  {product.originalPrice && (
+                    <div
+                      style={{
+                        color: COLORS.muted,
+                        fontSize: '15px',
+                        textDecoration: 'line-through',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      通常価格：
+                      {product.billingLabel
+                        ? `${product.billingLabel}${product.originalPrice}`
+                        : product.originalPrice}
+                    </div>
+                  )}
 
-              {product.priceLabel && (
-                <div
-                  style={{
-                    color: COLORS.gold,
-                    fontSize: '15px',
-                    fontWeight: 'bold',
-                    marginBottom: '8px',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  {product.priceLabel}
-                </div>
-              )}
+                  {product.priceLabel && (
+                    <div
+                      style={{
+                        color: COLORS.gold,
+                        fontSize: '15px',
+                        fontWeight: 'bold',
+                        marginBottom: '8px',
+                        letterSpacing: '0.02em',
+                      }}
+                    >
+                      {product.priceLabel}
+                    </div>
+                  )}
 
-              <div
-                style={{
-                  color: COLORS.red,
-                  fontWeight: 'bold',
-                  lineHeight: 1.2,
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 'clamp(16px, 3vw, 20px)',
-                    marginRight: '4px',
-                  }}
-                >
-                  {product.billingLabel}
-                </span>
-
-                <span
-                  style={{
-                    fontSize: 'clamp(28px, 6vw, 36px)',
-                  }}
-                >
-                  {mainPrice}
-                </span>
-
-                {taxNote && (
-                  <span
+                  <div
                     style={{
-                      fontSize: 'clamp(14px, 3vw, 18px)',
-                      marginLeft: '2px',
+                      color: COLORS.red,
+                      fontWeight: 'bold',
+                      lineHeight: 1.2,
                     }}
                   >
-                    （{taxNote}）
-                  </span>
-                )}
+                    <span
+                      style={{
+                        fontSize: 'clamp(16px, 3vw, 20px)',
+                        marginRight: '4px',
+                      }}
+                    >
+                      {product.billingLabel}
+                    </span>
+
+                    <span
+                      style={{
+                        fontSize: 'clamp(28px, 6vw, 36px)',
+                      }}
+                    >
+                      {mainPrice}
+                    </span>
+
+                    {taxNote && (
+                      <span
+                        style={{
+                          fontSize: 'clamp(14px, 3vw, 18px)',
+                          marginLeft: '2px',
+                        }}
+                      >
+                        （{taxNote}）
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            )
+          })}
 
         <div style={{ textAlign: 'center', padding: '24px' }}>
           <button
@@ -334,7 +356,7 @@ export default function ResultPage({ result }) {
             {ctaLabel}
           </button>
 
-          {!expiredOrEnded && !product?.isConsultation && (
+          {!expiredOrEnded && !mainProduct?.isConsultation && (
             <div
               style={{
                 color: COLORS.muted,
