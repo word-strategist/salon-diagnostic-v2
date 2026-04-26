@@ -1,47 +1,21 @@
 import React from 'react'
 import { useState } from 'react'
-import { RESULTS, getBanner } from '../data/results'
+import { RESULTS } from '../data/results'
 import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
-import Footer from '../components/Footer'
 import Timer from '../components/Timer'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import { isCampaignEnded } from '../utils/campaign'
-
-const COLORS = {
-  gold: '#d4af37',
-  navy: '#1a1f3a',
-  white: '#ffffff',
-  red: '#ff2d2d',
-  green: '#16a34a',
-  muted: 'rgba(255,255,255,0.6)',
-}
 
 const STORAGE_KEYS = {
   productDeadline: 'product_offer_deadline',
   consultationDeadline: 'consultation_offer_deadline',
 }
 
-function splitHtmlContent(html = '') {
-  const markers = [
-    '<h3 style="color:#d4af37;font-size:22px;font-weight:bold;margin-bottom:20px">この教材で得られること</h3>',
-    '<h3 style="color:#d4af37;font-size:22px;font-weight:bold;margin-bottom:20px">この相談で得られること</h3>',
-  ]
-
-  for (const marker of markers) {
-    const index = html.indexOf(marker)
-    if (index !== -1) {
-      return {
-        beforeHtml: html.slice(0, index),
-        afterHtml: html.slice(index),
-      }
-    }
-  }
-
-  return {
-    beforeHtml: html,
-    afterHtml: '',
-  }
+function normalizeProductKeys(value) {
+  if (Array.isArray(value)) return value
+  if (typeof value === 'string') return [value]
+  return []
 }
 
 function getInitialExpired(isConsultation) {
@@ -56,10 +30,20 @@ function getInitialExpired(isConsultation) {
   return Date.now() >= Number(deadline)
 }
 
-function normalizeProductKeys(value) {
-  if (Array.isArray(value)) return value
-  if (typeof value === 'string') return [value]
-  return []
+function getPriceText(product) {
+  if (!product) return ''
+
+  if (product.isConsultation) {
+    return product.originalPrice
+      ? `${product.originalPrice} → 今回無料`
+      : '今回無料'
+  }
+
+  if (typeof product.price === 'number') {
+    return `${product.price.toLocaleString()}円（税込）`
+  }
+
+  return product.price || ''
 }
 
 export default function ResultPage({ result }) {
@@ -89,17 +73,6 @@ export default function ResultPage({ result }) {
   const ctaLabel = expiredOrEnded
     ? 'LINE登録してご案内を受け取る'
     : mainProduct?.cta ?? '詳細を見る'
-
-  if (!data) {
-    return (
-      <div style={{ color: 'white', padding: '40px', textAlign: 'center' }}>
-        結果が見つかりません
-      </div>
-    )
-  }
-
-  const bannerUrl = getBanner(data.level)
-  const { beforeHtml, afterHtml } = splitHtmlContent(data.html)
 
   const handleCtaClick = async () => {
     localStorage.setItem('diagnosis_offer_visited', 'true')
@@ -133,253 +106,155 @@ export default function ResultPage({ result }) {
     }
   }
 
+  if (!data) {
+    return (
+      <div className="page">
+        <section className="mock-section">
+          <div className="phone-card result-card">
+            <h2 className="result-title">結果が見つかりません</h2>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #1a1f3a 0%, #2d3561 100%)',
-        fontFamily: 'sans-serif',
-        color: COLORS.white,
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '760px',
-          margin: '0 auto',
-          padding: '0 0 40px',
-          boxSizing: 'border-box',
-        }}
-      >
-        {bannerUrl && (
-          <div style={{ padding: '24px 24px 0' }}>
-            <img
-              src={bannerUrl}
-              alt="診断結果バナー"
-              style={{
-                width: '100%',
-                borderRadius: '20px',
-                display: 'block',
-              }}
-            />
-          </div>
-        )}
+    <div className="page">
+      <section className="mock-section">
+        <div className="phone-card result-card" data-result={key}>
+          <div className="result-chip">あなたの現在の状態</div>
 
-        <div style={{ padding: '24px 24px 0' }}>
-          <div
-            style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              borderRadius: '24px',
-              padding: '24px',
-            }}
-          >
-            <div
-              dangerouslySetInnerHTML={{ __html: beforeHtml }}
-              style={{ lineHeight: 1.8 }}
-            />
-          </div>
-        </div>
+          <h2 className="result-title">
+            今のままだと、方向性がズレたまま<br />
+            進んでしまう状態です
+          </h2>
 
-        {!campaignEnded && (
-          <div style={{ padding: '24px 24px 0' }}>
-            <Timer
-              isConsultation={mainProduct?.isConsultation}
-              onExpireChange={setIsExpired}
-            />
-          </div>
-        )}
+          <div className="mini-line"></div>
 
-        {expiredOrEnded && (
-          <div style={{ padding: '0 24px' }}>
-            <div
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '16px',
-                padding: '20px',
-                textAlign: 'center',
-              }}
-            >
-              <p
-                style={{
-                  color: COLORS.white,
-                  fontSize: 'clamp(16px, 3.5vw, 18px)',
-                  fontWeight: 'bold',
-                  margin: 0,
-                  lineHeight: '1.7',
-                }}
-              >
+          <div className="result-copy">
+            <p>努力しているのに、</p>
+            <p>予約や売上につながらない状態が続くと、</p>
+
+            <p>何を変えればいいのか、</p>
+            <p>分からなくなることがあります。</p>
+
+            <p>多くの場合、問題は努力不足ではなく、</p>
+            <p>今の状態に合った集客導線が</p>
+            <p>整理できていないことにあります。</p>
+
+            <p>今回の診断結果をもとに、</p>
+            <p>あなたに合った見直しポイントを</p>
+            <p>確認できます。</p>
+
+            <p className="emphasis-text">
+              自己流で続ける前に、一度現在地を整理することで、
+              次に取るべき行動が見えやすくなります。
+            </p>
+          </div>
+
+          {!campaignEnded && (
+            <div style={{ marginBottom: '24px' }}>
+              <Timer
+                isConsultation={mainProduct?.isConsultation}
+                onExpireChange={setIsExpired}
+              />
+            </div>
+          )}
+
+          {expiredOrEnded && (
+            <div className="recommend-box">
+              <p className="recommend-label">受付終了</p>
+
+              <h3 className="recommend-title">
                 この診断は終了しました
-              </p>
+              </h3>
 
-              <p
-                style={{
-                  color: 'rgba(255,255,255,0.82)',
-                  fontSize: 'clamp(13px, 3vw, 15px)',
-                  lineHeight: '1.8',
-                  margin: '10px 0 0',
-                }}
-              >
+              <p className="recommend-text">
                 最新のご案内はLINEよりお受け取りください。
               </p>
             </div>
-          </div>
-        )}
+          )}
 
-        {afterHtml && !expiredOrEnded && (
-          <div style={{ padding: '24px 24px 0' }}>
+          {!expiredOrEnded && mainProduct && (
             <div
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '24px',
-                padding: '24px',
-              }}
+              className="recommend-box"
+              data-product={productKeys[0]}
             >
-              <div
-                dangerouslySetInnerHTML={{ __html: afterHtml }}
-                style={{ lineHeight: 1.8 }}
-              />
-            </div>
-          </div>
-        )}
+              <p className="recommend-label">
+                あなたにおすすめの次の一手
+              </p>
 
-        {!expiredOrEnded &&
-          products.map((product, index) => {
-            if (product.isConsultation) return null
+              <h3 className="recommend-title">
+                {mainProduct.name}
+              </h3>
 
-        const priceText =
-          typeof product.price === 'number'
-            ? `${product.price.toLocaleString()}円`
-            : product.price || ''
+              <p className="recommend-text">
+                {mainProduct.description ||
+                  '今の状態に合わせて、必要な改善ポイントを確認できます。'}
+              </p>
 
-        const mainPrice = priceText.replace('（税込）', '')
-        const taxNote =
-          typeof product.price === 'number'
-            ? '税込'
-            : priceText.includes('（税込）')
-              ? '税込'
-              : ''
-
-            return (
-              <div key={`${product.name}-${index}`} style={{ padding: '24px 24px 0' }}>
-                <div
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: '24px',
-                    padding: '24px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {product.originalPrice && (
-                    <div
-                      style={{
-                        color: COLORS.muted,
-                        fontSize: '15px',
-                        textDecoration: 'line-through',
-                        marginBottom: '10px',
-                      }}
-                    >
-                      通常価格：
-                      {product.billingLabel
-                        ? `${product.billingLabel}${product.originalPrice}`
-                        : product.originalPrice}
-                    </div>
-                  )}
-
-                  {product.priceLabel && (
-                    <div
-                      style={{
-                        color: COLORS.gold,
-                        fontSize: '15px',
-                        fontWeight: 'bold',
-                        marginBottom: '8px',
-                        letterSpacing: '0.02em',
-                      }}
-                    >
-                      {product.priceLabel}
-                    </div>
-                  )}
-
-                  <div
-                    style={{
-                      color: COLORS.red,
-                      fontWeight: 'bold',
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 'clamp(16px, 3vw, 20px)',
-                        marginRight: '4px',
-                      }}
-                    >
-                      {product.billingLabel}
-                    </span>
-
-                    <span
-                      style={{
-                        fontSize: 'clamp(28px, 6vw, 36px)',
-                      }}
-                    >
-                      {mainPrice}
-                    </span>
-
-                    {taxNote && (
-                      <span
-                        style={{
-                          fontSize: 'clamp(14px, 3vw, 18px)',
-                          marginLeft: '2px',
-                        }}
-                      >
-                        （{taxNote}）
-                      </span>
-                    )}
-                  </div>
-                </div>
+              <div className="recommend-points">
+                {mainProduct.isConsultation ? (
+                  <>
+                    <span>状態整理</span>
+                    <span>導線確認</span>
+                    <span>改善提案</span>
+                  </>
+                ) : (
+                  <>
+                    <span>集客改善</span>
+                    <span>導線整理</span>
+                    <span>実践サポート</span>
+                  </>
+                )}
               </div>
-            )
-          })}
-
-        <div style={{ textAlign: 'center', padding: '24px' }}>
-          <button
-            onClick={handleCtaClick}
-            style={{
-              background: expiredOrEnded ? COLORS.gold : COLORS.green,
-              color: expiredOrEnded ? COLORS.navy : COLORS.white,
-              border: 'none',
-              borderRadius: '50px',
-              padding: '22px 40px',
-              fontSize: 'clamp(15px, 3.5vw, 18px)',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              boxShadow: expiredOrEnded
-                ? '0 6px 24px rgba(212,175,55,0.35)'
-                : '0 6px 24px rgba(22,163,74,0.45)',
-              width: '100%',
-              maxWidth: '480px',
-            }}
-          >
-            {ctaLabel}
-          </button>
-
-          {!expiredOrEnded && !mainProduct?.isConsultation && (
-            <div
-              style={{
-                color: COLORS.muted,
-                fontSize: '13px',
-                marginTop: '8px',
-              }}
-            >
-              ※クレジットカード払いのみ
             </div>
           )}
-        </div>
-      </div>
 
-      <Footer />
+          {!expiredOrEnded && mainProduct && (
+            <>
+              <p className="pre-cta-text">
+                無理な提案は一切ありません。<br />
+                今の状態を整理するだけでも大丈夫です。
+              </p>
+
+              <button
+                type="button"
+                className="cta-button"
+                onClick={handleCtaClick}
+              >
+                {ctaLabel}
+              </button>
+
+              <p className="note-text">
+                {mainProduct.isConsultation
+                  ? '※その場で終了OK'
+                  : '※クレジットカード払いのみ'}
+              </p>
+
+              <p className="price-note">
+                {getPriceText(mainProduct)}
+              </p>
+            </>
+          )}
+
+          {expiredOrEnded && (
+            <>
+              <button
+                type="button"
+                className="cta-button"
+                onClick={handleCtaClick}
+              >
+                {ctaLabel}
+              </button>
+
+              <p className="note-text">
+                ※LINEで最新のご案内を受け取れます
+              </p>
+            </>
+          )}
+        </div>
+      </section>
     </div>
   )
 }
