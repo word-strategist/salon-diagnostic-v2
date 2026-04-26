@@ -3,8 +3,8 @@ import { useState, useEffect, useMemo } from 'react'
 
 const COLORS = {
   red: '#ff2d2d',
-  white: '#ffffff',
-  muted: 'rgba(255,255,255,0.6)',
+  text: '#5a4a4a',
+  muted: '#9f8e8e',
 }
 
 export default function Timer({
@@ -108,12 +108,12 @@ export default function Timer({
   return (
     <div
       style={{
-        border: `2px solid ${COLORS.red}`,
-        borderRadius: '12px',
-        padding: '24px 16px',
+        //border: `2px solid ${COLORS.red}`,
+       // borderRadius: '12px',
+        //padding: '24px 16px',
         textAlign: 'center',
         maxWidth: '480px',
-        margin: '0 auto 40px',
+        margin: '0 auto 16px',
         boxSizing: 'border-box',
       }}
     >

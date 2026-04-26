@@ -1,10 +1,20 @@
 import React from 'react'
+import Timer from '../components/Timer'
+import { CAMPAIGN_END_AT } from '../utils/campaign'
 
 export default function TopPage({ onStart }) {
   return (
     <div className="page">
       <section className="mock-section">
         <div className="phone-card top-card">
+          <Timer
+            mode="fixed"
+            targetDate={CAMPAIGN_END_AT}
+            title="この診断の終了まで"
+            subtitle="終了後、この診断は受けられません"
+            expiredText="終了しました"
+          />
+
           <div className="icon-circle">✦</div>
 
           <h1 className="hero-title">
@@ -27,6 +37,28 @@ export default function TopPage({ onStart }) {
             <p>次に見直すべきポイントが分かります。</p>
           </div>
 
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #eadede',
+              borderRadius: '18px',
+              padding: '16px',
+              marginBottom: '20px',
+              textAlign: 'center',
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                color: '#b88382',
+                fontWeight: 800,
+                lineHeight: 1.8,
+              }}
+            >
+              ※この診断は一度きりです
+            </p>
+          </div>
+
           <button type="button" className="cta-button" onClick={onStart}>
             【無料】30秒で診断する
           </button>
@@ -34,6 +66,23 @@ export default function TopPage({ onStart }) {
           <p className="note-text">※完全無料・登録不要</p>
 
           <div className="bottom-stars">✦ ✦ ✦</div>
+
+          <div
+            style={{
+              marginTop: '16px',
+              textAlign: 'center',
+              fontSize: '12px',
+              lineHeight: 1.8,
+            }}
+          >
+            <a href="/law.html" style={{ color: '#9f8e8e' }}>
+              特定商取引法に基づく表記
+            </a>
+            <span style={{ color: '#c8b8b8', margin: '0 8px' }}>|</span>
+            <a href="/privacy.html" style={{ color: '#9f8e8e' }}>
+              プライバシーポリシー
+            </a>
+          </div>
         </div>
       </section>
     </div>
