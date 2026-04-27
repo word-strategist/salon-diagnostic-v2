@@ -7,6 +7,17 @@ import Timer from '../components/Timer'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import { isCampaignEnded } from '../utils/campaign'
 
+const COPY = {
+  INSIGHT:
+    'この結果は、努力不足ではなく「見直す順番」がズレている可能性を示しています。',
+
+  URGENCY:
+    '時間が過ぎると、この診断結果に合わせた案内は確認できなくなります。',
+
+  BRIDGE:
+    'ここからは、今回の診断結果に合わせて、今のあなたに優先度が高い改善策をご案内します。',
+}
+
 const STORAGE_KEYS = {
   productDeadline: 'product_offer_deadline',
   consultationDeadline: 'consultation_offer_deadline',
@@ -59,7 +70,6 @@ export default function ResultPage({ result }) {
     .filter(Boolean)
 
   const mainProduct = products[0]
-
   const campaignEnded = isCampaignEnded()
 
   const [isExpired, setIsExpired] = useState(() =>
@@ -131,6 +141,10 @@ export default function ResultPage({ result }) {
 
           <div className="mini-line"></div>
 
+          <div className="insight-box">
+            <p className="insight-text">{COPY.INSIGHT}</p>
+          </div>
+
           <div className="result-copy">
             <p>努力しているのに、</p>
             <p>予約や売上につながらない状態が続くと、</p>
@@ -153,12 +167,18 @@ export default function ResultPage({ result }) {
           </div>
 
           {!campaignEnded && (
-            <div style={{ marginBottom: '24px' }}>
-              <Timer
-                isConsultation={mainProduct?.isConsultation}
-                onExpireChange={setIsExpired}
-              />
-            </div>
+            <>
+              <div style={{ marginBottom: '16px' }}>
+                <Timer
+                  isConsultation={mainProduct?.isConsultation}
+                  onExpireChange={setIsExpired}
+                />
+              </div>
+
+              <div className="urgency-box">
+                <p className="urgency-text">{COPY.URGENCY}</p>
+              </div>
+            </>
           )}
 
           {expiredOrEnded && (
@@ -176,39 +196,45 @@ export default function ResultPage({ result }) {
           )}
 
           {!expiredOrEnded && mainProduct && (
-            <div
-              className="recommend-box"
-              data-product={productKeys[0]}
-            >
-              <p className="recommend-label">
-                あなたにおすすめの次の一手
-              </p>
-
-              <h3 className="recommend-title">
-                {mainProduct.name}
-              </h3>
-
-              <p className="recommend-text">
-                {mainProduct.description ||
-                  '今の状態に合わせて、必要な改善ポイントを確認できます。'}
-              </p>
-
-              <div className="recommend-points">
-                {mainProduct.isConsultation ? (
-                  <>
-                    <span>状態整理</span>
-                    <span>導線確認</span>
-                    <span>改善提案</span>
-                  </>
-                ) : (
-                  <>
-                    <span>集客改善</span>
-                    <span>導線整理</span>
-                    <span>実践サポート</span>
-                  </>
-                )}
+            <>
+              <div className="bridge-box">
+                <p className="bridge-text">{COPY.BRIDGE}</p>
               </div>
-            </div>
+
+              <div
+                className="recommend-box"
+                data-product={productKeys[0]}
+              >
+                <p className="recommend-label">
+                  あなたにおすすめの次の一手
+                </p>
+
+                <h3 className="recommend-title">
+                  {mainProduct.name}
+                </h3>
+
+                <p className="recommend-text">
+                  {mainProduct.description ||
+                    '今の状態に合わせて、必要な改善ポイントを確認できます。'}
+                </p>
+
+                <div className="recommend-points">
+                  {mainProduct.isConsultation ? (
+                    <>
+                      <span>状態整理</span>
+                      <span>導線確認</span>
+                      <span>改善提案</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>集客改善</span>
+                      <span>導線整理</span>
+                      <span>実践サポート</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </>
           )}
 
           {!expiredOrEnded && mainProduct && (

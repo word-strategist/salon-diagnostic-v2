@@ -450,4 +450,40 @@ body {
     font-size: 17px;
     padding: 18px 42px 18px 18px;
   }
+
+  .insight-box,
+.urgency-box,
+.bridge-box {
+  background: #fff;
+  border: 1px solid #eadede;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.insight-text {
+  margin: 0;
+  color: #5a4a4a;
+  font-weight: 700;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.urgency-text {
+  margin: 0;
+  color: #a94442;
+  font-weight: 700;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.bridge-text {
+  margin: 0;
+  color: #6a5858;
+  font-weight: 600;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
 }
