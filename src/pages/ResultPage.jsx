@@ -134,6 +134,10 @@ export default function ResultPage({ result }) {
         <div className="phone-card result-card" data-result={key}>
           <div className="result-chip">あなたの現在の状態</div>
 
+        <div className="banner">
+          <img src="/images/banner-result.png" alt="診断結果のイメージ" />
+        </div>
+
           <h2 className="result-title">
             今のままだと、方向性がズレたまま<br />
             進んでしまう状態です

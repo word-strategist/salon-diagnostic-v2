@@ -52,6 +52,10 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
             </div>
           </div>
 
+          <div className="banner">
+            <img src="/images/banner-question.png" alt="診断中のイメージ" />
+          </div>
+
           <h2 className="question-title">{q.text}</h2>
 
           <div className="choice-list">

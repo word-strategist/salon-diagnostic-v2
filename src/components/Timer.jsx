@@ -113,7 +113,7 @@ export default function Timer({
         //padding: '24px 16px',
         textAlign: 'center',
         maxWidth: '480px',
-        margin: '0 auto 16px',
+        margin: '0 auto 12px',
         boxSizing: 'border-box',
       }}
     >

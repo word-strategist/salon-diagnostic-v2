@@ -450,8 +450,10 @@ body {
     font-size: 17px;
     padding: 18px 42px 18px 18px;
   }
+}
 
-  .insight-box,
+
+.insight-box,
 .urgency-box,
 .bridge-box {
   background: #fff;
@@ -486,4 +488,50 @@ body {
   font-size: 14px;
 }
 
+.banner {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 16px 0 24px;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.question-card .banner,
+.result-card .banner {
+  width: 100% !important;
+  height: 180px !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  margin: 16px 0 24px !important;
+}
+
+.question-card .banner img,
+.result-card .banner img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+.top-banner {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 8px;
+  margin-bottom: 8px; /* ←ここ詰める */
+}
+
+.top-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px; /* ←上下統一 */
 }

@@ -4,24 +4,26 @@ import { CAMPAIGN_END_AT } from '../utils/campaign'
 
 export default function TopPage({ onStart }) {
   return (
-    <div className="page">
-      <section className="mock-section">
-        <div className="phone-card top-card">
-          <Timer
-            mode="fixed"
-            targetDate={CAMPAIGN_END_AT}
-            title="この診断の終了まで"
-            subtitle="終了後、この診断は受けられません"
-            expiredText="終了しました"
-          />
+<div className="page">
+  <section className="mock-section">
+    <div className="phone-card top-card">
+      <Timer
+        mode="fixed"
+        targetDate={CAMPAIGN_END_AT}
+        title="この診断の終了まで"
+        subtitle="終了後、この診断は受けられません"
+        expiredText="終了しました"
+      />
 
-          <div className="icon-circle">✦</div>
+      <div className="top-banner">
+        <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
+      </div>
 
-          <h1 className="hero-title">
-            ホットペッパーに依存しながら、<br />
-            集客に不安を抱えてる<br />
-            月商50万以下のサロンの方へ
-          </h1>
+      <h1 className="hero-title">
+        ホットペッパーに依存しながら、<br />
+        集客に不安を抱えてる<br />
+        月商50万以下のサロンの方へ
+      </h1>
 
           <div className="mini-line"></div>
 
