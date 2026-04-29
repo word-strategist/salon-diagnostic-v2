@@ -541,3 +541,179 @@ body {
   line-height: 1.55;
   letter-spacing: 0.01em;
 }
+
+/* =========================
+   ResultPage layout polish
+========================= */
+
+.result-card {
+  padding: 24px;
+}
+
+.result-card .banner {
+  width: calc(100% + 48px);
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: 8px;
+  margin-bottom: 22px;
+  height: auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.result-card .banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.result-chip {
+  display: inline-block;
+  background: #f4c9cf;
+  color: #b65d6b;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 7px 16px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.result-title {
+  font-size: 24px !important;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: #3f3335;
+  margin: 0 0 14px;
+}
+
+.result-card .mini-line {
+  width: 40px;
+  height: 3px;
+  background: #d7a536;
+  border-radius: 999px;
+  margin: 0 0 22px;
+}
+
+.state-text,
+.cause-text,
+.solution-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #4d4244;
+  text-align: left;
+  margin: 0 0 18px;
+  font-weight: 600;
+  white-space: pre-line;
+}
+
+.cause-text,
+.solution-text,
+.urgency-text,
+.pre-cta-text {
+  background: #fff2f3;
+  border: 1px solid #f1d8dc;
+  border-radius: 14px;
+  padding: 16px;
+  line-height: 1.9;
+  color: #4d4244;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.cause-text {
+  background: #fff7f2;
+}
+
+.solution-text {
+  background: #fff2f3;
+}
+
+.urgency-text {
+  background: #fff6e7;
+  border-color: #efd8aa;
+  margin: 20px 0 16px;
+  font-weight: 700;
+}
+
+.result-card .timer,
+.result-card [class*="timer"] {
+  margin: 14px 0 20px;
+}
+
+.recommend-box {
+  background: #fff2f3;
+  border: 1px solid #f1d8dc;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 22px 0 20px;
+  text-align: left;
+}
+
+.recommend-label {
+  color: #d46b7b;
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.recommend-title {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #3f3335;
+  margin: 0 0 10px;
+  font-weight: 800;
+}
+
+.recommend-text {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #5a4b4d;
+  margin: 0;
+}
+
+.recommend-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.recommend-points span {
+  background: #fff;
+  color: #b65d6b;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #f1d8dc;
+}
+
+.pre-cta-text {
+  margin: 18px 0 16px;
+  background: #fff;
+  border-color: #eadede;
+  text-align: center;
+  font-weight: 700;
+}
+
+.result-card .cta-button {
+  margin-top: 8px;
+}
+
+.price-note {
+  font-size: 13px;
+  color: #b65d6b;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.result-card .note-text {
+  font-size: 12px;
+  color: #9f8e8e;
+  line-height: 1.7;
+  text-align: center;
+  margin-top: 10px;
+}
