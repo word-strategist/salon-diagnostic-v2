@@ -427,7 +427,7 @@ body {
   .hero-title,
   .question-title,
   .result-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .hero-copy p,
@@ -534,4 +534,10 @@ body {
   height: auto;
   display: block;
   border-radius: 16px; /* ←上下統一 */
+}
+
+.top-card .hero-title {
+  font-size: 22px !important;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
 }

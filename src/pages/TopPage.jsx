@@ -2,70 +2,102 @@ import React from 'react'
 import Timer from '../components/Timer'
 import { CAMPAIGN_END_AT } from '../utils/campaign'
 
+const COPY = {
+  TITLE: [
+  'ホットペッパーに依存しながら',
+  '集客に不安を抱えている',
+  '月商50万以下のサロンの方へ',
+  ],
+
+  BODY: [
+    '毎月の掲載費を払い続けているのに、',
+    '予約の方は思ったようには増えない。',
+
+    '',
+
+    '「やめたら誰も来なくなる」と思うと、',
+    'ホットペッパーを手放せないでいる。',
+
+    '',
+
+    '毎日頑張っているはずなのに、',
+    '「本当にこのままでいいの…？」と',
+    '不安になることはありませんか？',
+
+    '',
+
+    'それ、わかれば対処できます。',
+  ],
+
+  VALUE: [
+    'この診断では、',
+    'あなたのサロンが今どんな状態にあるのかを整理しながら、',
+
+    '',
+
+    'ホットペッパーに頼らずに集客していくために、',
+    '今どこから見直すべきかがわかります。',
+  ],
+
+  CTA: '【無料】30秒で状態をチェック',
+
+  NOTE: [
+    '※完全無料・登録不要',
+    '※この診断は一度きりです',
+  ],
+}
+
 export default function TopPage({ onStart }) {
   return (
-<div className="page">
-  <section className="mock-section">
-    <div className="phone-card top-card">
-      <Timer
-        mode="fixed"
-        targetDate={CAMPAIGN_END_AT}
-        title="この診断の終了まで"
-        subtitle="終了後、この診断は受けられません"
-        expiredText="終了しました"
-      />
+    <div className="page">
+      <section className="mock-section">
+        <div className="phone-card top-card">
+          
+          <Timer
+            mode="fixed"
+            targetDate={CAMPAIGN_END_AT}
+            title="この診断の終了まで"
+            subtitle="終了後、この診断は受けられません"
+            expiredText="終了しました"
+          />
 
-      <div className="top-banner">
-        <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
-      </div>
+          <div className="top-banner">
+            <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
+          </div>
 
-      <h1 className="hero-title">
-        ホットペッパーに依存しながら、<br />
-        集客に不安を抱えてる<br />
-        月商50万以下のサロンの方へ
-      </h1>
+          <h1 className="hero-title">
+            {COPY.TITLE.map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </h1>
 
-          <div className="mini-line"></div>
+          <div className="mini-line"></div> 
 
           <div className="hero-copy">
-            <p>毎月の掲載費を払っているのに、</p>
-            <p>思うように予約が増えない。</p>
-
-            <p>頑張っているのに、</p>
-            <p>このままでいいのかと感じていませんか？</p>
-
-            <p>この診断では、</p>
-            <p>あなたの今の集客状態を整理しながら、</p>
-            <p>次に見直すべきポイントが分かります。</p>
+            {COPY.BODY.map((line, i) =>
+              line ? <p key={i}>{line}</p> : <br key={i} />
+            )}
           </div>
 
-          <div
-            style={{
-              background: '#fff',
-              border: '1px solid #eadede',
-              borderRadius: '18px',
-              padding: '16px',
-              marginBottom: '20px',
-              textAlign: 'center',
-            }}
+          <button
+            type="button"
+            className="cta-button"
+            onClick={onStart}
           >
-            <p
-              style={{
-                margin: 0,
-                color: '#b88382',
-                fontWeight: 800,
-                lineHeight: 1.8,
-              }}
-            >
-              ※この診断は一度きりです
-            </p>
-          </div>
-
-          <button type="button" className="cta-button" onClick={onStart}>
-            【無料】30秒で診断する
+            {COPY.CTA}
           </button>
 
-          <p className="note-text">※完全無料・登録不要</p>
+          <p className="note-text">
+            {COPY.NOTE.map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < COPY.NOTE.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </p>
 
           <div className="bottom-stars">✦ ✦ ✦</div>
 
@@ -85,6 +117,7 @@ export default function TopPage({ onStart }) {
               プライバシーポリシー
             </a>
           </div>
+
         </div>
       </section>
     </div>
