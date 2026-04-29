@@ -7,15 +7,297 @@ import Timer from '../components/Timer'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import { isCampaignEnded } from '../utils/campaign'
 
-const COPY = {
-  INSIGHT:
-    'この結果は、努力不足ではなく「見直す順番」がズレている可能性を示しています。',
+const RESULT_COPY = {
+  // ■ instaAI系
+  '1-A': {
+    CAUSE: `行動できないのは、
+あなたの意志が弱いからではありません。
 
-  URGENCY:
-    '時間が過ぎると、この診断結果に合わせた案内は確認できなくなります。',
+「何をすべきか」が
+見えていないだけです。`,
 
-  BRIDGE:
-    'ここからは、今回の診断結果に合わせて、今のあなたに優先度が高い改善策をご案内します。',
+    SOLUTION: `考えなくても投稿が動く仕組みがあれば、
+あなたはお客様だけに向き合っていられます。
+
+ホットペッパーがなくても
+予約が入るサロンは、
+そういう仕組みを持っています。`,
+
+    URGENCY: `今日と同じ明日を繰り返すか、
+仕組みに任せて動き始めるか。
+
+その分岐点が、今です。`,
+
+    PRE_CTA: `診断者限定で、
+通常月額9,800円のツールを
+1,980円でご案内しています。
+
+「まず試してみる」
+その一歩が、最も早い変化です。`,
+  },
+
+  '2-A': {
+    CAUSE: `集客の入口が
+ホットペッパー1本のままでは、
+どれだけ頑張っても
+売上の天井は変わりません。`,
+
+    SOLUTION: `新しい集客の柱を
+1本立てるだけで、
+状況は大きく変わります。
+
+インスタからの予約が入り始めたとき、
+ホットペッパーへの依存は
+自然と薄れていきます。`,
+
+    URGENCY: `「いつかやろう」が
+一番危ない先送りです。
+
+動こうとしている今が、
+始めどきです。`,
+
+    PRE_CTA: `診断者限定で、
+通常月額9,800円のツールを
+1,980円でご案内しています。
+
+あなたはすでに、
+動く準備ができています。`,
+  },
+
+  '3-A': {
+    CAUSE: `今の売上の天井は、
+あなたの「時間の限界」です。
+
+仕組みに任せることで、
+その天井は外れます。`,
+
+    SOLUTION: `投稿を自動化して、
+あなたがいなくても
+集客が動き続ける状態を作る。
+
+それが次のフェーズです。`,
+
+    URGENCY: `土台があるからこそ、
+仕組みが最速で機能します。
+
+今のあなたに、
+このツールは最も効きます。`,
+
+    PRE_CTA: `診断者限定で、
+通常月額9,800円のツールを
+1,980円でご案内しています。
+
+仕組みを整えた先に、
+時間を確保しながら
+安定して集客できる状態があります。`,
+  },
+
+  // ■ hpbBasic系
+  '1-B': {
+    CAUSE: `やり方が間違っているのではなく、
+正しいやり方を
+まだ知らないだけです。`,
+
+    SOLUTION: `ホットペッパーには、
+成果が出る使い方があります。
+
+それを知った瞬間、
+今まで払っていた掲載費が
+「投資」に変わります。`,
+
+    URGENCY: `知らないまま払い続けるか、
+正しい使い方で結果を出すか。
+
+その差は、
+今日の選択で決まります。`,
+
+    PRE_CTA: `診断者限定で、
+通常10,000円のマニュアルを
+4,980円でご案内しています。
+
+同じ掲載費で、
+結果が変わります。`,
+  },
+
+  '2-B': {
+    CAUSE: `伸び悩みの多くは、
+基礎のどこかに
+小さな抜け漏れがあります。
+
+それを埋めるだけで、
+また動き始めます。`,
+
+    SOLUTION: `基礎を一度整理することで、
+今まで気づかなかった
+伸びしろが見えてきます。
+
+その一手で、
+売上の天井が上がります。`,
+
+    URGENCY: `伸び悩んでいる今が、
+基礎を見直す最適なタイミングです。
+
+動き続けている間は
+なかなか立ち止まれません。`,
+
+    PRE_CTA: `診断者限定で、
+通常10,000円のマニュアルを
+4,980円でご案内しています。
+
+あと一手で、
+また動き始めます。`,
+  },
+
+  // ■ hpbPerfect
+  '3-B': {
+    CAUSE: `今の戦略は、
+今のステージには合っています。
+
+でも次のステージには、
+次の戦略が必要です。`,
+
+    SOLUTION: `差別化された戦略を持つことで、
+価格競争から抜け出し、
+選ばれ続けるサロンになれます。`,
+
+    URGENCY: `土台があるからこそ、
+上級戦略が最速で機能します。
+
+今のあなただから、
+活かせる内容があります。`,
+
+    PRE_CTA: `診断者限定の特別価格で
+ご案内しています。
+
+次のステージへの投資として、
+最も費用対効果が高い一手です。`,
+  },
+
+  // ■ consultation系
+  '1-C': {
+    CAUSE: `一人で考え続けても
+答えが出ないのは、
+あなたの考えが足りないからではありません。
+
+外から整理する目線が
+必要なだけです。`,
+
+    SOLUTION: `今の状態を一度整理するだけで、
+やることの優先順位が見えてきます。
+
+「次にこれをやればいい」が分かった瞬間、
+動き出せます。`,
+
+    URGENCY: `一人で悩み続けた時間より、
+プロと話した30分の方が
+先を変えることがあります。
+
+その30分が、今だけ無料です。`,
+
+    PRE_CTA: `通常90分30,000円の診断会を、
+診断者限定で無料でご案内しています。
+
+「何から始めればいいか」
+その答えを、一緒に見つけましょう。`,
+  },
+
+  '2-C': {
+    CAUSE: `次が見えないのは、
+戦略がないからではありません。
+
+今の状態を
+客観的に整理できていないだけです。`,
+
+    SOLUTION: `現状を整理して、
+次の戦略が見えた瞬間、
+また動けるようになります。`,
+
+    URGENCY: `立ち止まっている時間が長いほど、
+動ける人との差が広がります。
+
+今が、整理するタイミングです。`,
+
+    PRE_CTA: `通常90分30,000円の診断会を、
+診断者限定で無料でご案内しています。
+
+次の一手が見えれば、
+また動き出せます。`,
+  },
+
+  '3-C': {
+    CAUSE: `経営判断の精度は、
+一人で考えるより
+外の視点を入れた方が上がります。`,
+
+    SOLUTION: `今の状態を整理して、
+次の経営判断に必要な視点を
+一緒に作ります。`,
+
+    URGENCY: `判断を先送りするほど、
+機会は遠ざかります。
+
+今の状態だからこそ、
+話せることがあります。`,
+
+    PRE_CTA: `通常90分30,000円の診断会を、
+診断者限定で無料でご案内しています。
+
+次の判断を、
+一緒に整理しましょう。`,
+  },
+
+  // ■ chatgptManual
+  '1-D': {
+    CAUSE: `時間は待っていても
+生まれません。
+
+仕組みで作るものです。`,
+
+    SOLUTION: `今、手作業でやっていることを
+ChatGPTに任せることで、
+集客に使える時間を作れます。`,
+
+    URGENCY: `忙しいまま頑張り続けても、
+売上の天井は変わりません。
+
+時間を作る仕組みを、
+今日から始めてください。`,
+
+    PRE_CTA: `診断者限定で、
+通常19,800円のマニュアルを
+9,800円でご案内しています。
+
+時間が戻れば、
+できることが変わります。`,
+  },
+
+  '2-D': {
+    CAUSE: `時間不足の多くは、
+手放せる作業を
+まだ手放していないことが原因です。`,
+
+    SOLUTION: `自動化できることを任せることで、
+あなたの時間は戦略に使えるようになります。`,
+
+    URGENCY: `忙しさを続けることが
+最大のリスクです。
+
+今日、仕組みを手に入れてください。`,
+
+    PRE_CTA: `診断者限定で、
+通常19,800円のマニュアルを
+9,800円でご案内しています。
+
+時間を作った人だけが、
+次のステージに行けます。`,
+  },
+}
+
+const COMMON_COPY = {
+  EXPIRED_LABEL: '受付終了',
+  EXPIRED_TITLE: 'この診断は終了しました',
+  EXPIRED_TEXT: '最新のご案内はLINEよりお受け取りください。',
+  LINE_NOTE: '※LINEで最新のご案内を受け取れます',
 }
 
 const STORAGE_KEYS = {
@@ -35,9 +317,7 @@ function getInitialExpired(isConsultation) {
     : STORAGE_KEYS.productDeadline
 
   const deadline = localStorage.getItem(storageKey)
-
   if (!deadline) return false
-
   return Date.now() >= Number(deadline)
 }
 
@@ -60,18 +340,16 @@ function getPriceText(product) {
 export default function ResultPage({ result }) {
   const key = `${result.level}-${result.type}`
   const data = RESULTS[key] ?? RESULTS['1-A']
+  const copy = RESULT_COPY[key] || RESULT_COPY['1-A']
 
   const productKeys = normalizeProductKeys(
     RESULT_PRODUCT_MAP[key] ?? RESULT_PRODUCT_MAP['1-A']
   )
 
-  const products = productKeys
-    .map((productKey) => PRODUCTS[productKey])
-    .filter(Boolean)
-
+  const products = productKeys.map(k => PRODUCTS[k]).filter(Boolean)
   const mainProduct = products[0]
-  const campaignEnded = isCampaignEnded()
 
+  const campaignEnded = isCampaignEnded()
   const [isExpired, setIsExpired] = useState(() =>
     getInitialExpired(mainProduct?.isConsultation)
   )
@@ -88,201 +366,101 @@ export default function ResultPage({ result }) {
     localStorage.setItem('diagnosis_offer_visited', 'true')
 
     const sessionId = getSessionId()
-    const resultKey = `${result.level}-${result.type}`
-    const currentProductKeys = normalizeProductKeys(
-      RESULT_PRODUCT_MAP[resultKey] ?? []
-    )
 
     await sendTrackingEvent({
       event_type: 'cta_click',
       session_id: sessionId,
-      result_key: resultKey,
-      level: result.level,
-      type: result.type,
-      product_key: currentProductKeys.join(','),
+      result_key: key,
+      product_key: productKeys.join(','),
       cta_url: ctaUrl || '',
       is_expired: expiredOrEnded,
-      offer_type: expiredOrEnded
-        ? 'line_redirect'
-        : mainProduct?.isConsultation
-          ? 'consultation'
-          : 'product',
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
 
-    if (ctaUrl) {
-      window.location.href = ctaUrl
-    }
+    if (ctaUrl) window.location.href = ctaUrl
   }
 
-  if (!data) {
-    return (
-      <div className="page">
-        <section className="mock-section">
-          <div className="phone-card result-card">
-            <h2 className="result-title">結果が見つかりません</h2>
-          </div>
-        </section>
-      </div>
-    )
-  }
+  if (!data) return null
 
   return (
     <div className="page">
       <section className="mock-section">
-        <div className="phone-card result-card" data-result={key}>
+        <div className="phone-card result-card">
+
+          {/* ① 状態 */}
           <div className="result-chip">あなたの現在の状態</div>
 
-        <div className="banner">
-          <img src="/images/banner-result.png" alt="診断結果のイメージ" />
-        </div>
+          <div className="banner">
+            <img src="/images/banner-result.png" alt="" />
+          </div>
 
           <h2 className="result-title">
-            今のままだと、方向性がズレたまま<br />
-            進んでしまう状態です
+            今のままだと、方向性がズレたまま進んでしまう状態です
           </h2>
 
           <div className="mini-line"></div>
 
-          <div className="insight-box">
-            <p className="insight-text">{COPY.INSIGHT}</p>
-          </div>
+          {/* ② 状態説明 */}
+          <p className="state-text">
+            努力しているのに、結果につながらない状態が続くと、
+            何を変えればいいのか分からなくなることがあります。
+          </p>
 
-          <div className="result-copy">
-            <p>努力しているのに、</p>
-            <p>予約や売上につながらない状態が続くと、</p>
+          {/* ③ 原因 */}
+          <p className="cause-text">{copy.CAUSE}</p>
 
-            <p>何を変えればいいのか、</p>
-            <p>分からなくなることがあります。</p>
+          {/* ④ 解決 */}
+          <p className="solution-text">{copy.SOLUTION}</p>
 
-            <p>多くの場合、問題は努力不足ではなく、</p>
-            <p>今の状態に合った集客導線が</p>
-            <p>整理できていないことにあります。</p>
+          {/* ⑤ 今やる理由 */}
+          {!expiredOrEnded && (
+            <p className="urgency-text">{copy.URGENCY}</p>
+          )}
 
-            <p>今回の診断結果をもとに、</p>
-            <p>あなたに合った見直しポイントを</p>
-            <p>確認できます。</p>
-
-            <p className="emphasis-text">
-              自己流で続ける前に、一度現在地を整理することで、
-              次に取るべき行動が見えやすくなります。
-            </p>
-          </div>
-
+          {/* タイマー */}
           {!campaignEnded && (
-            <>
-              <div style={{ marginBottom: '16px' }}>
-                <Timer
-                  isConsultation={mainProduct?.isConsultation}
-                  onExpireChange={setIsExpired}
-                />
-              </div>
+            <Timer
+              isConsultation={mainProduct?.isConsultation}
+              onExpireChange={setIsExpired}
+            />
+          )}
 
-              <div className="urgency-box">
-                <p className="urgency-text">{COPY.URGENCY}</p>
-              </div>
+          {/* 期限切れ */}
+          {expiredOrEnded && (
+            <>
+              <p>{COMMON_COPY.EXPIRED_LABEL}</p>
+              <h3>{COMMON_COPY.EXPIRED_TITLE}</h3>
+              <p>{COMMON_COPY.EXPIRED_TEXT}</p>
             </>
           )}
 
-          {expiredOrEnded && (
+          {/* 商品 */}
+          {!expiredOrEnded && mainProduct && (
             <div className="recommend-box">
-              <p className="recommend-label">受付終了</p>
-
-              <h3 className="recommend-title">
-                この診断は終了しました
-              </h3>
-
-              <p className="recommend-text">
-                最新のご案内はLINEよりお受け取りください。
-              </p>
+              <h3>{mainProduct.name}</h3>
+              <p>{mainProduct.description}</p>
             </div>
           )}
 
-          {!expiredOrEnded && mainProduct && (
-            <>
-              <div className="bridge-box">
-                <p className="bridge-text">{COPY.BRIDGE}</p>
-              </div>
-
-              <div
-                className="recommend-box"
-                data-product={productKeys[0]}
-              >
-                <p className="recommend-label">
-                  あなたにおすすめの次の一手
-                </p>
-
-                <h3 className="recommend-title">
-                  {mainProduct.name}
-                </h3>
-
-                <p className="recommend-text">
-                  {mainProduct.description ||
-                    '今の状態に合わせて、必要な改善ポイントを確認できます。'}
-                </p>
-
-                <div className="recommend-points">
-                  {mainProduct.isConsultation ? (
-                    <>
-                      <span>状態整理</span>
-                      <span>導線確認</span>
-                      <span>改善提案</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>集客改善</span>
-                      <span>導線整理</span>
-                      <span>実践サポート</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </>
+          {/* ⑥ CTA前 */}
+          {!expiredOrEnded && (
+            <p className="pre-cta-text">{copy.PRE_CTA}</p>
           )}
 
-          {!expiredOrEnded && mainProduct && (
-            <>
-              <p className="pre-cta-text">
-                無理な提案は一切ありません。<br />
-                今の状態を整理するだけでも大丈夫です。
-              </p>
-
-              <button
-                type="button"
-                className="cta-button"
-                onClick={handleCtaClick}
-              >
-                {ctaLabel}
-              </button>
-
-              <p className="note-text">
-                {mainProduct.isConsultation
-                  ? '※その場で終了OK'
-                  : '※クレジットカード払いのみ'}
-              </p>
-
-              <p className="price-note">
-                {getPriceText(mainProduct)}
-              </p>
-            </>
-          )}
+          {/* ⑦ CTA */}
+          <button className="cta-button" onClick={handleCtaClick}>
+            {ctaLabel}
+          </button>
 
           {expiredOrEnded && (
-            <>
-              <button
-                type="button"
-                className="cta-button"
-                onClick={handleCtaClick}
-              >
-                {ctaLabel}
-              </button>
-
-              <p className="note-text">
-                ※LINEで最新のご案内を受け取れます
-              </p>
-            </>
+            <p>{COMMON_COPY.LINE_NOTE}</p>
           )}
+
+          {!expiredOrEnded && (
+            <p className="price-note">{getPriceText(mainProduct)}</p>
+          )}
+
         </div>
       </section>
     </div>
