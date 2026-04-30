@@ -40,7 +40,7 @@ const COPY = {
     '今どこから見直すべきかがわかります。',
   ],
 
-  CTA: '【無料】30秒で状態をチェック',
+CTA: '【無料】30秒で課題を明確にする',
 
   NOTE: [
     '※完全無料・登録不要',
@@ -64,17 +64,35 @@ export default function TopPage({ onStart }) {
       <section className="mock-section">
         <div className="phone-card top-card">
           
-          <Timer
-            mode="fixed"
-            targetDate={CAMPAIGN_END_AT}
-            title="この診断の終了まで"
-            subtitle="終了後、この診断は受けられません"
-            expiredText="終了しました"
-          />
+        <Timer
+          mode="fixed"
+          targetDate={CAMPAIGN_END_AT}
+          title="無料診断の受付終了まで"
+          subtitle={COPY.TIMER_SUB}
+          expiredText="終了しました"
+        />
 
           <div className="top-banner">
             <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
           </div>
+
+          <button
+            type="button"
+            className="cta-button top-mini-cta"
+            onClick={() => {
+              sendTrackingEvent({
+                event_type: 'start_click',
+                session_id: getSessionId(),
+                page: 'top_first_view',
+                page_url: window.location.href,
+                user_agent: navigator.userAgent,
+              })
+
+              onStart()
+            }}
+          >
+            {COPY.CTA}
+          </button>
 
           <h1 className="hero-title">
             {COPY.TITLE.map((line, i) => (
