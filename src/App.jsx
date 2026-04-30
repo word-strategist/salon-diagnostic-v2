@@ -10,11 +10,13 @@ import { calcResult } from './utils/judgement'
 const STORAGE_KEYS = {
   answers: 'diagnosis_answers',
   result: 'diagnosis_result',
-  completed: 'diagnosis_completed',
+  date: 'diagnosis_date',
 }
 
-// ★ テスト中だけ true（MTG後は必ず false に戻す）
-const ALLOW_RETAKE_FOR_TEST = false
+// 今日の日付（YYYY-MM-DD）
+function getToday() {
+  return new Date().toISOString().split('T')[0]
+}
 
 function AppRoutes() {
   const navigate = useNavigate()
@@ -26,36 +28,36 @@ function AppRoutes() {
   useEffect(() => {
     const savedAnswers = localStorage.getItem(STORAGE_KEYS.answers)
     const savedResult = localStorage.getItem(STORAGE_KEYS.result)
-    const savedCompleted = localStorage.getItem(STORAGE_KEYS.completed)
+    const savedDate = localStorage.getItem(STORAGE_KEYS.date)
+
+    const today = getToday()
 
     if (savedAnswers) setAnswers(JSON.parse(savedAnswers))
 
-    // ★ 再診断ロックをテスト時は無効化
-    if (!ALLOW_RETAKE_FOR_TEST && savedCompleted === 'true' && savedResult) {
-      const parsedResult = JSON.parse(savedResult)
-      setResult(parsedResult)
-      navigate('/result')
-      return
-    }
-
-    if (savedResult) {
+    // 今日の診断なら結果を復元
+    if (savedDate === today && savedResult) {
       setResult(JSON.parse(savedResult))
+    } else {
+      // 日付変わったらリセット
+      localStorage.removeItem(STORAGE_KEYS.answers)
+      localStorage.removeItem(STORAGE_KEYS.result)
+      localStorage.removeItem(STORAGE_KEYS.date)
     }
   }, [])
 
   // 診断開始
   const handleStart = () => {
-    const completed = localStorage.getItem(STORAGE_KEYS.completed)
+    const savedDate = localStorage.getItem(STORAGE_KEYS.date)
+    const today = getToday()
 
-    // ★ 再診断ロックをテスト時は無効化
-    if (!ALLOW_RETAKE_FOR_TEST && completed === 'true') {
+    // 今日すでに診断済みなら結果へ
+    if (savedDate === today) {
       navigate('/result')
       return
     }
 
     localStorage.removeItem(STORAGE_KEYS.answers)
     localStorage.removeItem(STORAGE_KEYS.result)
-    localStorage.removeItem(STORAGE_KEYS.completed)
 
     setAnswers([])
     setResult(null)
@@ -76,7 +78,7 @@ function AppRoutes() {
 
       localStorage.setItem(STORAGE_KEYS.answers, JSON.stringify(newAnswers))
       localStorage.setItem(STORAGE_KEYS.result, JSON.stringify(finalResult))
-      localStorage.setItem(STORAGE_KEYS.completed, 'true')
+      localStorage.setItem(STORAGE_KEYS.date, getToday())
 
       navigate('/result')
     } else {
