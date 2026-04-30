@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { HashRouter as BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 
 import TopPage from './pages/TopPage'
 import QuestionPage from './pages/QuestionPage'
