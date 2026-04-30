@@ -13,6 +13,9 @@ const STORAGE_KEYS = {
   completed: 'diagnosis_completed',
 }
 
+// ★ テスト中だけ true（MTG後は必ず false に戻す）
+const ALLOW_RETAKE_FOR_TEST = true
+
 function AppRoutes() {
   const navigate = useNavigate()
 
@@ -20,42 +23,45 @@ function AppRoutes() {
   const [result, setResult] = useState(null)
 
   // 初期復元
-useEffect(() => {
-  const savedAnswers = localStorage.getItem(STORAGE_KEYS.answers)
-  const savedResult = localStorage.getItem(STORAGE_KEYS.result)
-  const savedCompleted = localStorage.getItem(STORAGE_KEYS.completed)
+  useEffect(() => {
+    const savedAnswers = localStorage.getItem(STORAGE_KEYS.answers)
+    const savedResult = localStorage.getItem(STORAGE_KEYS.result)
+    const savedCompleted = localStorage.getItem(STORAGE_KEYS.completed)
 
-  if (savedAnswers) setAnswers(JSON.parse(savedAnswers))
+    if (savedAnswers) setAnswers(JSON.parse(savedAnswers))
 
-  if (savedCompleted === 'true' && savedResult) {
-    const parsedResult = JSON.parse(savedResult)
-    setResult(parsedResult)
-    navigate('/result')
-    return
-  }
+    // ★ 再診断ロックをテスト時は無効化
+    if (!ALLOW_RETAKE_FOR_TEST && savedCompleted === 'true' && savedResult) {
+      const parsedResult = JSON.parse(savedResult)
+      setResult(parsedResult)
+      navigate('/result')
+      return
+    }
 
-  if (savedResult) {
-    setResult(JSON.parse(savedResult))
-  }
-}, [])
+    if (savedResult) {
+      setResult(JSON.parse(savedResult))
+    }
+  }, [])
 
   // 診断開始
-const handleStart = () => {
-  const completed = localStorage.getItem('diagnosis_completed')
+  const handleStart = () => {
+    const completed = localStorage.getItem(STORAGE_KEYS.completed)
 
-  if (completed === 'true') {
-    navigate('/result')
-    return
+    // ★ 再診断ロックをテスト時は無効化
+    if (!ALLOW_RETAKE_FOR_TEST && completed === 'true') {
+      navigate('/result')
+      return
+    }
+
+    localStorage.removeItem(STORAGE_KEYS.answers)
+    localStorage.removeItem(STORAGE_KEYS.result)
+    localStorage.removeItem(STORAGE_KEYS.completed)
+
+    setAnswers([])
+    setResult(null)
+
+    navigate('/question/0')
   }
-
-  localStorage.removeItem(STORAGE_KEYS.answers)
-  localStorage.removeItem(STORAGE_KEYS.result)
-
-  setAnswers([])
-  setResult(null)
-
-  navigate('/question/0')
-}
 
   // 回答処理
   const handleAnswer = (questionIndex, answerIndex) => {
@@ -86,12 +92,7 @@ const handleStart = () => {
 
       <Route
         path="/question/:index"
-        element={
-          <QuestionWrapper
-            answers={answers}
-            onAnswer={handleAnswer}
-          />
-        }
+        element={<QuestionWrapper onAnswer={handleAnswer} />}
       />
 
       <Route
@@ -108,7 +109,6 @@ const handleStart = () => {
   )
 }
 
-// URLのindexを使うためのラッパー
 import { useParams } from 'react-router-dom'
 
 function QuestionWrapper({ onAnswer }) {
