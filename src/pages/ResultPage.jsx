@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { RESULTS } from '../data/results'
 import { PRODUCTS } from '../data/products'
@@ -355,6 +355,21 @@ export default function ResultPage({ result }) {
   )
 
   const expiredOrEnded = isExpired || campaignEnded
+
+  useEffect(() => {
+  sendTrackingEvent({
+    event_type: 'result_view',
+    session_id: getSessionId(),
+    result_key: key,
+    level: result.level,
+    type: result.type,
+    product_key: productKeys.join(','),
+    answers: JSON.parse(localStorage.getItem('diagnosis_answers') || '[]'),
+    page_url: window.location.href,
+    user_agent: navigator.userAgent,
+  })
+}, [])
+
   const expiredRedirectUrl = 'https://sendenhi-zero.com/line'
 
   const ctaUrl = expiredOrEnded ? expiredRedirectUrl : mainProduct?.url

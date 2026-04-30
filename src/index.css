@@ -717,3 +717,310 @@ body {
   text-align: center;
   margin-top: 10px;
 }
+
+/* =========================
+   ResultPage rough design step 2
+========================= */
+
+.result-card {
+  text-align: left;
+}
+
+.result-card .banner {
+  margin-bottom: 18px;
+}
+
+.result-chip {
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.result-title {
+  font-size: 22px !important;
+  line-height: 1.55;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.state-text {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 2;
+  color: #4d4244;
+  white-space: pre-line;
+}
+
+.cause-text,
+.solution-text,
+.urgency-text {
+  display: block;
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.9;
+  white-space: pre-line;
+  color: #4d4244;
+}
+
+.cause-text {
+  background: #fff7f2;
+  border: 1px solid #f0ded2;
+}
+
+.solution-text {
+  background: #fff2f3;
+  border: 1px solid #f1d8dc;
+}
+
+.urgency-text {
+  background: #fff6e7;
+  border: 1px solid #efd8aa;
+  font-weight: 700;
+}
+
+.result-card .timer-box,
+.result-card [class*="timer"] {
+  margin: 12px 0 20px;
+}
+
+.recommend-box {
+  background: #fff;
+  border: 1px solid #eadede;
+  border-radius: 20px;
+  padding: 18px;
+  margin: 22px 0 18px;
+  box-shadow: 0 10px 24px rgba(120, 80, 80, 0.08);
+}
+
+.recommend-box h3,
+.recommend-title {
+  font-size: 18px;
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+
+.recommend-box p,
+.recommend-text {
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.pre-cta-text {
+  background: #fff2f3;
+  border: 1px solid #f1d8dc;
+  border-radius: 18px;
+  padding: 16px;
+  margin: 18px 0 16px;
+  font-size: 14px;
+  line-height: 1.9;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.result-card .cta-button {
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* =========================
+   ResultPage compact polish
+========================= */
+
+.result-card {
+  padding: 20px !important;
+}
+
+.result-card .banner {
+  margin-top: 4px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+}
+
+.result-chip {
+  font-size: 13px;
+  padding: 7px 18px;
+  margin-bottom: 18px;
+}
+
+.result-title {
+  font-size: 21px !important;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.state-text,
+.cause-text,
+.solution-text,
+.urgency-text,
+.pre-cta-text {
+  font-size: 14px !important;
+  line-height: 1.85 !important;
+}
+
+.cause-text,
+.solution-text,
+.urgency-text,
+.pre-cta-text {
+  padding: 14px !important;
+  border-radius: 16px !important;
+  margin: 16px 0 !important;
+}
+
+.recommend-box {
+  padding: 16px !important;
+  margin: 20px 0 16px !important;
+  border-radius: 18px !important;
+}
+
+.recommend-title,
+.recommend-box h3 {
+  font-size: 18px !important;
+  line-height: 1.5;
+}
+
+.result-card .cta-button {
+  font-size: 17px !important;
+  line-height: 1.45;
+  padding: 18px 22px !important;
+}
+
+.price-note {
+  font-size: 13px !important;
+  margin-top: 12px;
+}
+
+/* ResultPage typography polish */
+
+.result-title {
+  font-weight: 800 !important;
+}
+
+.state-text,
+.cause-text,
+.solution-text,
+.urgency-text,
+.pre-cta-text,
+.recommend-box p {
+  font-weight: 600 !important;
+}
+
+.cause-text strong,
+.solution-text strong,
+.urgency-text strong,
+.pre-cta-text strong {
+  font-weight: 700 !important;
+}
+
+.recommend-box h3,
+.recommend-title {
+  font-weight: 800 !important;
+}
+
+.result-card .cta-button {
+  font-weight: 800 !important;
+}
+
+/* =========================
+   hierarchy（強弱調整）
+========================= */
+
+/* 本文を軽くする */
+.state-text {
+  font-weight: 500 !important;
+  color: #6a5f61;
+}
+
+/* 原因（やや強） */
+.cause-text {
+  font-weight: 600 !important;
+}
+
+/* 解決（やや強） */
+.solution-text {
+  font-weight: 600 !important;
+}
+
+/* 緊急（強く） */
+.urgency-text {
+  font-weight: 700 !important;
+  background: #fff3dc !important;
+  border: 1px solid #e7c98c !important;
+}
+
+/* CTA前（少し軽く） */
+.pre-cta-text {
+  font-weight: 600 !important;
+}
+
+/* ボックスの間隔を変える（重要） */
+.cause-text {
+  margin-top: 16px !important;
+}
+
+.solution-text {
+  margin-top: 18px !important;
+}
+
+.urgency-text {
+  margin-top: 22px !important;
+  margin-bottom: 20px !important;
+}
+
+/* 提案タイトルを強くする */
+
+.recommend-box h3,
+.recommend-title {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 16px;
+  text-align: center;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 12px 28px rgba(180, 120, 120, 0.12);
+  border: 1px solid #eadede;
+  margin-bottom: 14px;
+}
+
+/* =========================
+   ResultPage offer area polish
+========================= */
+
+/* 提案エリア全体を少し軽く */
+.recommend-box {
+  background: #ffffff !important;
+  border: 1px solid #eadede !important;
+  box-shadow: 0 10px 24px rgba(120, 80, 80, 0.08) !important;
+  padding: 18px !important;
+}
+
+/* 商品名カードの二重感を少し抑える */
+.recommend-box h3,
+.recommend-title {
+  box-shadow: none !important;
+  background: #fffafa !important;
+  border: 1px solid #eadede !important;
+  padding: 16px 14px !important;
+}
+
+/* CTA直前テキストは少し軽く */
+.pre-cta-text {
+  background: #fff2f3 !important;
+  border: 1px solid #f1d8dc !important;
+  font-weight: 600 !important;
+}
+
+/* タイマー下の余白を少し詰める */
+.result-card [class*="timer"] {
+  margin-bottom: 16px !important;
+}
+
+/* CTAの読みやすさ */
+.result-card .cta-button {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  padding: 18px 20px !important;
+}

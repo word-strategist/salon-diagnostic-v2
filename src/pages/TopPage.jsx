@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Timer from '../components/Timer'
 import { CAMPAIGN_END_AT } from '../utils/campaign'
+import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 
 const COPY = {
   TITLE: [
@@ -48,6 +49,16 @@ const COPY = {
 }
 
 export default function TopPage({ onStart }) {
+  useEffect(() => {
+    sendTrackingEvent({
+      event_type: 'page_view',
+      session_id: getSessionId(),
+      page: 'top',
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+  }, [])
+
   return (
     <div className="page">
       <section className="mock-section">
@@ -82,13 +93,23 @@ export default function TopPage({ onStart }) {
             )}
           </div>
 
-          <button
-            type="button"
-            className="cta-button"
-            onClick={onStart}
-          >
-            {COPY.CTA}
-          </button>
+        <button
+          type="button"
+          className="cta-button"
+          onClick={() => {
+            sendTrackingEvent({
+              event_type: 'start_click',
+              session_id: getSessionId(),
+              page: 'top',
+              page_url: window.location.href,
+              user_agent: navigator.userAgent,
+            })
+
+            onStart()
+          }}
+        >
+          {COPY.CTA}
+        </button>
 
           <p className="note-text">
             {COPY.NOTE.map((line, i) => (

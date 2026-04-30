@@ -1,4 +1,4 @@
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyFcKTQQNe6bZIi8OZWgmw7VoM2pF6FLivmtHdCwGPA1Hs7eep6_hikHMj94hAyKeb7/exec'
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzd3ErmD1RsUnTt1OapHcdambFtdhMSMZjRO576WTGl5BaKRo-vTuFK7pWyZeojWSi_/exec'
 
 export function getSessionId() {
   const key = 'diag_session_id'
