@@ -14,7 +14,7 @@ const STORAGE_KEYS = {
 }
 
 // ★ テスト中だけ true（MTG後は必ず false に戻す）
-const ALLOW_RETAKE_FOR_TEST = true
+const ALLOW_RETAKE_FOR_TEST = false
 
 function AppRoutes() {
   const navigate = useNavigate()
