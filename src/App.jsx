@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { HashRouter as BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import {
+  HashRouter as BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  useParams,
+} from 'react-router-dom'
 
 import TopPage from './pages/TopPage'
 import QuestionPage from './pages/QuestionPage'
@@ -13,7 +19,6 @@ const STORAGE_KEYS = {
   date: 'diagnosis_date',
 }
 
-// 今日の日付（YYYY-MM-DD）
 function getToday() {
   return new Date().toISOString().split('T')[0]
 }
@@ -24,40 +29,28 @@ function AppRoutes() {
   const [answers, setAnswers] = useState([])
   const [result, setResult] = useState(null)
 
-  // 初期復元
   useEffect(() => {
     const savedAnswers = localStorage.getItem(STORAGE_KEYS.answers)
     const savedResult = localStorage.getItem(STORAGE_KEYS.result)
     const savedDate = localStorage.getItem(STORAGE_KEYS.date)
-
     const today = getToday()
 
     if (savedAnswers) setAnswers(JSON.parse(savedAnswers))
 
-    // 今日の診断なら結果を復元
     if (savedDate === today && savedResult) {
       setResult(JSON.parse(savedResult))
     } else {
-      // 日付変わったらリセット
       localStorage.removeItem(STORAGE_KEYS.answers)
       localStorage.removeItem(STORAGE_KEYS.result)
       localStorage.removeItem(STORAGE_KEYS.date)
     }
   }, [])
 
-  // 診断開始
   const handleStart = () => {
-    const savedDate = localStorage.getItem(STORAGE_KEYS.date)
-    const today = getToday()
-
-    // 今日すでに診断済みなら結果へ
-    if (savedDate === today) {
-      navigate('/result')
-      return
-    }
-
+    // 共有・確認用：TOPから押したら必ず質問ページへ入る
     localStorage.removeItem(STORAGE_KEYS.answers)
     localStorage.removeItem(STORAGE_KEYS.result)
+    localStorage.removeItem(STORAGE_KEYS.date)
 
     setAnswers([])
     setResult(null)
@@ -65,7 +58,6 @@ function AppRoutes() {
     navigate('/question/0')
   }
 
-  // 回答処理
   const handleAnswer = (questionIndex, answerIndex) => {
     const newAnswers = [...answers]
     newAnswers[questionIndex] = answerIndex
@@ -110,8 +102,6 @@ function AppRoutes() {
     </Routes>
   )
 }
-
-import { useParams } from 'react-router-dom'
 
 function QuestionWrapper({ onAnswer }) {
   const { index } = useParams()
