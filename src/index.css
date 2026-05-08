@@ -498,27 +498,25 @@ body {
 
 .banner img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   display: block;
 }
 
 .question-card .banner,
 .result-card .banner {
   width: 100% !important;
-  height: 180px !important;
   overflow: hidden !important;
-  border-radius: 16px !important;
+  border-radius: 24px !important;
   margin: 16px 0 24px !important;
 }
 
 .question-card .banner img,
 .result-card .banner img {
   width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
+  height: auto !important;
   display: block !important;
+  border-radius: 24px !important;
 }
 
 .top-banner {
@@ -1029,4 +1027,147 @@ body {
   margin: 16px 0 22px !important;
   font-size: 16px !important;
   padding: 16px 20px !important;
+}
+
+.question-banner-fade {
+  animation: questionBannerFade 0.55s ease forwards;
+}
+
+.question-banner-fade img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+}
+
+@keyframes questionBannerFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 質問ページ専用：バナー画像を切らずに全体表示 */
+.question-card .banner.question-banner-fade {
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+  border-radius: 24px;
+}
+
+.question-card .banner.question-banner-fade img {
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  display: block;
+  border-radius: 24px;
+}
+
+/* =========================
+   QuestionPage step progress
+========================= */
+
+.step-progress-wrap {
+  background: #fff;
+  border: 1px solid #eadfdf;
+  border-radius: 20px;
+  padding: 14px 14px 16px;
+  margin-bottom: 20px;
+}
+
+.step-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8a7878;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.step-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #eee6e6;
+  color: #9f8e8e;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.step-dot.is-done {
+  background: #e7c1c0;
+  color: #fff;
+}
+
+.step-dot.is-current {
+  background: linear-gradient(135deg, #e6b8b7 0%, #d4af37 100%);
+  color: #fff;
+  transform: scale(1.12);
+  box-shadow: 0 6px 14px rgba(212, 175, 55, 0.22);
+}
+
+/* =========================
+   ResultPage soft polish
+========================= */
+
+.result-card .result-main-banner {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.result-card .result-chip {
+  margin: 0 0 18px !important;
+  background: #f4c6cd !important;
+  color: #9f5964 !important;
+}
+
+.result-card .result-title {
+  font-size: 20px !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.01em !important;
+  margin-bottom: 14px !important;
+}
+
+.result-card .mini-line {
+  margin-bottom: 24px !important;
+}
+
+.result-card .cause-text,
+.result-card .solution-text,
+.result-card .urgency-text {
+  border-color: rgba(214, 160, 160, 0.45) !important;
+  box-shadow: 0 8px 22px rgba(160, 110, 110, 0.05) !important;
+}
+
+.result-card .cause-text {
+  background: #fff9f5 !important;
+}
+
+.result-card .solution-text {
+  background: #fff5f6 !important;
+}
+
+.result-card .urgency-text {
+  background: #fff7e7 !important;
 }

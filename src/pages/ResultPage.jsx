@@ -403,12 +403,13 @@ export default function ResultPage({ result }) {
       <section className="mock-section">
         <div className="phone-card result-card">
 
-          {/* ① 状態 */}
-          <div className="result-chip">あなたの現在の状態</div>
+          {/* ① 結果イメージ */}
+            <div className="banner result-main-banner">
+              <img src="/images/banner-result.png" alt="診断結果のイメージ" />
+            </div>
 
-          <div className="banner">
-            <img src="/images/banner-result.png" alt="" />
-          </div>
+          {/* ② 状態 */}
+            <div className="result-chip">あなたの診断結果</div>
 
           <h2 className="result-title">
             今のままだと、方向性がズレたまま進んでしまう状態です

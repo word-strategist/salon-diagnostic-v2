@@ -3,9 +3,25 @@ import { useState } from 'react'
 import { QUESTIONS } from '../data/questions'
 import { isCampaignEnded } from '../utils/campaign'
 
+const questionBanners = [
+  '/images/question-banners/q1-v1.png',
+  '/images/question-banners/q2-v1.png',
+  '/images/question-banners/q3-v1.png',
+  '/images/question-banners/q4-v1.png',
+  '/images/question-banners/q5-v1.png',
+  '/images/question-banners/q6-v1.png',
+  '/images/question-banners/q7-v1.png',
+  '/images/question-banners/q8-v1.png',
+  '/images/question-banners/q9-v1.png',
+  '/images/question-banners/q10-v1.png',
+]
+
 export default function QuestionPage({ questionIndex, onAnswer }) {
   const [selected, setSelected] = useState(null)
   const q = QUESTIONS[questionIndex]
+
+  const currentBanner =
+    questionBanners[questionIndex] || '/images/banner-question.png'
 
   if (isCampaignEnded()) {
     return (
@@ -26,34 +42,43 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
 
   const handleNext = () => {
     if (selected === null) return
+
     onAnswer(questionIndex, selected)
     setSelected(null)
   }
-
-  const progressPercent = ((questionIndex + 1) / QUESTIONS.length) * 100
 
   return (
     <div className="page">
       <section className="mock-section">
         <div className="phone-card question-card">
-          <div className="progress-wrap">
-            <div className="progress-top">
+          <div className="step-progress-wrap">
+            <div className="step-progress-label">
               <span>診断中</span>
               <span>
                 {questionIndex + 1} / {QUESTIONS.length}
               </span>
             </div>
 
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${progressPercent}%` }}
-              />
+            <div className="step-progress">
+              {QUESTIONS.map((_, i) => (
+                <div
+                  key={i}
+                  className={[
+                    'step-dot',
+                    i < questionIndex ? 'is-done' : '',
+                    i === questionIndex ? 'is-current' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {i + 1}
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="banner">
-            <img src="/images/banner-question.png" alt="診断中のイメージ" />
+          <div key={questionIndex} className="banner question-banner-fade">
+            <img src={currentBanner} alt="診断中のイメージ" />
           </div>
 
           <h2 className="question-title">{q.text}</h2>
