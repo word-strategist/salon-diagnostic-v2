@@ -1334,3 +1334,607 @@ body {
   object-position: center center !important;
   border-radius: 24px !important;
 }
+
+/* =========================
+   ResultPage ideal layout cards
+========================= */
+
+.result-insight-card,
+.result-direction-card,
+.result-urgency-card {
+  margin: 18px 0;
+  padding: 18px 16px;
+  border-radius: 22px;
+  line-height: 1.9;
+  box-shadow: 0 10px 24px rgba(160, 110, 110, 0.06);
+}
+
+.result-insight-card {
+  background: #fff9f5;
+  border: 1px solid rgba(230, 200, 180, 0.7);
+}
+
+.result-direction-card {
+  background: #fff5f7;
+  border: 1px solid rgba(230, 190, 198, 0.7);
+}
+
+.result-urgency-card {
+  background: #fff7e7;
+  border: 1px solid rgba(225, 195, 135, 0.75);
+}
+
+.result-insight-label {
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #b76b78;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.result-insight-card p,
+.result-direction-card p,
+.result-urgency-card p {
+  margin: 0;
+  color: #5a4a4a;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: pre-line;
+}
+
+.result-urgency-card p {
+  font-weight: 700;
+}
+
+/* =========================
+   Result guide woman
+========================= */
+
+.result-recommend-with-guide .recommend-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 170px;
+  padding-right: 96px !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  position: relative;
+  z-index: 2;
+}
+
+.result-guide-woman {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 110px;
+  height: auto;
+  z-index: 1;
+  opacity: 0.96;
+  pointer-events: none;
+}
+
+/* =========================
+   ResultPage Guide Woman
+========================= */
+
+.result-recommend-with-guide {
+  position: relative;
+  overflow: visible;
+}
+
+.result-recommend-with-guide .recommend-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 170px;
+  padding-right: 120px;
+}
+
+.result-recommend-with-guide .recommend-content {
+  position: relative;
+  z-index: 2;
+}
+
+.result-guide-woman {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+
+  width: 150px;
+  max-width: none;
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* =========================
+   ResultPage Guide Woman
+========================= */
+
+.result-recommend-with-guide {
+  position: relative;
+  overflow: visible;
+}
+
+.result-recommend-with-guide .recommend-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 170px;
+  padding-right: 120px !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  position: relative;
+  z-index: 2;
+}
+
+.result-guide-woman {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 150px;
+  max-width: none;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* =========================
+   ResultPage Recommend Card
+   あなたにおすすめの次の一手
+========================= */
+
+.result-recommend-with-guide {
+  position: relative;
+  overflow: hidden;
+  padding: 28px 28px 24px;
+  border-radius: 28px;
+  background: #fffafa;
+  border: 1px solid #f2cfd4;
+  min-height: 290px;
+}
+
+.recommend-product-visual {
+  position: relative;
+  min-height: 230px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #fffafa 0%, #fff7f7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommend-icon {
+  position: absolute;
+  top: 30px;
+  left: 28px;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5cfa8, #d9aa36);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  box-shadow: 0 14px 30px rgba(217, 170, 54, 0.24);
+}
+
+.recommend-product-name {
+  width: 168px;
+  min-height: 154px;
+  padding: 22px 18px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid #ead9dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.45;
+  color: #5b4b4f;
+  z-index: 2;
+}
+
+.result-guide-woman {
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  width: 92px;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* スマホ幅での微調整 */
+@media (max-width: 430px) {
+  .result-recommend-with-guide {
+    padding: 24px 22px 22px;
+    min-height: 280px;
+  }
+
+  .recommend-product-visual {
+    min-height: 220px;
+  }
+
+  .recommend-product-name {
+    width: 154px;
+    min-height: 146px;
+    font-size: 24px;
+  }
+
+  .recommend-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    top: 28px;
+    left: 24px;
+  }
+
+  .result-guide-woman {
+    width: 104px;
+    right: 10px;
+    bottom: 8px;
+  }
+}
+
+/* =========================
+   ResultPage Recommend Compact Layout
+   理想レイアウト寄せ
+========================= */
+
+.result-recommend-with-guide {
+  position: relative;
+  margin-top: 28px;
+  padding: 20px 12px 16px;
+  border-radius: 18px;
+  background: #fff1f3;
+  border: none;
+  box-shadow: none;
+}
+
+.result-recommend-with-guide .recommend-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f7dce1;
+  color: #d86f84;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.recommend-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr 88px;
+  align-items: center;
+  gap: 10px;
+}
+
+.recommend-inner .recommend-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: transparent;
+  color: #d86f84;
+  font-size: 34px;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommend-inner .recommend-content {
+  min-height: 94px;
+  padding: 18px 18px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(120, 80, 90, 0.08);
+}
+
+.recommend-inner .recommend-content h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 1.45;
+  color: #4f3f43;
+}
+
+.recommend-inner .recommend-content p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.7;
+  color: #5b4b4f;
+}
+
+.recommend-inner .result-guide-woman {
+  position: static;
+  width: 86px;
+  height: auto;
+  align-self: end;
+  margin-left: -4px;
+}
+
+/* =========================
+   ResultPage Recommend Final Override
+   おすすめカード最終調整
+========================= */
+
+.result-recommend-with-guide {
+  margin-top: 28px;
+  padding: 22px 20px 18px !important;
+  border-radius: 24px;
+  background: #fff1f3;
+  border: none;
+  box-shadow: none;
+}
+
+.result-recommend-with-guide .recommend-label {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #f7dce1;
+  color: #d86f84;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.result-recommend-with-guide .recommend-inner {
+  display: grid !important;
+  grid-template-columns: 42px minmax(0, 1fr) 92px !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 120px;
+}
+
+.result-recommend-with-guide .recommend-icon {
+  position: static !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #d86f84 !important;
+  font-size: 34px !important;
+  line-height: 1;
+}
+
+.result-recommend-with-guide .recommend-content {
+  position: static !important;
+  width: auto !important;
+  min-height: 96px !important;
+  padding: 18px 18px !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  border: none !important;
+  box-shadow: 0 10px 24px rgba(120, 80, 90, 0.08);
+  text-align: left !important;
+  display: block !important;
+}
+
+.result-recommend-with-guide .recommend-content h3 {
+  margin: 0 0 8px !important;
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  line-height: 1.45 !important;
+  color: #4f3f43 !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  white-space: normal !important;
+}
+
+.result-recommend-with-guide .recommend-content p {
+  margin: 0 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.7 !important;
+  color: #5b4b4f !important;
+}
+
+.result-recommend-with-guide .result-guide-woman {
+  position: static !important;
+  width: 88px !important;
+  max-width: 88px !important;
+  height: auto !important;
+  align-self: end;
+  margin-left: -4px;
+  pointer-events: none;
+}
+
+/* =========================
+   ResultPage Recommend Compact Fix
+========================= */
+
+.result-recommend-with-guide {
+  padding: 20px 18px 18px !important;
+  background: #fff1f3 !important;
+}
+
+.result-recommend-with-guide .recommend-inner {
+  grid-template-columns: 38px 1fr 112px !important;
+  gap: 8px !important;
+  min-height: 140px !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  min-height: auto !important;
+  padding: 18px 16px !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 24px rgba(120, 80, 90, 0.08) !important;
+}
+
+.result-recommend-with-guide .recommend-content h3 {
+  font-size: 18px !important;
+  line-height: 1.45 !important;
+  text-align: left !important;
+}
+
+.result-recommend-with-guide .recommend-content p {
+  display: block !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+}
+
+.result-recommend-with-guide .result-guide-woman {
+  width: 112px !important;
+  max-width: 112px !important;
+  align-self: end !important;
+  margin-left: -8px !important;
+}
+
+.result-recommend-with-guide .recommend-card {
+  display: none !important;
+}
+
+/* =========================
+   ResultPage Recommend Team Check Adjust
+========================= */
+
+.result-recommend-with-guide .recommend-inner {
+  grid-template-columns: 34px 1fr 124px !important;
+  gap: 6px !important;
+  align-items: center !important;
+}
+
+.result-recommend-with-guide .recommend-icon {
+  align-self: start !important;
+  margin-top: 34px !important;
+  font-size: 32px !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 18px 18px !important;
+  margin-left: -4px !important;
+}
+
+.result-recommend-with-guide .recommend-content h3 {
+  font-size: 19px !important;
+  line-height: 1.45 !important;
+}
+
+.result-recommend-with-guide .recommend-content p {
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+.result-recommend-with-guide .result-guide-woman {
+  width: 124px !important;
+  max-width: 124px !important;
+  align-self: end !important;
+  margin-left: -14px !important;
+  margin-bottom: -2px !important;
+}
+
+/* =========================
+   ResultPage Recommend Layout Reset
+   チーム確認前の見た目調整
+========================= */
+
+.result-recommend-with-guide {
+  padding: 20px 18px 18px !important;
+  background: #fff1f3 !important;
+  border: 1px solid #f5cdd4 !important;
+  border-radius: 22px !important;
+}
+
+.result-recommend-with-guide .recommend-label {
+  margin-bottom: 18px !important;
+}
+
+.result-recommend-with-guide .recommend-inner {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 138px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.result-recommend-with-guide .recommend-icon {
+  position: absolute !important;
+  left: 12px !important;
+  top: 34px !important;
+  width: 38px !important;
+  height: 38px !important;
+  font-size: 34px !important;
+  color: #d86f84 !important;
+  z-index: 2 !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  position: relative !important;
+  width: calc(100% - 108px) !important;
+  min-height: 104px !important;
+  margin-left: 46px !important;
+  padding: 18px 18px 18px 20px !important;
+  background: #fff !important;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 10px 24px rgba(120, 80, 90, 0.08) !important;
+  z-index: 1 !important;
+}
+
+.result-recommend-with-guide .recommend-content h3 {
+  margin: 0 0 8px !important;
+  font-size: 18px !important;
+  line-height: 1.45 !important;
+  text-align: left !important;
+}
+
+.result-recommend-with-guide .recommend-content p {
+  display: block !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  text-align: left !important;
+}
+
+.result-recommend-with-guide .result-guide-woman {
+  position: absolute !important;
+  right: 4px !important;
+  bottom: -2px !important;
+  width: 112px !important;
+  max-width: 112px !important;
+  height: auto !important;
+  z-index: 3 !important;
+}
+
+/* =========================
+   ResultPage Recommend Final Polish
+========================= */
+
+.result-recommend-with-guide .recommend-inner {
+  min-height: 122px !important;
+}
+
+.result-recommend-with-guide .recommend-content {
+  width: calc(100% - 88px) !important;
+  margin-left: 34px !important;
+  padding: 16px 18px 16px 20px !important;
+}
+
+.result-recommend-with-guide .recommend-content h3 {
+  font-size: 17px !important;
+  line-height: 1.4 !important;
+}
+
+.result-recommend-with-guide .result-guide-woman {
+  right: 12px !important;
+  bottom: -1px !important;
+  width: 126px !important;
+  max-width: 126px !important;
+}
+
+.result-recommend-with-guide {
+  padding-bottom: 12px !important;
+}

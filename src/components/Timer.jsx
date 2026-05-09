@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useMemo } from 'react'
 
 const COLORS = {
-  red: '#ff2d2d',
+  red: '#d86f7f',
   text: '#5a4a4a',
   muted: '#9f8e8e',
 }
@@ -10,7 +10,7 @@ const COLORS = {
 export default function Timer({
   isConsultation = false,
   onExpireChange,
-  mode = 'offer', // 'offer' | 'fixed'
+  mode = 'offer',
   targetDate = null,
   title,
   subtitle,
@@ -97,31 +97,29 @@ export default function Timer({
 
   const displayTitle =
     title ??
-    (isConsultation ? '無料相談の予約期限まで' : 'この特別オファーの残り時間')
+    (isConsultation ? '無料相談の予約期限まで' : 'ご案内の終了まで')
 
   const displaySubtitle =
     subtitle ??
     (isConsultation
-      ? '期限を過ぎると予約が締め切られます'
+      ? '期間を過ぎると予約受付が終了します'
       : 'このご案内は期間限定です')
 
   return (
     <div
       style={{
-        //border: `2px solid ${COLORS.red}`,
-       // borderRadius: '12px',
-        //padding: '24px 16px',
         textAlign: 'center',
         maxWidth: '480px',
-        margin: '0 auto 12px',
+        margin: '0 auto 18px',
         boxSizing: 'border-box',
       }}
     >
       <p
         style={{
-          color: COLORS.white,
+          color: COLORS.text,
           fontSize: 'clamp(13px, 3vw, 15px)',
-          marginBottom: '12px',
+          fontWeight: 700,
+          marginBottom: '10px',
         }}
       >
         {displayTitle}
@@ -132,9 +130,12 @@ export default function Timer({
           <div
             style={{
               color: COLORS.red,
-              fontSize: days > 0 ? 'clamp(28px, 8vw, 44px)' : 'clamp(36px, 10vw, 52px)',
-              fontWeight: 'bold',
-              letterSpacing: days > 0 ? '2px' : '4px',
+              fontSize:
+                days > 0
+                  ? 'clamp(28px, 8vw, 44px)'
+                  : 'clamp(36px, 10vw, 52px)',
+              fontWeight: 800,
+              letterSpacing: days > 0 ? '1px' : '3px',
               lineHeight: 1.2,
             }}
           >
@@ -144,7 +145,8 @@ export default function Timer({
           <p
             style={{
               color: COLORS.muted,
-              fontSize: 'clamp(11px, 2.5vw, 13px)',
+              fontSize: 'clamp(12px, 2.5vw, 13px)',
+              fontWeight: 700,
               marginTop: '8px',
             }}
           >
@@ -156,7 +158,7 @@ export default function Timer({
           style={{
             color: COLORS.red,
             fontSize: 'clamp(28px, 8vw, 40px)',
-            fontWeight: 'bold',
+            fontWeight: 800,
           }}
         >
           {expiredText}

@@ -10,7 +10,7 @@ export const PRODUCTS = {
 
     url: 'https://sendenhi-zero.com/insta-marunagekun',
     isConsultation: false,
-    cta: '24時間限定で診断者限定価格を確認する',
+    cta: '診断者限定価格を確認する',
   },
 
   hpbBasic: {
@@ -24,7 +24,7 @@ export const PRODUCTS = {
 
     url: 'https://sendenhi-zero.com/hpmanyual',
     isConsultation: false,
-    cta: '24時間限定で診断者限定価格を確認する',
+    cta: '診断者限定価格を確認する',
   },
 
   hpbPerfect: {
@@ -38,7 +38,7 @@ export const PRODUCTS = {
 
     url: 'https://sendenhi-zero.com/hpgokuhi',
     isConsultation: false,
-    cta: '24時間限定で診断者限定価格を確認する',
+    cta: '診断者限定価格を確認する',
   },
 
   chatgptManual: {
@@ -52,7 +52,7 @@ export const PRODUCTS = {
 
     url: 'https://sendenhi-zero.com/chatgpt-kyouzai',
     isConsultation: false,
-    cta: '24時間限定で診断者限定価格を確認する',
+    cta: '診断者限定価格を確認する',
   },
 
   consultation: {
@@ -66,6 +66,6 @@ export const PRODUCTS = {
 
     url: 'https://utage-system.com/p/jBAkSvtQ120H',
     isConsultation: true,
-    cta: '24時間限定で診断会＆説明会の詳細を見る',
+    cta: '診断会＆説明会の詳細を確認する',
   },
 }

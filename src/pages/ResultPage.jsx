@@ -5,7 +5,7 @@ import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
 import Timer from '../components/Timer'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
-import { isCampaignEnded } from '../utils/campaign'
+import { isCampaignEnded, CAMPAIGN_END_AT } from '../utils/campaign'
 
 const RESULT_COPY = {
   // ■ instaAI系
@@ -326,8 +326,8 @@ function getPriceText(product) {
 
   if (product.isConsultation) {
     return product.originalPrice
-      ? `${product.originalPrice} → 今回無料`
-      : '今回無料'
+      ? `${product.originalPrice} → 無料`
+      : '無料'
   }
 
   if (typeof product.price === 'number') {
@@ -423,24 +423,41 @@ export default function ResultPage({ result }) {
             何を変えればいいのか分からなくなることがあります。
           </p>
 
-          {/* ③ 原因 */}
-          <p className="cause-text">{copy.CAUSE}</p>
+          {/* ③ 気づき */}
+          <div className="result-insight-card">
+            <div className="result-insight-label">今の状態の原因</div>
+            <p>{copy.CAUSE}</p>
+          </div>
 
-          {/* ④ 解決 */}
-          <p className="solution-text">{copy.SOLUTION}</p>
+          {/* ④ 解決の方向性 */}
+          <div className="result-direction-card">
+            <div className="result-insight-label">解決の方向性</div>
+            <p>{copy.SOLUTION}</p>
+          </div>
 
           {/* ⑤ 今やる理由 */}
           {!expiredOrEnded && (
-            <p className="urgency-text">{copy.URGENCY}</p>
+            <div className="result-urgency-card">
+              <div className="result-insight-label">今、見直す理由</div>
+              <p>{copy.URGENCY}</p>
+            </div>
           )}
 
           {/* タイマー */}
-          {!campaignEnded && (
-            <Timer
-              isConsultation={mainProduct?.isConsultation}
-              onExpireChange={setIsExpired}
-            />
-          )}
+            {!campaignEnded && (
+              <Timer
+                mode="fixed"
+                targetDate={CAMPAIGN_END_AT}
+                isConsultation={mainProduct?.isConsultation}
+                onExpireChange={setIsExpired}
+                title={
+                  mainProduct?.isConsultation
+                    ? '無料相談の予約期限まで'
+                    : 'ご案内の終了まで'
+                }
+                subtitle="このご案内は期間限定です"
+              />
+            )}
 
           {/* 期限切れ */}
           {expiredOrEnded && (
@@ -453,16 +470,22 @@ export default function ResultPage({ result }) {
 
           {/* 商品 */}
           {!expiredOrEnded && mainProduct && (
-            <div className="recommend-box">
+            <div className="recommend-box result-recommend-with-guide">
               <div className="recommend-label">あなたにおすすめの次の一手</div>
 
-              <div className="recommend-card">
+              <div className="recommend-inner">
                 <div className="recommend-icon">⚑</div>
 
-                <div>
+                <div className="recommend-content">
                   <h3>{mainProduct.name}</h3>
                   <p>{mainProduct.description}</p>
                 </div>
+
+                <img
+                  className="result-guide-woman"
+                  src="/images/result-guide-woman-v2.png"
+                  alt="案内する女性"
+                />
               </div>
             </div>
           )}
@@ -479,10 +502,6 @@ export default function ResultPage({ result }) {
 
           {expiredOrEnded && (
             <p>{COMMON_COPY.LINE_NOTE}</p>
-          )}
-
-          {!expiredOrEnded && (
-            <p className="price-note">{getPriceText(mainProduct)}</p>
           )}
 
         </div>
