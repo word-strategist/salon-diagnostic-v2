@@ -454,8 +454,16 @@ export default function ResultPage({ result }) {
           {/* 商品 */}
           {!expiredOrEnded && mainProduct && (
             <div className="recommend-box">
-              <h3>{mainProduct.name}</h3>
-              <p>{mainProduct.description}</p>
+              <div className="recommend-label">あなたにおすすめの次の一手</div>
+
+              <div className="recommend-card">
+                <div className="recommend-icon">⚑</div>
+
+                <div>
+                  <h3>{mainProduct.name}</h3>
+                  <p>{mainProduct.description}</p>
+                </div>
+              </div>
             </div>
           )}
 

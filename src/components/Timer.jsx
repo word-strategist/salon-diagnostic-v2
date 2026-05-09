@@ -103,7 +103,7 @@ export default function Timer({
     subtitle ??
     (isConsultation
       ? '期限を過ぎると予約が締め切られます'
-      : 'このご案内は24時間限定です')
+      : 'このご案内は期間限定です')
 
   return (
     <div

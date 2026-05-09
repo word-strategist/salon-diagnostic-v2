@@ -1171,3 +1171,166 @@ body {
 .result-card .urgency-text {
   background: #fff7e7 !important;
 }
+
+/* =========================
+   Result CTA card
+========================= */
+
+.recommend-box {
+  margin-top: 28px;
+}
+
+.recommend-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #cf7f8f;
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+
+.recommend-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: linear-gradient(
+    180deg,
+    #fff8f8 0%,
+    #fffdfd 100%
+  );
+  border: 1px solid rgba(226, 192, 192, 0.55);
+  border-radius: 24px;
+  padding: 20px 18px;
+  box-shadow: 0 10px 28px rgba(170, 120, 120, 0.06);
+}
+
+.recommend-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    #f4c6cd 0%,
+    #d4af37 100%
+  );
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.2);
+}
+
+.recommend-card h3 {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #564545;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.recommend-card p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #7d6c6c;
+}
+
+/* CTAボタンも少し柔らかく */
+
+.result-card .cta-button {
+  margin-top: 22px;
+  border-radius: 999px !important;
+  background: linear-gradient(
+    135deg,
+    #e8a9b4 0%,
+    #d88c9a 100%
+  ) !important;
+  box-shadow: 0 10px 24px rgba(216, 140, 154, 0.24);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.result-card .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(216, 140, 154, 0.28);
+}
+
+/* =========================
+   Top CTA guide
+========================= */
+
+.top-cta-guide {
+  margin: 28px 0 10px;
+}
+
+.top-cta-guide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.top-cta-lead {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.top-cta-lead p {
+  margin: 0;
+  color: #5f4e4e;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.top-cta-lead p + p {
+  margin-top: 2px;
+}
+
+/* =========================
+   Top CTA image button
+========================= */
+
+.top-cta-image-button {
+  width: 100%;
+  margin: 30px 0 22px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(160, 110, 110, 0.08);
+}
+
+.top-cta-image-button img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.top-cta-image-button:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Question banner safety fix
+========================= */
+
+.question-card .banner.question-banner-fade {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 16px 0 24px !important;
+  overflow: visible !important;
+}
+
+.question-card .banner.question-banner-fade img {
+  display: block !important;
+  width: 100% !important;
+  height: 260px !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border-radius: 24px !important;
+}
