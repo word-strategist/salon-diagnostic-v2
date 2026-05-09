@@ -500,6 +500,25 @@ export default function ResultPage({ result }) {
             {ctaLabel}
           </button>
 
+          {/* ▼チーム確認用：一時的に再診断できる導線 */}
+<button
+  type="button"
+  className="review-reset-button"
+  onClick={() => {
+    localStorage.removeItem('diagnosis_answers')
+    localStorage.removeItem('diagnosis_result')
+    localStorage.removeItem('diagnosis_date')
+    localStorage.removeItem('diagnosis_page')
+    localStorage.removeItem('diagnosis_offer_visited')
+    localStorage.removeItem('product_offer_deadline')
+    localStorage.removeItem('consultation_offer_deadline')
+
+    window.location.href = '/'
+  }}
+>
+  もう一度診断する（確認用）
+</button>
+
           {expiredOrEnded && (
             <p>{COMMON_COPY.LINE_NOTE}</p>
           )}

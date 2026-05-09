@@ -1938,3 +1938,25 @@ body {
 .result-recommend-with-guide {
   padding-bottom: 12px !important;
 }
+
+/* =========================
+   Review Reset Button
+   チーム確認用：一時的な再診断導線
+========================= */
+
+.review-reset-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 13px 18px;
+  border: 1px solid #e7c6cc;
+  border-radius: 999px;
+  background: #fff;
+  color: #9b6a72;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.review-reset-button:hover {
+  background: #fff5f7;
+}
