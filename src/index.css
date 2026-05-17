@@ -158,6 +158,12 @@ body {
   margin-bottom: 28px;
 }
 
+/* =========================
+   Legacy ResultPage Styles
+   （旧世代・段階整理中）
+   ※FINALは905行以降
+========================= */
+
 .result-title {
   font-size: 24px;
   font-weight: 800;
@@ -479,6 +485,7 @@ body {
   font-size: 15px;
 }
 
+/* Legacy disabled
 .urgency-text {
   margin: 0;
   color: #a94442;
@@ -486,6 +493,7 @@ body {
   line-height: 1.8;
   font-size: 14px;
 }
+  */
 
 .bridge-text {
   margin: 0;
@@ -585,6 +593,7 @@ body {
   margin-bottom: 14px;
 }
 
+/* Legacy disabled
 .result-title {
   font-size: 24px !important;
   line-height: 1.55;
@@ -593,6 +602,7 @@ body {
   color: #3f3335;
   margin: 0 0 14px;
 }
+  */
 
 .result-card .mini-line {
   width: 40px;
@@ -614,6 +624,7 @@ body {
   white-space: pre-line;
 }
 
+/* Legacy disabled
 .cause-text,
 .solution-text,
 .urgency-text,
@@ -627,6 +638,7 @@ body {
   text-align: left;
   white-space: pre-line;
 }
+  */
 
 .cause-text {
   background: #fff7f2;
@@ -636,12 +648,14 @@ body {
   background: #fff2f3;
 }
 
+/* Legacy disabled
 .urgency-text {
   background: #fff6e7;
   border-color: #efd8aa;
   margin: 20px 0 16px;
   font-weight: 700;
 }
+*/
 
 .result-card .timer,
 .result-card [class*="timer"] {
@@ -696,6 +710,7 @@ body {
   border: 1px solid #f1d8dc;
 }
 
+/* Legacy disabled
 .pre-cta-text {
   margin: 18px 0 16px;
   background: #fff;
@@ -703,6 +718,7 @@ body {
   text-align: center;
   font-weight: 700;
 }
+  */
 
 .result-card .cta-button {
   margin-top: 8px;
@@ -742,12 +758,14 @@ body {
   margin-bottom: 14px;
 }
 
+/* Legacy disabled
 .result-title {
   font-size: 22px !important;
   line-height: 1.55;
   text-align: left;
   margin-bottom: 12px;
 }
+  */
 
 .state-text {
   background: transparent;
@@ -854,11 +872,13 @@ body {
   margin-bottom: 18px;
 }
 
+/* Legacy disabled
 .result-title {
   font-size: 21px !important;
   line-height: 1.55;
   margin-bottom: 12px;
 }
+  */
 
 .state-text,
 .cause-text,
@@ -900,6 +920,11 @@ body {
   font-size: 13px !important;
   margin-top: 12px;
 }
+
+/* =========================
+   ResultPage Typography
+   文字の太さ・読みやすさ調整
+========================= */
 
 /* =========================
    ResultPage Typography
