@@ -1112,6 +1112,11 @@ body {
 }
 
 /* =========================
+   QuestionPage FINAL
+   現在使用中の本体スタイル
+========================= */
+
+/* =========================
    QuestionPage step progress
 ========================= */
 
@@ -1163,8 +1168,14 @@ body {
 .step-dot.is-current {
   background: linear-gradient(135deg, #e6b8b7 0%, #d4af37 100%);
   color: #fff;
-  transform: scale(1.12);
-  box-shadow: 0 6px 14px rgba(212, 175, 55, 0.22);
+}
+
+.question-card .banner.question-banner-fade {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 16px 0 24px !important;
+  overflow: visible !important;
 }
 
 /* =========================
