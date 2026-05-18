@@ -2,6 +2,8 @@ export const PRODUCTS = {
   instaAI: {
     name: 'インスタ集客丸投げ君AIツール',
 
+    description: '投稿作成や発信の手間を減らし、集客導線を整えるAIツールです。',
+
     originalPrice: 9800,
     price: 1980,
 
