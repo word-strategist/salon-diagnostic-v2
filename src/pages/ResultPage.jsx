@@ -468,7 +468,7 @@ export default function ResultPage({ result }) {
             </>
           )}
 
-          {/* 商品 */}
+          {/* 商品〜CTA */}
           {!expiredOrEnded && mainProduct && (
             <div className="recommend-box result-recommend-with-guide">
               <div className="recommend-label">あなたにおすすめの次の一手</div>
@@ -487,18 +487,14 @@ export default function ResultPage({ result }) {
                   alt="案内する女性"
                 />
               </div>
+
+              <p className="pre-cta-text">{copy.PRE_CTA}</p>
+
+              <button className="cta-button" onClick={handleCtaClick}>
+                {ctaLabel}
+              </button>
             </div>
           )}
-
-          {/* ⑥ CTA前 */}
-          {!expiredOrEnded && (
-            <p className="pre-cta-text">{copy.PRE_CTA}</p>
-          )}
-
-          {/* ⑦ CTA */}
-          <button className="cta-button" onClick={handleCtaClick}>
-            {ctaLabel}
-          </button>
 
           {/* ▼チーム確認用：一時的に再診断できる導線 */}
 <button
