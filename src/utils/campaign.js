@@ -4,10 +4,11 @@
 // ※本番デプロイ前に必ず TEST_MODE = false に戻すこと
 // ===============================
 
+// campaign.js
 const TEST_MODE = true
 
-const TEST_CAMPAIGN_START_AT = '2026-04-01T00:00:00+09:00'
-const TEST_CAMPAIGN_END_AT = '2026-05-19T23:59:59+09:00'
+const TEST_CAMPAIGN_START_AT = '2026-05-20T00:00:00+09:00'
+const TEST_CAMPAIGN_END_AT = '2026-06-03T23:59:59+09:00'
 
 export const CAMPAIGN_START_AT = TEST_MODE
   ? TEST_CAMPAIGN_START_AT

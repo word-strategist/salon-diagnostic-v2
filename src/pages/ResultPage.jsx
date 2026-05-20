@@ -468,33 +468,43 @@ export default function ResultPage({ result }) {
             </>
           )}
 
-          {/* 商品〜CTA */}
-          {!expiredOrEnded && mainProduct && (
-            <div className="recommend-box result-recommend-with-guide">
-              <div className="recommend-label">あなたにおすすめの次の一手</div>
+{/* 商品〜CTA */}
+{!expiredOrEnded && mainProduct && (
+  <section className="result-offer-card">
+    <div className="result-offer-label">あなたにおすすめの次の一手</div>
 
-              <div className="recommend-inner">
-                <div className="recommend-icon">⚑</div>
+    <div className="result-offer-body">
+      <div className="result-offer-main">
+        <div className="result-offer-title-row">
+          <span className="result-offer-icon">⚑</span>
+          <h3>{mainProduct.name}</h3>
+        </div>
 
-                <div className="recommend-content">
-                  <h3>{mainProduct.name}</h3>
-                  <p>{mainProduct.description}</p>
-                </div>
+        <p>{mainProduct.description}</p>
+      </div>
 
-                <img
-                  className="result-guide-woman"
-                  src="/images/result-guide-woman-v2.png"
-                  alt="案内する女性"
-                />
-              </div>
+      <img
+        className="result-offer-woman"
+        src="/images/result-guide-woman-v3.png"
+        alt="案内する女性"
+      />
+    </div>
 
-              <p className="pre-cta-text">{copy.PRE_CTA}</p>
+    <p className="result-offer-pre-cta">{copy.PRE_CTA}</p>
 
-              <button className="cta-button" onClick={handleCtaClick}>
-                {ctaLabel}
-              </button>
-            </div>
-          )}
+    <button className="result-offer-cta" onClick={handleCtaClick}>
+      {ctaLabel}
+      <span>→</span>
+    </button>
+
+    <div className="result-offer-note">
+      <span>※完全無料・登録不要</span>
+      <span>※この診断は1日1回ご利用いただけます</span>
+      <span>※翌日になると再度診断可能です</span>
+    </div>
+
+  </section>
+)}
 
           {/* ▼チーム確認用：一時的に再診断できる導線 */}
 <button

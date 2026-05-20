@@ -1,10 +1,5 @@
 /* =========================
    ResultPage Styles
-   現在使用中の本体スタイル
-========================= */
-
-/* =========================
-   Result layout
 ========================= */
 
 .result-page {
@@ -19,10 +14,6 @@
   border-radius: 28px;
 }
 
-/* =========================
-   Result chip
-========================= */
-
 .result-chip {
   display: inline-flex;
   align-items: center;
@@ -32,10 +23,6 @@
   font-size: 14px;
   font-weight: 800;
 }
-
-/* =========================
-   Result title
-========================= */
 
 .result-card .result-title {
   display: block;
@@ -48,19 +35,11 @@
   font-weight: 800;
 }
 
-/* =========================
-   Result mini line
-========================= */
-
 .mini-line {
   width: 48px;
   height: 3px;
   margin: 0 0 24px;
 }
-
-/* =========================
-   Result description
-========================= */
 
 .result-description,
 .result-lead {
@@ -69,10 +48,6 @@
   margin-bottom: 24px;
   font-weight: 600;
 }
-
-/* =========================
-   Result cards refinement
-========================= */
 
 .result-card {
   padding: 34px 30px !important;
@@ -98,105 +73,152 @@
 }
 
 /* =========================
-   Recommend / CTA final
+   Result offer card
 ========================= */
 
-.result-recommend-with-guide {
+.result-offer-card {
   position: relative;
-  margin: 32px 0 26px !important;
-  padding: 18px 16px 16px !important;
-  border-radius: 22px !important;
-  border: none !important;
-  background: #fff4f6 !important;
+  margin: 32px 0 26px;
+  padding: 20px 16px 18px;
+  border-radius: 24px;
+  background: #fff3f6;
+  box-shadow: 0 14px 34px rgba(190, 120, 135, 0.1);
+  overflow: hidden;
 }
 
-.result-recommend-with-guide .recommend-label {
-  display: block !important;
-  margin: 0 0 12px !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: #d96f84 !important;
+.result-offer-label {
+  margin: 0 0 14px;
+  color: #d96f84;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.result-offer-body {
+  position: relative;
+  min-height: 132px;
+}
+
+.result-offer-main {
+  position: relative;
+  z-index: 2;
+
+  width: 72%;
+
+  min-height: 128px;
+  padding: 22px 20px 20px 22px;
+
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(190, 120, 135, 0.1);
+}
+
+.result-offer-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.result-offer-icon {
+  flex: 0 0 auto;
+  color: #d96f84;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.result-offer-title-row h3 {
+  margin: 0;
+  color: #4f4040;
   font-size: 15px !important;
-  font-weight: 800 !important;
-  line-height: 1.5 !important;
-  text-align: left !important;
+  font-weight: 800;
+  line-height: 1.38 !important;
+  letter-spacing: 0;
 }
 
-.result-recommend-with-guide .recommend-inner {
-  position: relative !important;
-  min-height: 112px !important;
-  padding: 16px 88px 16px 16px; !important;
-  border-radius: 16px !important;
-  border: none !important;
-  background: #fff !important;
-  box-shadow: 0 8px 22px rgba(190, 120, 135, 0.1) !important;
-  overflow: visible !important;
+.result-offer-main p {
+  margin: 0;
+  color: #6f6060;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.65;
 }
 
-.result-recommend-with-guide .recommend-icon {
-  position: absolute !important;
-  left: 16px !important;
-  top: 22px !important;
-  font-size: 28px !important;
-  line-height: 1 !important;
-  color: #d96f84 !important;
+.result-offer-woman {
+  position: absolute;
+  z-index: 3;
+
+  right: -22px;
+  bottom: 0;
+
+  width: 258px;
+  max-width: 258px;
+
+  height: auto;
+  pointer-events: none;
 }
 
-.result-recommend-with-guide .recommend-content {
-  padding-left: 44px !important;
-  text-align: left !important;
+.result-offer-pre-cta {
+  margin: 18px 0 18px;
+  white-space: pre-line;
+  color: #6e5a5a;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.8;
 }
 
-.result-recommend-with-guide .recommend-content h3 {
-  margin: 0 0 6px !important;
-  padding: 0 !important;
-  font-size: 17px !important;
-  line-height: 1.45 !important;
-  font-weight: 800 !important;
-  letter-spacing: 0 !important;
-  color: #4f4040 !important;
-  writing-mode: horizontal-tb !important;
-  white-space: normal !important;
+.result-offer-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 58px;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #df8fa2 0%, #d4748a 100%);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(198, 95, 120, 0.22);
 }
 
-.result-recommend-with-guide .recommend-content p {
-  margin: 0 !important;
-  padding: 0 !important;
+.result-offer-cta span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.result-offer-note {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  margin: 8px 0 0;
+
+  color: #ab979c;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.result-offer-note span {
+  display: block;
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.result-offer-title-row h3 {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+
+.result-offer-main p {
   font-size: 13px !important;
   line-height: 1.65 !important;
-  font-weight: 600 !important;
-  color: #6f6060 !important;
-  writing-mode: horizontal-tb !important;
-  white-space: normal !important;
-}
-
-.result-recommend-with-guide .result-guide-woman {
-  position: absolute !important;
-  right: 12px !important;
-  bottom: 0 !important;
-  width: 100px !important;
-  max-width: 100px !important;
-  height: auto !important;
-  z-index: 2 !important;
-  pointer-events: none !important;
-}
-
-.result-recommend-with-guide .pre-cta-text {
-  margin: 12px 0 14px !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  white-space: pre-line !important;
-  text-align: center !important;
-  font-size: 14px !important;
-  line-height: 1.75 !important;
-  font-weight: 600 !important;
-  color: #6e5a5a !important;
-}
-
-.result-recommend-with-guide .cta-button {
-  width: 100% !important;
-  margin: 0 !important;
-  border-radius: 16px !important;
 }
