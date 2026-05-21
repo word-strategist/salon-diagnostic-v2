@@ -1,7 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { QUESTIONS } from '../data/questions'
 import { isCampaignEnded } from '../utils/campaign'
+import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 
 const questionBanners = [
   '/images/question-banners/q1-v1.png',
@@ -18,10 +18,39 @@ const questionBanners = [
 
 export default function QuestionPage({ questionIndex, onAnswer }) {
   const [selected, setSelected] = useState(null)
+
   const q = QUESTIONS[questionIndex]
 
   const currentBanner =
     questionBanners[questionIndex] || '/images/banner-question.png'
+
+  useEffect(() => {
+    sendTrackingEvent({
+      event_type: 'question_view',
+      session_id: getSessionId(),
+      step: questionIndex + 1,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+  }, [questionIndex])
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sendTrackingEvent({
+        event_type: 'question_exit',
+        session_id: getSessionId(),
+        step: questionIndex + 1,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+      })
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [questionIndex])
 
   if (isCampaignEnded()) {
     return (
@@ -44,6 +73,7 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
     if (selected === null) return
 
     onAnswer(questionIndex, selected)
+
     setSelected(null)
   }
 
@@ -54,6 +84,7 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
           <div className="step-progress-wrap">
             <div className="step-progress-label">
               <span>診断中</span>
+
               <span>
                 {questionIndex + 1} / {QUESTIONS.length}
               </span>

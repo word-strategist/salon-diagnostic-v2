@@ -1513,3 +1513,16 @@ body {
 .result-recommend-with-guide .recommend-card {
   display: none !important;
 }
+
+/* =========================
+   TopPage mini line
+========================= */
+
+.top-mini-line {
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 999px;
+  margin: 28px auto 30px;
+}

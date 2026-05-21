@@ -5,9 +5,9 @@ import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 
 const COPY = {
   TITLE: [
-  'ホットペッパーに依存しながら',
-  '集客に不安を抱えている',
-  '月商50万以下のサロンの方へ',
+    'ホットペッパーに依存しながら',
+    '集客に不安を抱えている',
+    '月商50万以下のサロンの方へ',
   ],
 
   BODY: [
@@ -40,7 +40,9 @@ const COPY = {
     '今どこから見直すべきかがわかります。',
   ],
 
-CTA: '【無料】30秒で課題を明確にする',
+  TIMER_SUB: '',
+
+  CTA: '【無料】30秒で課題を明確にする',
 
   NOTE: [
     '※完全無料・登録不要',
@@ -59,18 +61,29 @@ export default function TopPage({ onStart }) {
     })
   }, [])
 
+  const handleStart = (page) => {
+    sendTrackingEvent({
+      event_type: 'start_click',
+      session_id: getSessionId(),
+      page,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+
+    onStart()
+  }
+
   return (
     <div className="page">
       <section className="mock-section">
         <div className="phone-card top-card">
-          
-        <Timer
-          mode="fixed"
-          targetDate={CAMPAIGN_END_AT}
-          title="無料診断の受付終了まで"
-          subtitle={COPY.TIMER_SUB}
-          expiredText="終了しました"
-        />
+          <Timer
+            mode="fixed"
+            targetDate={CAMPAIGN_END_AT}
+            title="無料診断の受付終了まで"
+            subtitle={COPY.TIMER_SUB}
+            expiredText="終了しました"
+          />
 
           <div className="top-banner">
             <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
@@ -79,17 +92,7 @@ export default function TopPage({ onStart }) {
           <button
             type="button"
             className="cta-button top-mini-cta"
-            onClick={() => {
-              sendTrackingEvent({
-                event_type: 'start_click',
-                session_id: getSessionId(),
-                page: 'top_first_view',
-                page_url: window.location.href,
-                user_agent: navigator.userAgent,
-              })
-
-              onStart()
-            }}
+            onClick={() => handleStart('top_first_view')}
           >
             {COPY.CTA}
           </button>
@@ -103,31 +106,21 @@ export default function TopPage({ onStart }) {
             ))}
           </h1>
 
-          <div className="mini-line"></div> 
+          <div className="top-mini-line"></div>
 
-<div className="hero-copy">
-  {COPY.BODY.map((line, i) =>
-    line ? <p key={i}>{line}</p> : <br key={i} />
-  )}
-</div>
+          <div className="hero-copy">
+            {COPY.BODY.map((line, i) =>
+              line ? <p key={i}>{line}</p> : <br key={i} />
+            )}
+          </div>
 
-<button
-  type="button"
-  className="top-cta-image-button"
-  onClick={() => {
-    sendTrackingEvent({
-      event_type: 'start_click',
-      session_id: getSessionId(),
-      page: 'top_cta_panel',
-      page_url: window.location.href,
-      user_agent: navigator.userAgent,
-    })
-
-    onStart()
-  }}
->
-  <img src="/images/cta-panel-v2.png" alt="無料診断を開始する" />
-</button>
+          <button
+            type="button"
+            className="top-cta-image-button"
+            onClick={() => handleStart('top_cta_panel')}
+          >
+            <img src="/images/cta-panel-v2.png" alt="無料診断を開始する" />
+          </button>
 
           <p className="note-text">
             {COPY.NOTE.map((line, i) => (
@@ -156,7 +149,6 @@ export default function TopPage({ onStart }) {
               プライバシーポリシー
             </a>
           </div>
-
         </div>
       </section>
     </div>

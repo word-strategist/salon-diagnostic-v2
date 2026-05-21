@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RESULTS } from '../data/results'
 import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
@@ -350,29 +349,77 @@ export default function ResultPage({ result }) {
   const mainProduct = products[0]
 
   const campaignEnded = isCampaignEnded()
+
   const [isExpired, setIsExpired] = useState(() =>
     getInitialExpired(mainProduct?.isConsultation)
   )
 
   const expiredOrEnded = isExpired || campaignEnded
 
+  const ctaAreaRef = useRef(null)
+  const hasLoggedCtaView = useRef(false)
+
   useEffect(() => {
-  sendTrackingEvent({
-    event_type: 'result_view',
-    session_id: getSessionId(),
-    result_key: key,
-    level: result.level,
-    type: result.type,
-    product_key: productKeys.join(','),
-    answers: JSON.parse(localStorage.getItem('diagnosis_answers') || '[]'),
-    page_url: window.location.href,
-    user_agent: navigator.userAgent,
-  })
-}, [])
+    sendTrackingEvent({
+      event_type: 'result_view',
+      session_id: getSessionId(),
+      result_key: key,
+      level: result.level,
+      type: result.type,
+      product_key: productKeys.join(','),
+      answers: JSON.parse(
+        localStorage.getItem('diagnosis_answers') || '[]'
+      ),
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!ctaAreaRef.current || !mainProduct || expiredOrEnded) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasLoggedCtaView.current) {
+          hasLoggedCtaView.current = true
+
+      sendTrackingEvent({
+        event_type: 'cta_view',
+        session_id: getSessionId(),
+        result_key: key,
+        level: result.level,
+        type: result.type,
+        product_key: productKeys.join(','),
+        cta_url: ctaUrl || '',
+        is_expired: expiredOrEnded,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+      })
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    )
+
+    observer.observe(ctaAreaRef.current)
+
+    return () => observer.disconnect()
+  }, [
+    expiredOrEnded,
+    key,
+    mainProduct,
+    productKeys,
+    result.level,
+    result.type,
+  ])
 
   const expiredRedirectUrl = 'https://sendenhi-zero.com/line'
 
-  const ctaUrl = expiredOrEnded ? expiredRedirectUrl : mainProduct?.url
+  const ctaUrl = expiredOrEnded
+    ? expiredRedirectUrl
+    : mainProduct?.url
+
   const ctaLabel = expiredOrEnded
     ? 'LINE登録してご案内を受け取る'
     : mainProduct?.cta ?? '詳細を見る'
@@ -393,7 +440,9 @@ export default function ResultPage({ result }) {
       user_agent: navigator.userAgent,
     })
 
-    if (ctaUrl) window.location.href = ctaUrl
+    if (ctaUrl) {
+      window.location.href = ctaUrl
+    }
   }
 
   if (!data) return null
@@ -492,15 +541,17 @@ export default function ResultPage({ result }) {
 
     <p className="result-offer-pre-cta">{copy.PRE_CTA}</p>
 
-    <button className="result-offer-cta" onClick={handleCtaClick}>
-      {ctaLabel}
-      <span>→</span>
-    </button>
+    <div ref={ctaAreaRef}>
+      <button className="result-offer-cta" onClick={handleCtaClick}>
+        {ctaLabel}
+        <span>→</span>
+      </button>
 
-    <div className="result-offer-note">
-      <span>※完全無料・登録不要</span>
-      <span>※この診断は1日1回ご利用いただけます</span>
-      <span>※翌日になると再度診断可能です</span>
+      <div className="result-offer-note">
+        <span>※完全無料・登録不要</span>
+        <span>※この診断は1日1回ご利用いただけます</span>
+        <span>※翌日になると再度診断可能です</span>
+      </div>
     </div>
 
   </section>
