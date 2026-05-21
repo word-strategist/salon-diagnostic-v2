@@ -27,22 +27,18 @@ const COPY = {
 
     '',
 
-    'それ、わかれば対処できます。',
-  ],
-
-  VALUE: [
-    'この診断では、',
-    'あなたのサロンが今どんな状態にあるのかを整理しながら、',
+    'その不安は、',
+    'あなたの努力不足ではありません。',
 
     '',
 
-    'ホットペッパーに頼らずに集客していくために、',
-    '今どこから見直すべきかがわかります。',
+    '今の状態がわかれば、',
+    '次に整える場所が見えてきます。',
   ],
 
-  TIMER_SUB: '',
+  TIMER_SUB: '期間限定で無料公開中',
 
-  CTA: '【無料】30秒で課題を明確にする',
+  CTA: '【無料】30秒で状態をチェック',
 
   NOTE: [
     '※完全無料・登録不要',
@@ -141,11 +137,19 @@ export default function TopPage({ onStart }) {
               lineHeight: 1.8,
             }}
           >
-            <a href="/law.html" style={{ color: '#9f8e8e' }}>
+            <a
+              href="https://este.salonshukyaku.com/p/tokushouhou"
+              style={{ color: '#9f8e8e' }}
+            >
               特定商取引法に基づく表記
             </a>
+
             <span style={{ color: '#c8b8b8', margin: '0 8px' }}>|</span>
-            <a href="/privacy.html" style={{ color: '#9f8e8e' }}>
+
+            <a
+              href="https://este.salonshukyaku.com/p/privacy-policy"
+              style={{ color: '#9f8e8e' }}
+            >
               プライバシーポリシー
             </a>
           </div>

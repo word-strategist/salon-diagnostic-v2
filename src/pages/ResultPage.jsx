@@ -461,7 +461,7 @@ export default function ResultPage({ result }) {
             <div className="result-chip">あなたの診断結果</div>
 
           <h2 className="result-title">
-            今のままだと、方向性がズレたまま進んでしまう状態です
+            今の頑張りが、結果につながりづらくなっている状態です
           </h2>
 
           <div className="mini-line"></div>
@@ -504,7 +504,7 @@ export default function ResultPage({ result }) {
                     ? '無料相談の予約期限まで'
                     : 'ご案内の終了まで'
                 }
-                subtitle="このご案内は期間限定です"
+                subtitle="現在、期間限定でご案内しています"
               />
             )}
 
