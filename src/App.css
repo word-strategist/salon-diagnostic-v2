@@ -1,1 +1,24 @@
 /* App.css は一旦空に近い状態にする（Viteテンプレ影響を排除） */
+
+/* =========================
+   A/B Mock Debug Badge
+========================= */
+
+.ab-debug-badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ab-debug-a {
+  background: #ff4d6d;
+}
+
+.ab-debug-b {
+  background: #3b82f6;
+}

@@ -8,10 +8,13 @@ import {
 } from 'react-router-dom'
 
 import TopPage from './pages/TopPage'
+import TopPageA from './pages/TopPageA'
+import TopPageB from './pages/TopPageB'
 import QuestionPage from './pages/QuestionPage'
 import ResultPage from './pages/ResultPage'
 
 import { calcResult } from './utils/judgement'
+import { getAbVariant } from './data/abVariant'
 
 const STORAGE_KEYS = {
   answers: 'diagnosis_answers',
@@ -25,6 +28,10 @@ function getToday() {
 
 function AppRoutes() {
   const navigate = useNavigate()
+
+  const variant = getAbVariant()
+  const ActiveTopPage =
+    variant === 'b' ? TopPageB : TopPageA
 
   const [answers, setAnswers] = useState([])
   const [result, setResult] = useState(null)
@@ -82,7 +89,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<TopPage onStart={handleStart} />} />
+      <Route path="/" element={<ActiveTopPage onStart={handleStart} />} />
 
       <Route
         path="/question/:index"
@@ -95,7 +102,7 @@ function AppRoutes() {
           result ? (
             <ResultPage result={result} />
           ) : (
-            <TopPage onStart={handleStart} />
+            <ActiveTopPage onStart={handleStart} />
           )
         }
       />

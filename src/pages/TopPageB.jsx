@@ -1,0 +1,178 @@
+import React, { useEffect } from 'react'
+import Timer from '../components/Timer'
+import { CAMPAIGN_END_AT } from '../utils/campaign'
+import { getSessionId, sendTrackingEvent } from '../utils/tracking'
+
+const COPY = {
+  TITLE: [
+    'ホットペッパーに依存しながら',
+    '集客に不安を抱えている',
+    '月商50万以下のサロンの方へ',
+  ],
+
+  BODY: [
+    '毎月の掲載費を払い続けているのに、',
+    '予約の方は思ったようには増えない。',
+
+    '',
+
+    '「やめたら誰も来なくなる」と思うと、',
+    'ホットペッパーを手放せないでいる。',
+
+    '',
+
+    '毎日頑張っているはずなのに、',
+    '「本当にこのままでいいの…？」と',
+    '不安になることはありませんか？',
+
+    '',
+
+    'その不安は、',
+    'あなたの努力不足ではありません。',
+
+    '',
+
+    '今の状態がわかれば、',
+    '次に整える場所が見えてきます。',
+  ],
+
+  TIMER_SUB: '期間限定で無料公開中',
+
+  CTA: '【無料】30秒で状態をチェック',
+
+  NOTE: [
+    '※完全無料・登録不要',
+    '※この診断は1日1回ご利用いただけます',
+  ],
+}
+
+export default function TopPage({ onStart }) {
+  useEffect(() => {
+    sendTrackingEvent({
+      event_type: 'page_view',
+      session_id: getSessionId(),
+      page: 'top',
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+  }, [])
+
+  const handleStart = (page) => {
+    sendTrackingEvent({
+      event_type: 'start_click',
+      session_id: getSessionId(),
+      page,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+
+    onStart()
+  }
+
+  return (
+    <div className="page">
+      <section className="mock-section">
+        <div className="phone-card top-card">
+          <Timer
+            mode="fixed"
+            targetDate={CAMPAIGN_END_AT}
+            title="無料診断の受付終了まで"
+            subtitle={COPY.TIMER_SUB}
+            expiredText="終了しました"
+          />
+
+          <div className="top-banner">
+            <img src="/images/banner-top.png" alt="サロン診断のイメージ" />
+          </div>
+
+          <button
+            type="button"
+            className="cta-button top-mini-cta"
+            onClick={() => handleStart('top_first_view')}
+          >
+            {COPY.CTA}
+          </button>
+
+          <div
+  style={{
+    background: '#3b82f6',
+    color: '#fff',
+    padding: '8px 12px',
+    borderRadius: '999px',
+    fontWeight: 'bold',
+    marginBottom: '16px',
+    display: 'inline-block',
+  }}
+>
+  B Pattern
+</div>
+
+<div className="ab-debug-badge ab-debug-b">
+  B Pattern
+</div>
+
+          <h1 className="hero-title">
+            {COPY.TITLE.map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </h1>
+
+          <div className="top-mini-line"></div>
+
+          <div className="hero-copy">
+            {COPY.BODY.map((line, i) =>
+              line ? <p key={i}>{line}</p> : <br key={i} />
+            )}
+          </div>
+
+          <button
+            type="button"
+            className="top-cta-image-button"
+            onClick={() => handleStart('top_cta_panel')}
+          >
+            <img src="/images/cta-panel-v2.png" alt="無料診断を開始する" />
+          </button>
+
+          <p className="note-text">
+            {COPY.NOTE.map((line, i) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < COPY.NOTE.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </p>
+
+          <div className="bottom-stars">✦ ✦ ✦</div>
+
+          <div
+            style={{
+              marginTop: '16px',
+              textAlign: 'center',
+              fontSize: '12px',
+              lineHeight: 1.8,
+            }}
+          >
+            <a
+              href="https://este.salonshukyaku.com/p/tokushouhou"
+              style={{ color: '#9f8e8e' }}
+            >
+              特定商取引法に基づく表記
+            </a>
+
+            <span style={{ color: '#c8b8b8', margin: '0 8px' }}>|</span>
+
+            <a
+              href="https://este.salonshukyaku.com/p/privacy-policy"
+              style={{ color: '#9f8e8e' }}
+            >
+              プライバシーポリシー
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
