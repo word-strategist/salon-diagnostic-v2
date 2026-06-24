@@ -52,7 +52,7 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
     }
   }, [questionIndex])
 
-  if (isCampaignEnded()) {
+  if (false && isCampaignEnded()) {
     return (
       <div className="page">
         <section className="mock-section">
