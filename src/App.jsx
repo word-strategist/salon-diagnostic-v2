@@ -10,6 +10,7 @@ import {
 import TopPage from './pages/TopPage'
 import TopPageA from './pages/TopPageA'
 import TopPageB from './pages/TopPageB'
+import TopPageB2 from './pages/TopPageB2'
 import QuestionPage from './pages/QuestionPage'
 import ResultPage from './pages/ResultPage'
 
@@ -30,8 +31,16 @@ function AppRoutes() {
   const navigate = useNavigate()
 
   const variant = getAbVariant()
-  const ActiveTopPage =
-    variant === 'b' ? TopPageB : TopPageA
+
+  let ActiveTopPage = TopPageA
+
+  if (variant === 'b') {
+    ActiveTopPage = TopPageB
+  }
+
+  if (variant === 'b2') {
+    ActiveTopPage = TopPageB2
+  }
 
   const [answers, setAnswers] = useState([])
   const [result, setResult] = useState(null)

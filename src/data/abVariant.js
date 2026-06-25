@@ -1,8 +1,14 @@
+// src/data/abVariant.js
+
 export function getAbVariant() {
   const searchParams = new URLSearchParams(window.location.search)
   const searchVariant = searchParams.get('variant')?.toLowerCase()
 
-  if (searchVariant === 'a' || searchVariant === 'b') {
+  if (
+    searchVariant === 'a' ||
+    searchVariant === 'b' ||
+    searchVariant === 'b2'
+  ) {
     localStorage.setItem('ab_variant', searchVariant)
     return searchVariant
   }
@@ -12,13 +18,22 @@ export function getAbVariant() {
   const hashParams = new URLSearchParams(hashQuery)
   const hashVariant = hashParams.get('variant')?.toLowerCase()
 
-  if (hashVariant === 'a' || hashVariant === 'b') {
+  if (
+    hashVariant === 'a' ||
+    hashVariant === 'b' ||
+    hashVariant === 'b2'
+  ) {
     localStorage.setItem('ab_variant', hashVariant)
     return hashVariant
   }
 
   const savedVariant = localStorage.getItem('ab_variant')
-  if (savedVariant === 'a' || savedVariant === 'b') {
+
+  if (
+    savedVariant === 'a' ||
+    savedVariant === 'b' ||
+    savedVariant === 'b2'
+  ) {
     return savedVariant
   }
 

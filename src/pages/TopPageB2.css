@@ -1,0 +1,204 @@
+/* =========================
+   Top B2 Base
+========================= */
+
+.top-b2-page {
+  min-height: 100vh;
+  background: #070707;
+  color: #ffffff;
+}
+
+.top-b2-fixed {
+  position: fixed;
+  inset: 0;
+  max-width: 430px;
+  margin: 0 auto;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(247, 213, 107, 0.22), transparent 34%),
+    linear-gradient(180deg, #191919 0%, #070707 100%);
+}
+
+/* =========================
+   Top B2 Background
+========================= */
+
+.top-b2-bg-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -120px;
+  width: 300px;
+  height: 300px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(247, 213, 107, 0.22);
+  filter: blur(34px);
+}
+
+/* =========================
+   Top B2 Content
+========================= */
+
+.top-b2-content {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  animation: topB2ContentIn 0.36s ease-out both;
+}
+
+.top-b2-content span {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f7d56b;
+  color: #111111;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.top-b2-content h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(36px, 10vw, 48px);
+  line-height: 1.16;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.top-b2-content p {
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.top-b2-content.is-emphasis h1 {
+  color: #f7d56b;
+}
+
+/* =========================
+   Top B2 CTA
+========================= */
+
+.top-b2-cta {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 17px 20px;
+  margin-top: 30px;
+  background: #f7d56b;
+  color: #111111;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 16px 32px rgba(247, 213, 107, 0.25);
+}
+
+.top-b2-note {
+  margin: 12px 0 0 !important;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.56) !important;
+  font-size: 12px !important;
+}
+
+/* =========================
+   Top B2 Progress
+========================= */
+
+.top-b2-progress {
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  right: 24px;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+}
+
+.top-b2-progress span {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.top-b2-progress span.is-active {
+  background: #f7d56b;
+}
+
+/* =========================
+   Top B2 Scroll Hint
+========================= */
+
+.top-b2-scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  z-index: 3;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.top-b2-scroll-hint span {
+  display: block;
+  margin-top: 6px;
+  color: #f7d56b;
+  font-size: 24px;
+  animation: topB2ScrollHint 1.2s ease-in-out infinite;
+}
+
+/* =========================
+   Top B2 Scroll Space
+========================= */
+
+.top-b2-scroll-space {
+  position: relative;
+  z-index: 1;
+}
+
+.top-b2-scroll-space section {
+  min-height: 100vh;
+}
+
+/* =========================
+   Top B2 Animation
+========================= */
+
+@keyframes topB2ContentIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-42%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes topB2ScrollHint {
+  0% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+}
