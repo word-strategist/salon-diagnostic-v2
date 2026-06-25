@@ -1,15 +1,37 @@
+// src/pages/TopPageB.jsx
+
+import { useEffect } from 'react'
+import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB.css'
 
-function TopPageB() {
-    const handleStart = () => {
-      window.location.href = '/?variant=b#/question/0'
-    }
+function TopPageB({ onStart }) {
+  useEffect(() => {
+    sendTrackingEvent({
+      event_type: 'page_view',
+      session_id: getSessionId(),
+      page: 'top_b',
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+  }, [])
+
+  const handleStart = () => {
+    sendTrackingEvent({
+      event_type: 'start_click',
+      session_id: getSessionId(),
+      page: 'top_b_first_view',
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
+
+    onStart()
+  }
 
   return (
     <div className="top-b-page">
       <main className="top-b-shell">
         <section className="top-b-hero">
-          <div className="top-b-badge">SALON DIAGNOSIS</div>
+          <div className="top-b-badge">SALON SELF CHECK</div>
 
           <div className="top-b-reel">
             <p>毎日投稿しているのに</p>
@@ -25,7 +47,7 @@ function TopPageB() {
             <br />
             今どこで止まっているか
             <br />
-            60秒で診断します
+            60秒でセルフチェック
           </h1>
 
           <p className="top-b-lead">
@@ -37,11 +59,11 @@ function TopPageB() {
           </p>
 
           <button className="top-b-cta" onClick={handleStart}>
-            無料で診断をはじめる
+            無料でチェックをはじめる
           </button>
 
           <p className="top-b-note">
-            登録不要・完全無料｜診断は約60秒
+            登録不要・完全無料｜約60秒
           </p>
         </section>
 
