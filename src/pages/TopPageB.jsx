@@ -1,9 +1,9 @@
 import './TopPageB.css'
 
 function TopPageB() {
-  const handleStart = () => {
-    window.location.href = '/question?variant=b'
-  }
+    const handleStart = () => {
+      window.location.href = '/?variant=b#/question/0'
+    }
 
   return (
     <div className="top-b-page">

@@ -1,0 +1,235 @@
+/* =========================
+   Result B Page
+========================= */
+
+.result-b-page {
+  min-height: 100vh;
+  background: #eef4ff;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.result-b-page .mock-section {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.result-b-phone-card {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border-radius: 32px;
+  padding: 18px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* =========================
+   Result B Hero
+========================= */
+
+.result-b-hero {
+  background: #111827;
+  color: #ffffff;
+  border-radius: 28px;
+  padding: 26px 22px;
+  margin-bottom: 18px;
+}
+
+.result-b-kicker {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.result-b-title {
+  color: #ffffff;
+  font-size: clamp(26px, 8vw, 38px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 0 0 14px;
+}
+
+.result-b-lead {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* =========================
+   Result B Status
+========================= */
+
+.result-b-status-card {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 24px;
+  padding: 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 14px 30px rgba(17, 24, 39, 0.06);
+}
+
+.result-b-status-label {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.result-b-status-card h2 {
+  color: #111827;
+  font-size: 22px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* =========================
+   Result B Step Cards
+========================= */
+
+.result-b-step-card {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 22px;
+  padding: 18px;
+  margin-top: 14px;
+}
+
+.result-b-step-card span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.result-b-step-card h3 {
+  color: #111827;
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.result-b-step-card p {
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.85;
+  white-space: pre-line;
+  margin: 0;
+}
+
+/* =========================
+   Result B Offer
+========================= */
+
+.result-b-offer {
+  background: #111827;
+  color: #ffffff;
+  border-radius: 26px;
+  padding: 24px 20px;
+  margin-top: 18px;
+}
+
+.result-b-offer-label {
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.result-b-offer h3 {
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1.45;
+  margin: 0 0 10px;
+}
+
+.result-b-offer p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* =========================
+   Result B CTA
+========================= */
+
+.result-b-cta {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 17px 20px;
+  margin-top: 20px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28);
+}
+
+.result-b-cta span {
+  margin-left: 8px;
+}
+
+/* =========================
+   Result B Expired
+========================= */
+
+.result-b-expired {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 22px;
+  padding: 22px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.result-b-expired p {
+  color: #4b5563;
+  font-weight: 700;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.result-b-expired h3 {
+  color: #111827;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* =========================
+   Result B Reset
+========================= */
+
+.result-b-reset {
+  width: 100%;
+  margin-top: 18px;
+  background: transparent;
+  border: 1px solid rgba(17, 24, 39, 0.18);
+  color: #4b5563;
+  padding: 13px;
+  border-radius: 14px;
+  font-weight: 700;
+}

@@ -285,7 +285,7 @@ function getInitialExpired(isConsultation) {
 
 function getResultVariant() {
   const params = new URLSearchParams(window.location.search)
-  const queryVariant = params.get('variant')
+  const queryVariant = params.get('variant')?.toUpperCase()
 
   if (queryVariant === 'A' || queryVariant === 'B') {
     localStorage.setItem('result_variant', queryVariant)

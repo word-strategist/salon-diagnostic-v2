@@ -1,9 +1,26 @@
 export function getAbVariant() {
-  const params = new URLSearchParams(window.location.search)
-  const variant = params.get('variant')
+  const searchParams = new URLSearchParams(window.location.search)
+  const searchVariant = searchParams.get('variant')?.toLowerCase()
 
-  if (variant === 'a') return 'a'
-  if (variant === 'b') return 'b'
+  if (searchVariant === 'a' || searchVariant === 'b') {
+    localStorage.setItem('ab_variant', searchVariant)
+    return searchVariant
+  }
+
+  const hash = window.location.hash || ''
+  const hashQuery = hash.includes('?') ? hash.split('?')[1] : ''
+  const hashParams = new URLSearchParams(hashQuery)
+  const hashVariant = hashParams.get('variant')?.toLowerCase()
+
+  if (hashVariant === 'a' || hashVariant === 'b') {
+    localStorage.setItem('ab_variant', hashVariant)
+    return hashVariant
+  }
+
+  const savedVariant = localStorage.getItem('ab_variant')
+  if (savedVariant === 'a' || savedVariant === 'b') {
+    return savedVariant
+  }
 
   return 'a'
 }
