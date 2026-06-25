@@ -4,7 +4,7 @@
 
 .result-a-page {
   min-height: 100vh;
-  background: #f8eef2;
+  background: #f8f3ec;
   padding: 16px;
   box-sizing: border-box;
 }
@@ -20,7 +20,7 @@
   width: 100%;
   max-width: 430px;
   margin: 0 auto;
-  background: linear-gradient(180deg, #fff8fb 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #fffaf4 0%, #ffffff 100%);
   border-radius: 32px;
   padding: 16px;
   box-sizing: border-box;
@@ -40,7 +40,8 @@
   overflow: hidden;
   border-radius: 28px;
   margin-bottom: 22px;
-  background: #fff;
+  background: #ead8c7;
+  box-shadow: 0 18px 40px rgba(72, 48, 32, 0.12);
 }
 
 .result-a-expert-image {
@@ -56,25 +57,25 @@
   bottom: 18px;
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  color: #2d1f25;
+  background: rgba(255, 255, 255, 0.92);
+  color: #7d5739;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
   padding: 9px 16px;
   border-radius: 999px;
 }
 
 .result-a-title {
-  color: #2d1f25;
-  font-size: clamp(18px, 5.5vw, 28px);
+  color: #2f241d;
+  font-size: clamp(20px, 5.6vw, 28px);
   font-weight: 900;
-  line-height: 1.22;
-  letter-spacing: -0.04em;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
   margin: 0 0 18px;
 }
 
 .result-a-lead {
-  color: #4f3e45;
+  color: #5f4b3d;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.9;
@@ -87,22 +88,22 @@
 
 .result-a-card {
   background: #ffffff;
-  border: 1px solid rgba(94, 67, 76, 0.12);
+  border: 1px solid rgba(72, 48, 32, 0.1);
   border-radius: 22px;
   padding: 22px;
   margin-top: 18px;
-  box-shadow: 0 12px 30px rgba(69, 40, 50, 0.06);
+  box-shadow: 0 12px 30px rgba(72, 48, 32, 0.06);
 }
 
 .result-a-card-label {
-  color: #1f2b4d;
+  color: #9b6a45;
   font-size: 14px;
   font-weight: 900;
   margin-bottom: 12px;
 }
 
 .result-a-card p {
-  color: #4a3b41;
+  color: #4a392d;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.9;
@@ -116,29 +117,29 @@
 
 .result-a-offer {
   background: #ffffff;
-  border: 1px solid rgba(94, 67, 76, 0.12);
+  border: 1px solid rgba(72, 48, 32, 0.1);
   border-radius: 24px;
   padding: 24px 22px;
   margin-top: 20px;
-  box-shadow: 0 16px 36px rgba(69, 40, 50, 0.08);
+  box-shadow: 0 16px 36px rgba(72, 48, 32, 0.08);
 }
 
 .result-a-offer-label {
-  color: #1f2b4d;
+  color: #9b6a45;
   font-size: 14px;
   font-weight: 900;
   margin-bottom: 12px;
 }
 
 .result-a-offer h3 {
-  color: #2d1f25;
+  color: #2f241d;
   font-size: 22px;
   line-height: 1.45;
   margin: 0 0 12px;
 }
 
 .result-a-offer p {
-  color: #4a3b41;
+  color: #4a392d;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.85;
@@ -160,12 +161,12 @@
   border-radius: 999px;
   padding: 18px 20px;
   margin-top: 22px;
-  background: #ff4f91;
+  background: #2f241d;
   color: #ffffff;
   font-size: 17px;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 14px 28px rgba(255, 79, 145, 0.28);
+  box-shadow: 0 14px 28px rgba(47, 36, 29, 0.22);
 }
 
 .result-a-cta span {
@@ -178,7 +179,7 @@
 
 .result-a-expired {
   background: #ffffff;
-  border: 1px solid rgba(94, 67, 76, 0.12);
+  border: 1px solid rgba(72, 48, 32, 0.1);
   border-radius: 22px;
   padding: 22px;
   margin-top: 18px;
@@ -193,7 +194,7 @@
 }
 
 .result-a-expired h3 {
-  color: #2d1f25;
+  color: #2f241d;
   font-size: 20px;
   margin: 10px 0;
 }
@@ -206,8 +207,8 @@
   width: 100%;
   margin-top: 20px;
   background: transparent;
-  border: 1px solid rgba(94, 67, 76, 0.22);
-  color: #6b555e;
+  border: 1px solid rgba(72, 48, 32, 0.18);
+  color: #8a7462;
   padding: 13px;
   border-radius: 14px;
   font-weight: 700;

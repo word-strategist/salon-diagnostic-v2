@@ -31,46 +31,59 @@ function TopPageB({ onStart }) {
     <div className="top-b-page">
       <main className="top-b-shell">
         <section className="top-b-hero">
-          <div className="top-b-badge">SALON SELF CHECK</div>
+          <div className="top-b-badge">B Pattern｜縦型テロップ診断</div>
 
-          <div className="top-b-reel">
-            <p>毎日投稿しているのに</p>
-            <p>予約が増えない</p>
-            <p>クーポンを出しても</p>
-            <p>安いお客様ばかり</p>
-            <p>HPBに頼り続けるのが</p>
-            <p>少し不安になってきた</p>
-          </div>
+<div className="top-b-video-frame">
 
-          <h1>
-            あなたのサロンが
-            <br />
-            今どこで止まっているか
-            <br />
-            60秒でセルフチェック
-          </h1>
+  <div className="top-b-video-glow" />
+
+    <div className="top-b-video-title">
+      <span>SELF CHECK</span>
+
+      <h1>
+        あなたのサロン集客は
+        <br />
+        どこで止まっている？
+      </h1>
+    </div>
+
+    <div className="top-b-caption-track">
+      <p>毎日投稿している</p>
+      <p>クーポンも出している</p>
+      <p>HPBにも掲載している</p>
+      <p>LINEも送っている</p>
+      <p>それでも予約が安定しない</p>
+      <p>原因は努力不足じゃない</p>
+      <p>見直す順番かもしれません</p>
+    </div>
+
+    <div className="top-b-video-footer">
+      <p>60秒で今の状態をチェック</p>
+    </div>
+
+  </div>
 
           <p className="top-b-lead">
-            SNS時代のサロン集客は、
-            <br />
-            「頑張る量」より
-            <br />
-            「見直す順番」が大切です。
+            SNS・HPB・LINE。
+            頑張っているのに予約が安定しないなら、
+            今の集客状態をセルフチェックしてみてください。
           </p>
 
           <button className="top-b-cta" onClick={handleStart}>
-            無料でチェックをはじめる
+            60秒でチェックする
           </button>
 
           <p className="top-b-note">
-            登録不要・完全無料｜約60秒
+            登録不要・完全無料｜スマホでかんたん
           </p>
         </section>
 
         <section className="top-b-flow">
-          <div className="top-b-flow-item">01　今の集客状態を確認</div>
-          <div className="top-b-flow-item">02　止まっている原因を可視化</div>
-          <div className="top-b-flow-item">03　次に見直す一手がわかる</div>
+          <p className="top-b-flow-title">チェックで分かること</p>
+
+          <div className="top-b-flow-item">01　今の集客状態</div>
+          <div className="top-b-flow-item">02　予約が止まるポイント</div>
+          <div className="top-b-flow-item">03　最初に見直す一手</div>
         </section>
       </main>
     </div>

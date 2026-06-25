@@ -1,297 +1,309 @@
-body {
-  background: #fff7f8;
-}
+/* =========================
+   Top A Base
+========================= */
 
 .top-a {
-  width: 100%;
-  max-width: 430px;
   min-height: 100vh;
-  margin: 0 auto;
-  background: #fff7f8;
-  overflow-x: hidden;
-  color: #2f2024;
+  background: #f8f3ec;
+  color: #2f241d;
+  overflow: hidden;
 }
 
 /* =========================
-   Hero
+   Top A Hero
 ========================= */
 
 .top-a-hero {
   position: relative;
-  min-height: 100vh;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  padding: 28px 20px 30px;
 }
 
 .top-a-bg-glow {
   position: absolute;
-  inset: -20%;
-  z-index: 0;
-
-  background:
-    radial-gradient(
-      circle at 50% 20%,
-      rgba(255, 193, 210, 0.9),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 10%,
-      rgba(255, 231, 190, 0.8),
-      transparent 30%
-    );
-
-  animation: glowMove 10s ease-in-out infinite alternate;
+  top: -120px;
+  right: -100px;
+  width: 260px;
+  height: 260px;
+  background: rgba(181, 132, 92, 0.2);
+  border-radius: 999px;
+  filter: blur(12px);
 }
 
 .top-a-visual {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-
-  height: 58vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 1;
+  position: relative;
+  max-width: 360px;
+  margin: 0 auto 22px;
 }
-
-/* =========================
-   A Hero Image Motion Demo
-========================= */
 
 .top-a-image-card {
-  width: min(94vw, 430px);
-  height: 62vh;
-
-  border-radius: 32px;
-
+  position: relative;
   overflow: hidden;
-
-  box-shadow:
-    0 30px 80px rgba(196, 89, 125, 0.25);
-
-  animation: floatImage 3.8s ease-in-out infinite;
+  border-radius: 28px;
+  background: #ead8c7;
+  box-shadow: 0 18px 40px rgba(72, 48, 32, 0.16);
 }
 
-.top-a-placeholder {
+.top-a-person {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.top-a-expert-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 24px rgba(72, 48, 32, 0.14);
+}
 
-  font-size: 42px;
+.top-a-expert-card p {
+  margin: 0 0 4px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  color: #9b6a45;
+}
 
-  color: rgba(120, 70, 80, 0.25);
-
-  animation: kenBurns 8s ease-in-out infinite alternate;
+.top-a-expert-card strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 /* =========================
-   Copy
+   Top A Copy
 ========================= */
 
 .top-a-copy {
   position: relative;
-  z-index: 2;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .top-a-label {
   display: inline-block;
-
-  margin-bottom: 14px;
-
-  padding: 8px 14px;
-
+  margin: 0 0 14px;
+  padding: 6px 12px;
   border-radius: 999px;
-
-  background: rgba(255,255,255,0.8);
-
-  font-size: 13px;
+  background: #fff;
+  color: #9b6a45;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-.top-a-copy h1 {
+.top-a h1 {
   margin: 0;
-
-  font-size: clamp(34px, 10vw, 54px);
-  line-height: 1.15;
-  letter-spacing: -0.04em;
+  font-size: 31px;
+  line-height: 1.28;
+  letter-spacing: 0.02em;
 }
 
 .top-a-lead {
-  margin: 18px 0 24px;
-
-  line-height: 1.8;
-
+  margin: 18px 0 22px;
   font-size: 15px;
+  line-height: 1.9;
+  color: #5f4b3d;
 }
-
-/* =========================
-   CTA
-========================= */
 
 .top-a-cta {
   width: 100%;
-
   border: none;
-
   border-radius: 999px;
-
-  padding: 18px 20px;
-
-  background: #ff4f86;
-  color: white;
-
-  font-size: 18px;
+  padding: 16px 18px;
+  background: #2f241d;
+  color: #fff;
+  font-size: 16px;
   font-weight: 800;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 16px 36px rgba(255,79,134,.35);
-
-  animation: ctaBreath 2.5s ease-in-out infinite;
+  box-shadow: 0 14px 30px rgba(47, 36, 29, 0.22);
 }
 
 .top-a-note {
-  margin-top: 12px;
-
+  margin: 12px 0 0;
   text-align: center;
-
+  color: #8a7462;
   font-size: 12px;
-
-  color: #7d6970;
 }
 
 /* =========================
-   Sections
+   Top A Sections
 ========================= */
 
 .top-a-section {
-  padding: 90px 24px;
+  max-width: 360px;
+  margin: 18px auto 0;
+  padding: 24px 20px;
+}
 
-  text-align: center;
+.top-a-problem,
+.top-a-report {
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(72, 48, 32, 0.08);
 }
 
 .top-a-kicker {
-  margin-bottom: 10px;
-
-  color: #a56f7a;
-
-  font-size: 18px;
+  margin: 0 0 14px;
+  color: #9b6a45;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .top-a-section h2 {
-  margin: 0;
-
-  font-size: 30px;
-  line-height: 1.45;
+  margin: 18px 0 0;
+  font-size: 23px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
 }
 
-.top-a-words {
+.top-a-check-list {
   display: grid;
-  gap: 16px;
+  gap: 10px;
 }
 
-.top-a-words span {
-  display: block;
-
-  padding: 18px;
-
-  border-radius: 20px;
-
-  background: white;
-
-  font-size: 28px;
-  font-weight: 800;
-
-  box-shadow:
-    0 16px 40px rgba(160,80,100,.12);
-}
-
-.top-a-words p {
-  margin-top: 20px;
-
-  font-size: 22px;
-  line-height: 1.5;
+.top-a-check-list p {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f8f3ec;
+  color: #4a392d;
+  font-size: 14px;
   font-weight: 700;
 }
 
 /* =========================
-   Animations
+   Top A Report
 ========================= */
 
-@keyframes floatImage {
-  0% {
-    transform: translateY(0px);
-  }
+.top-a-report-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+}
 
-  50% {
-    transform: translateY(-12px);
-  }
+.top-a-report-grid div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #f8f3ec;
+}
 
-  100% {
-    transform: translateY(0px);
-  }
+.top-a-report-grid span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #2f241d;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.top-a-report-grid strong {
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 /* =========================
-   A Hero Image Animations
+   Top A Motion Feeling
 ========================= */
 
-@keyframes photoMotion {
-  0% {
-    transform: scale(1.04) translateX(-8px) translateY(0);
-  }
-
-  100% {
-    transform: scale(1.18) translateX(10px) translateY(-18px);
-  }
+.top-a-visual {
+  transform: rotate(-1.5deg);
 }
 
-@keyframes glowMove {
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.08);
-  }
+.top-a-image-card {
+  animation: topAImageFloat 5.2s ease-in-out infinite;
 }
 
-@keyframes ctaBreath {
+.top-a-expert-card {
+  animation: topACardFloat 4.4s ease-in-out infinite;
+}
+
+.top-a-orbit-card {
+  position: absolute;
+  z-index: 3;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #7d5739;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(72, 48, 32, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.top-a-orbit-card-1 {
+  top: 16px;
+  right: -4px;
+  animation: topAOrbitFloat1 4.8s ease-in-out infinite;
+}
+
+.top-a-orbit-card-2 {
+  top: 92px;
+  left: -6px;
+  animation: topAOrbitFloat2 5.6s ease-in-out infinite;
+}
+
+@keyframes topAImageFloat {
   0% {
-    transform: scale(1);
+    transform: translateY(0) rotate(0deg);
   }
 
   50% {
-    transform: scale(1.03);
+    transform: translateY(-6px) rotate(1deg);
   }
 
   100% {
-    transform: scale(1);
+    transform: translateY(0) rotate(0deg);
   }
 }
 
-/* =========================
-   A Hero Image
-========================= */
+@keyframes topACardFloat {
+  0% {
+    transform: translateY(0);
+  }
 
-.top-a-person {
-  width: 100%;
-  height: 100%;
+  50% {
+    transform: translateY(-8px);
+  }
 
-  object-fit: cover;
-  object-position: center top;
+  100% {
+    transform: translateY(0);
+  }
+}
 
-  animation: photoMotion 5.5s ease-in-out infinite alternate;
+@keyframes topAOrbitFloat1 {
+  0% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+}
+
+@keyframes topAOrbitFloat2 {
+  0% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(9px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
 }
