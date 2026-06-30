@@ -1,47 +1,10 @@
 // src/pages/TopPageB2.jsx
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB2.css'
 
-const STORY_STEPS = [
-  {
-    label: 'SELF CHECK',
-    title: 'あなたのサロン集客は\nどこで止まっている？',
-    text: 'スクロールしながら、今の状態を確認してください。',
-  },
-  {
-    label: '01',
-    title: '毎日投稿している',
-    text: 'でも、予約につながっている実感がない。',
-  },
-  {
-    label: '02',
-    title: 'クーポンも出している',
-    text: 'だけど、安さで選ばれるお客様が増えてしまう。',
-  },
-  {
-    label: '03',
-    title: 'HPBにも掲載している',
-    text: 'やめるのは怖い。でも、頼り続けるのも不安。',
-  },
-  {
-    label: '04',
-    title: 'それでも\n予約が安定しない',
-    text: '原因は、努力不足ではないかもしれません。',
-    emphasis: true,
-  },
-  {
-    label: 'ANSWER',
-    title: '見直すべきなのは\n頑張る量ではなく順番。',
-    text: '今の集客状態を60秒で確認できます。',
-    cta: true,
-  },
-]
-
 function TopPageB2({ onStart }) {
-  const [activeIndex, setActiveIndex] = useState(0)
-
   useEffect(() => {
     sendTrackingEvent({
       event_type: 'page_view',
@@ -52,29 +15,11 @@ function TopPageB2({ onStart }) {
     })
   }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      const windowHeight = window.innerHeight
-      const index = Math.min(
-        STORY_STEPS.length - 1,
-        Math.max(0, Math.round(scrollTop / windowHeight))
-      )
-
-      setActiveIndex(index)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const handleStart = () => {
     sendTrackingEvent({
       event_type: 'start_click',
       session_id: getSessionId(),
-      page: 'top_b2_scroll_story',
+      page: 'top_b2_first_view',
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
@@ -82,71 +27,124 @@ function TopPageB2({ onStart }) {
     onStart()
   }
 
-  const activeStep = STORY_STEPS[activeIndex]
-
   return (
     <div className="top-b2-page">
-      <div className="top-b2-fixed">
-        <div className="top-b2-bg-glow" />
+      <main className="top-b2-phone">
+        <section className="top-b2-hero">
+          <div className="top-b2-status">9:41</div>
 
-        <div
-          className={`top-b2-content ${
-            activeStep.emphasis ? 'is-emphasis' : ''
-          }`}
-          key={activeIndex}
-        >
-          <span>{activeStep.label}</span>
+          <div className="top-b2-hero-inner">
+            <div className="top-b2-copy">
+              <p>サロン集客、</p>
+              <p>頑張っているのに</p>
+              <p>うまくつながらない…</p>
+            </div>
 
-          <h1>
-            {activeStep.title.split('\n').map((line, index) => (
-              <span key={index}>
-                {line}
-                {index < activeStep.title.split('\n').length - 1 && <br />}
-              </span>
-            ))}
-          </h1>
+            <p className="top-b2-subcopy">
+              一人で抱え込んでいませんか？
+            </p>
 
-          <p>{activeStep.text}</p>
+            <button type="button" className="top-b2-cta" onClick={handleStart}>
+              診断をはじめる
+              <span>›</span>
+            </button>
 
-          {activeStep.cta && (
-            <>
-              <button
-                type="button"
-                className="top-b2-cta"
-                onClick={handleStart}
-              >
-                60秒でチェックする
-              </button>
-
-              <p className="top-b2-note">
-                登録不要・完全無料｜スマホでかんたん
-              </p>
-            </>
-          )}
-        </div>
-
-        <div className="top-b2-progress">
-          {STORY_STEPS.map((_, index) => (
-            <span
-              key={index}
-              className={index === activeIndex ? 'is-active' : ''}
-            />
-          ))}
-        </div>
-
-        {!activeStep.cta && (
-          <div className="top-b2-scroll-hint">
-            Scroll
-            <span>↓</span>
+            <p className="top-b2-note">無料・登録不要・3分で完了</p>
           </div>
-        )}
-      </div>
 
-      <div className="top-b2-scroll-space">
-        {STORY_STEPS.map((_, index) => (
-          <section key={index} />
-        ))}
-      </div>
+            <div className="top-b2-next-preview">
+            <p>こんなお悩み、ありませんか？</p>
+            <span>↓</span>
+            </div>
+
+        </section>
+
+        <section className="top-b2-block">
+          <h2>こんなお悩み、ありませんか？</h2>
+
+          <div className="top-b2-channel-grid">
+            <div className="top-b2-channel-card">
+              <div className="top-b2-icon">◎</div>
+              <p>SNS</p>
+              <span>発信が続かない</span>
+            </div>
+
+            <div className="top-b2-channel-card">
+              <div className="top-b2-icon">□</div>
+              <p>HPB</p>
+              <span>反応が少ない</span>
+            </div>
+
+            <div className="top-b2-channel-card">
+              <div className="top-b2-icon">◇</div>
+              <p>LINE</p>
+              <span>閲覧・反応が薄い</span>
+            </div>
+
+            <div className="top-b2-channel-card">
+              <div className="top-b2-icon">♧</div>
+              <p>紹介</p>
+              <span>増えない</span>
+            </div>
+          </div>
+
+          <p className="top-b2-message">
+            いろいろ試しているからこそ、
+            <br />
+            何から整えるべきか分かりにくくなります。
+          </p>
+        </section>
+
+        <section className="top-b2-block top-b2-diagnosis">
+          <h2>この診断で分かること</h2>
+
+          <div className="top-b2-diagnosis-box">
+            <div className="top-b2-list-icon">✓</div>
+
+            <ul>
+              <li>あなたの集客タイプ</li>
+              <li>今の強み・弱み</li>
+              <li>優先すべき集客ポイント</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="top-b2-block top-b2-merit">
+          <h2>診断後は、次の一歩が明確になります</h2>
+
+          <div className="top-b2-merit-grid">
+            <div className="top-b2-merit-card">
+              <span>○</span>
+              <p>やるべきことが<br />スッキリ整理</p>
+            </div>
+
+            <div className="top-b2-merit-card">
+              <span>◇</span>
+              <p>自分に合う方法が<br />見つかる</p>
+            </div>
+
+            <div className="top-b2-merit-card">
+              <span>✓</span>
+              <p>ムリなく成果に<br />つながる行動がわかる</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="top-b2-bottom-cta">
+          <p>
+            まずは、今の状態を
+            <br />
+            一緒に見てみましょう。
+          </p>
+
+          <button type="button" className="top-b2-cta" onClick={handleStart}>
+            診断をはじめる
+            <span>›</span>
+          </button>
+
+          <p className="top-b2-note">無料・登録不要・3分で完了</p>
+        </section>
+      </main>
     </div>
   )
 }

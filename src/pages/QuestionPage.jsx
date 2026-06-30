@@ -1,28 +1,17 @@
+// src/pages/QuestionPage.jsx
+
 import React, { useEffect, useState } from 'react'
 import { QUESTIONS } from '../data/questions'
 import { isCampaignEnded } from '../utils/campaign'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
+import './QuestionPageB.css'
 
-const questionBanners = [
-  '/images/question-banners/q1-v1.png',
-  '/images/question-banners/q2-v1.png',
-  '/images/question-banners/q3-v1.png',
-  '/images/question-banners/q4-v1.png',
-  '/images/question-banners/q5-v1.png',
-  '/images/question-banners/q6-v1.png',
-  '/images/question-banners/q7-v1.png',
-  '/images/question-banners/q8-v1.png',
-  '/images/question-banners/q9-v1.png',
-  '/images/question-banners/q10-v1.png',
-]
+const choiceMarks = ['A', 'B', 'C', 'D', 'E']
 
 export default function QuestionPage({ questionIndex, onAnswer }) {
   const [selected, setSelected] = useState(null)
 
   const q = QUESTIONS[questionIndex]
-
-  const currentBanner =
-    questionBanners[questionIndex] || '/images/banner-question.png'
 
   useEffect(() => {
     sendTrackingEvent({
@@ -54,17 +43,17 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
 
   if (false && isCampaignEnded()) {
     return (
-      <div className="page">
-        <section className="mock-section">
-          <div className="phone-card question-card">
-            <h2 className="question-title">終了しました</h2>
-
-            <div className="hero-copy">
-              <p>この診断の受付は終了しました。</p>
-              <p>ご興味をお持ちいただき、ありがとうございました。</p>
-            </div>
-          </div>
-        </section>
+      <div className="question-b-page">
+        <main className="question-b-phone">
+          <section className="question-b-card">
+            <h2 className="question-b-title">終了しました</h2>
+            <p className="question-b-guide">
+              この診断の受付は終了しました。
+              <br />
+              ご興味をお持ちいただき、ありがとうございました。
+            </p>
+          </section>
+        </main>
       </div>
     )
   }
@@ -73,89 +62,77 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
     if (selected === null) return
 
     onAnswer(questionIndex, selected)
-
     setSelected(null)
   }
 
   return (
-    <div className="page">
-      <section className="mock-section">
-        <div className="phone-card question-card">
-          <div className="step-progress-wrap">
-            <div className="step-progress-label">
-              <span>診断中</span>
-
-              <span>
+    <div className="question-b-page">
+      <main className="question-b-phone">
+        <section className="question-b-card">
+          <div className="question-b-progress">
+            <div className="question-b-progress-label">
+              <span>Salon Check</span>
+              <strong>
                 {questionIndex + 1} / {QUESTIONS.length}
-              </span>
+              </strong>
             </div>
 
-            <div className="step-progress">
-              {QUESTIONS.map((_, i) => (
-                <div
-                  key={i}
-                  className={[
-                    'step-dot',
-                    i < questionIndex ? 'is-done' : '',
-                    i === questionIndex ? 'is-current' : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  {i + 1}
-                </div>
-              ))}
+            <div className="question-b-progress-bar">
+              <span
+                style={{
+                  width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
+                }}
+              />
             </div>
           </div>
 
-          <div key={questionIndex} className="banner question-banner-fade">
-            <img src={currentBanner} alt="診断中のイメージ" />
+          <div className="question-b-visual-slot">
+            <span>IMAGE SLOT</span>
+            <p>質問ごとの画像は後でまとめて差し替え</p>
           </div>
 
-          <h2 className="question-title">{q.text}</h2>
+          <p className="question-b-guide">
+            いまの気持ちに近いものを選んでください
+          </p>
 
-          <div className="choice-list">
+          <h2 className="question-b-title">{q.text}</h2>
+
+          <div className="question-b-choice-list">
             {q.options.map((option, i) => (
               <button
                 key={i}
                 type="button"
-                className="choice-item"
+                className={`question-b-choice ${
+                  selected === i ? 'is-selected' : ''
+                }`}
                 onClick={() => setSelected(i)}
-                style={
-                  selected === i
-                    ? {
-                        borderColor: '#d4af37',
-                        background: '#fffaf1',
-                        color: '#5a4a4a',
-                      }
-                    : undefined
-                }
               >
-                {option}
+                <span className="question-b-choice-mark">
+                  {choiceMarks[i] || i + 1}
+                </span>
+
+                <span className="question-b-choice-text">{option}</span>
+
+                <span className="question-b-choice-image-slot" aria-hidden="true">
+                  img
+                </span>
               </button>
             ))}
           </div>
 
           <button
             type="button"
-            className="next-button"
+            className="question-b-next"
             onClick={handleNext}
             disabled={selected === null}
-            style={
-              selected === null
-                ? {
-                    opacity: 0.45,
-                    cursor: 'not-allowed',
-                  }
-                : undefined
-            }
           >
             {questionIndex === QUESTIONS.length - 1
-              ? '診断結果を見る →'
-              : '次へ進む →'}
+              ? '診断結果を見る'
+              : '次へ進む'}
+            <span>›</span>
           </button>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   )
 }

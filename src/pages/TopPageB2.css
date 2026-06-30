@@ -4,201 +4,311 @@
 
 .top-b2-page {
   min-height: 100vh;
-  background: #070707;
-  color: #ffffff;
+  background: #fff8f5;
+  color: #3e2f2a;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Yu Gothic", sans-serif;
 }
 
-.top-b2-fixed {
-  position: fixed;
-  inset: 0;
-  max-width: 430px;
+.top-b2-phone {
+  width: min(100%, 430px);
   margin: 0 auto;
+  background: #fffaf7;
   overflow: hidden;
+}
+
+/* =========================
+   Top B2 Hero
+========================= */
+
+.top-b2-hero {
+  min-height: 92vh;
+  padding: 16px 22px 28px;
   background:
-    radial-gradient(circle at 50% 28%, rgba(247, 213, 107, 0.22), transparent 34%),
-    linear-gradient(180deg, #191919 0%, #070707 100%);
+    linear-gradient(180deg, rgba(255, 250, 247, 0.9), rgba(255, 248, 242, 0.98)),
+    #fffaf7;
 }
 
-/* =========================
-   Top B2 Background
-========================= */
-
-.top-b2-bg-glow {
-  position: absolute;
-  left: 50%;
-  bottom: -120px;
-  width: 300px;
-  height: 300px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: rgba(247, 213, 107, 0.22);
-  filter: blur(34px);
-}
-
-/* =========================
-   Top B2 Content
-========================= */
-
-.top-b2-content {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  top: 50%;
-  z-index: 2;
-  transform: translateY(-50%);
-  animation: topB2ContentIn 0.36s ease-out both;
-}
-
-.top-b2-content span {
-  display: inline-block;
-  margin-bottom: 18px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  background: #f7d56b;
-  color: #111111;
+.top-b2-status {
+  color: #2f2522;
   font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-}
-
-.top-b2-content h1 {
-  margin: 0;
-  color: #ffffff;
-  font-size: clamp(36px, 10vw, 48px);
-  line-height: 1.16;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-}
-
-.top-b2-content p {
-  margin: 22px 0 0;
-  color: rgba(255, 255, 255, 0.74);
-  font-size: 16px;
   font-weight: 700;
-  line-height: 1.9;
 }
 
-.top-b2-content.is-emphasis h1 {
-  color: #f7d56b;
+.top-b2-hero-inner {
+  padding-top: 54px;
+  text-align: left;
 }
 
-/* =========================
-   Top B2 CTA
-========================= */
+.top-b2-copy p {
+  margin: 0 0 10px;
+  color: #2f2522;
+  font-size: 24px;
+  line-height: 1.45;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+
+.top-b2-copy p:nth-child(3) {
+  color: #3e2f2a;
+}
+
+.top-b2-subcopy {
+  margin: 18px 0 28px;
+  color: #6f5c56;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 700;
+}
 
 .top-b2-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   width: 100%;
   border: none;
-  border-radius: 999px;
-  padding: 17px 20px;
-  margin-top: 30px;
-  background: #f7d56b;
-  color: #111111;
+  border-radius: 12px;
+  padding: 15px 18px;
+  background: #e8798b;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 16px 32px rgba(247, 213, 107, 0.25);
+  box-shadow: 0 14px 28px rgba(216, 118, 136, 0.22);
+}
+
+.top-b2-cta span {
+  font-size: 24px;
+  line-height: 1;
 }
 
 .top-b2-note {
-  margin: 12px 0 0 !important;
+  margin: 12px 0 0;
+  color: #7b6a64;
+  font-size: 12px;
+  font-weight: 700;
   text-align: center;
-  color: rgba(255, 255, 255, 0.56) !important;
-  font-size: 12px !important;
 }
 
 /* =========================
-   Top B2 Progress
+   Top B2 Common Block
 ========================= */
 
-.top-b2-progress {
-  position: absolute;
-  top: 28px;
-  left: 24px;
-  right: 24px;
-  z-index: 3;
-  display: flex;
-  gap: 7px;
+.top-b2-block {
+  padding: 44px 22px;
+  background: #fffaf7;
+  text-align: center;
 }
 
-.top-b2-progress span {
-  flex: 1;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.top-b2-progress span.is-active {
-  background: #f7d56b;
+.top-b2-block h2 {
+  margin: 0 0 24px;
+  color: #2f2522;
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
 /* =========================
-   Top B2 Scroll Hint
+   Channel Cards
 ========================= */
 
-.top-b2-scroll-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 34px;
-  z-index: 3;
-  transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.64);
+.top-b2-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.top-b2-channel-card {
+  padding: 14px 6px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(90, 65, 55, 0.07);
+}
+
+.top-b2-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: #fff1ed;
+  color: #e8798b;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.top-b2-channel-card p {
+  margin: 0 0 4px;
+  color: #3e2f2a;
   font-size: 12px;
   font-weight: 900;
-  letter-spacing: 0.08em;
+}
+
+.top-b2-channel-card span {
+  color: #7b6a64;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.top-b2-message {
+  margin: 24px 0 0;
+  color: #4f403b;
+  font-size: 14px;
+  line-height: 1.9;
+  font-weight: 800;
+}
+
+/* =========================
+   Diagnosis
+========================= */
+
+.top-b2-diagnosis {
+  background: linear-gradient(180deg, #fffaf7 0%, #fff4ed 100%);
+}
+
+.top-b2-diagnosis-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 18px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(90, 65, 55, 0.07);
+  text-align: left;
+}
+
+.top-b2-list-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  background: #fff1ed;
+  color: #e8798b;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.top-b2-diagnosis-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.top-b2-diagnosis-box li {
+  position: relative;
+  padding-left: 22px;
+  color: #3e2f2a;
+  font-size: 14px;
+  line-height: 1.9;
+  font-weight: 800;
+}
+
+.top-b2-diagnosis-box li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #e8798b;
+}
+
+/* =========================
+   Merit
+========================= */
+
+.top-b2-merit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.top-b2-merit-card {
+  padding: 15px 8px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(90, 65, 55, 0.07);
+}
+
+.top-b2-merit-card span {
+  display: block;
+  margin-bottom: 8px;
+  color: #b7a08f;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.top-b2-merit-card p {
+  margin: 0;
+  color: #3e2f2a;
+  font-size: 11px;
+  line-height: 1.55;
+  font-weight: 800;
+}
+
+/* =========================
+   Bottom CTA
+========================= */
+
+.top-b2-bottom-cta {
+  padding: 34px 22px 40px;
+  background: linear-gradient(180deg, #fff4ed 0%, #fffaf7 100%);
   text-align: center;
 }
 
-.top-b2-scroll-hint span {
+.top-b2-bottom-cta > p {
+  margin: 0 0 20px;
+  color: #3e2f2a;
+  font-size: 17px;
+  line-height: 1.8;
+  font-weight: 900;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 374px) {
+  .top-b2-copy p {
+    font-size: 22px;
+  }
+
+  .top-b2-channel-grid {
+    gap: 7px;
+  }
+
+  .top-b2-channel-card span {
+    font-size: 9px;
+  }
+}
+
+/* =========================
+   Top B2 Next Preview
+========================= */
+
+.top-b2-next-preview {
+  margin-top: 54px;
+  padding: 18px 16px;
+  border-radius: 18px 18px 0 0;
+  background: #ffffff;
+  box-shadow: 0 -4px 22px rgba(90, 65, 55, 0.06);
+  text-align: center;
+}
+
+.top-b2-next-preview p {
+  margin: 0;
+  color: #3e2f2a;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.top-b2-next-preview span {
   display: block;
-  margin-top: 6px;
-  color: #f7d56b;
-  font-size: 24px;
-  animation: topB2ScrollHint 1.2s ease-in-out infinite;
-}
-
-/* =========================
-   Top B2 Scroll Space
-========================= */
-
-.top-b2-scroll-space {
-  position: relative;
-  z-index: 1;
-}
-
-.top-b2-scroll-space section {
-  min-height: 100vh;
-}
-
-/* =========================
-   Top B2 Animation
-========================= */
-
-@keyframes topB2ContentIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-42%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(-50%);
-  }
-}
-
-@keyframes topB2ScrollHint {
-  0% {
-    transform: translateY(0);
-    opacity: 0.45;
-  }
-
-  50% {
-    transform: translateY(8px);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 0.45;
-  }
+  margin-top: 8px;
+  color: #e8798b;
+  font-size: 20px;
+  font-weight: 900;
 }

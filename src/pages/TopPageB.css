@@ -4,256 +4,368 @@
 
 .top-b-page {
   min-height: 100vh;
-  background: #070707;
-  color: #fff;
+  background: #fff8f5;
+  color: #3e2f2a;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Yu Gothic", sans-serif;
 }
 
-.top-b-shell {
-  max-width: 420px;
+.top-b-phone {
+  width: min(100%, 430px);
   margin: 0 auto;
-  padding: 24px 18px 34px;
+  background: #fffaf7;
+  overflow: hidden;
 }
 
 /* =========================
-   Top B Hero
+   Top B Common
 ========================= */
 
-.top-b-hero {
+.top-b-section {
+  min-height: 100vh;
+  padding: 58px 22px 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 245, 0.96), rgba(255, 255, 255, 0.98)),
+    #fffaf7;
   text-align: center;
 }
 
-.top-b-badge {
-  display: inline-block;
-  margin-bottom: 18px;
-  padding: 7px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  color: #f7d56b;
-  font-size: 12px;
+.top-b-section h2 {
+  margin: 0 0 28px;
+  color: #2f2522;
+  font-size: 24px;
+  line-height: 1.65;
   font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.top-b-section h2 span {
+  color: #e79bab;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.top-b-message {
+  margin: 28px 0 0;
+  color: #3e2f2a;
+  font-size: 18px;
+  line-height: 1.9;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
-/* =========================
-   Top B Vertical Video
-========================= */
-
-.top-b-video-frame {
-  position: relative;
-  overflow: hidden;
-  width: min(100%, 330px);
-  height: 520px;
-  margin: 0 auto 22px;
-  border-radius: 34px;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(247, 213, 107, 0.28), transparent 28%),
-    linear-gradient(180deg, #222 0%, #080808 62%, #000 100%);
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.48);
+.top-b-arrow {
+  margin-top: 22px;
+  color: #e79bab;
+  font-size: 30px;
+  line-height: 1;
 }
 
-.top-b-video-frame::before {
+/* =========================
+   First View
+========================= */
+
+.top-b-firstview {
+  position: relative;
+  min-height: 100vh;
+  padding: 16px 18px 28px;
+  background: #f7f2ed;
+  overflow: hidden;
+}
+
+.top-b-status {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 8px;
+  color: #2f2522;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.top-b-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.top-b-hero-image::after {
   content: "";
   position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 26px;
-  pointer-events: none;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 248, 245, 0.28) 48%, rgba(255, 248, 245, 0.92) 100%),
+    linear-gradient(90deg, rgba(255, 248, 245, 0.5), rgba(255, 248, 245, 0.02));
 }
 
-.top-b-video-glow {
-  position: absolute;
-  left: 50%;
-  bottom: -80px;
-  width: 260px;
-  height: 260px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: rgba(247, 213, 107, 0.2);
-  filter: blur(26px);
+.top-b-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.top-b-caption-track {
-  position: absolute;
-  top: 235px;
-  left: 18px;
-  right: 18px;
-  bottom: auto;
-  display: grid;
-  gap: 12px;
-  animation: topBCaptionScroll 15s linear infinite;
-}
-
-.top-b-caption-track p {
-  margin: 0;
-  padding: 12px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 900;
-  line-height: 1.35;
+.top-b-telop {
+  position: relative;
+  z-index: 3;
+  margin-top: 42px;
   text-align: left;
-  backdrop-filter: blur(8px);
 }
 
-.top-b-caption-track p:nth-child(2n) {
-  margin-left: 22px;
+.top-b-telop p {
+  display: table;
+  margin: 0 0 10px;
+  padding: 5px 9px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #2f2522;
+  font-size: 26px;
+  line-height: 1.35;
+  font-weight: 900;
+  letter-spacing: 0.02em;
 }
 
-.top-b-caption-track p:nth-child(3n) {
-  background: rgba(247, 213, 107, 0.92);
-  color: #111;
-}
-
-/* =========================
-   Top B Title
-========================= */
-
-.top-b-video-title {
-  position: absolute;
-  top: 42px;
-  left: 22px;
-  right: 22px;
-  z-index: 4;
-  text-align: center;
-  padding: 16px 12px;
-  border-radius: 24px;
-  background: rgba(0, 0, 0, 0.62);
-  backdrop-filter: blur(10px);
-}
-
-.top-b-video-title span {
-  display: inline-block;
-  margin-bottom: 10px;
-  color: #f7d56b;
-  font-size: 12px;
+.top-b-telop p.is-pink {
+  background: transparent;
+  color: #e79bab;
+  font-size: 46px;
   font-weight: 900;
   letter-spacing: 0.08em;
+  transform: rotate(-3deg);
 }
 
-.top-b-video-title h1 {
-  margin: 0;
-  color: #ffffff;
-  font-size: 24px;
-  line-height: 1.35;
-  font-weight: 900;
-}
-
-.top-b-video-footer {
+.top-b-dark-copy {
   position: absolute;
-  z-index: 3;
   left: 18px;
   right: 18px;
-  bottom: 18px;
-  padding: 13px 14px;
-  border-radius: 18px;
-  background: #f7d56b;
-  color: #111;
-  font-size: 14px;
-  font-weight: 900;
-}
-
-.top-b-video-footer p {
+  bottom: 84px;
+  z-index: 3;
   margin: 0;
+  padding: 12px 14px;
+  background: rgba(62, 47, 42, 0.9);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
 }
 
-@keyframes topBCaptionScroll {
-  0% {
-    transform: translateY(270px);
-  }
+.top-b-scroll {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 46px;
+  z-index: 3;
+  margin: 0;
+  color: #6b5a55;
+  font-size: 11px;
+  font-weight: 700;
+}
 
-  100% {
-    transform: translateY(-430px);
-  }
+.top-b-firstview .top-b-arrow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 3;
+  margin: 0;
 }
 
 /* =========================
-   Top B Copy
+   Empathy
 ========================= */
 
-.top-b-lead {
-  margin: 0 0 22px;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 15px;
-  line-height: 1.9;
+.top-b-empathy {
+  background: #fffaf7;
+}
+
+.top-b-chat-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.top-b-chat {
+  position: relative;
+  max-width: 330px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  border: 1px solid #ead6cf;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(90, 65, 55, 0.06);
   text-align: left;
+}
+
+.top-b-chat span {
+  color: #4f403b;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.top-b-small-note {
+  margin: 22px 0 0;
+  color: #e79bab;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* =========================
+   Benefit
+========================= */
+
+.top-b-benefit {
+  background: #fffaf7;
+}
+
+.top-b-benefit-cards {
+  display: grid;
+  gap: 14px;
+}
+
+.top-b-benefit-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 18px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(90, 65, 55, 0.07);
+  text-align: left;
+}
+
+.top-b-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #fff1ed;
+  color: #e79bab;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.top-b-benefit-card p {
+  margin: 0;
+  color: #3e2f2a;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 800;
+}
+
+.top-b-soft-image {
+  margin: 24px -22px 0;
+  height: 160px;
+  overflow: hidden;
+}
+
+.top-b-soft-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   CTA Section
+========================= */
+
+.top-b-cta-section {
+  padding-bottom: 0;
+  background: #fffaf7;
+}
+
+.top-b-stopwatch {
+  margin: 10px auto 26px;
+  color: #e79bab;
+  font-size: 42px;
+}
+
+.top-b-voice-label {
+  margin: 0 0 16px;
+  color: #8a756d;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.top-b-voice-card {
+  margin: 0 auto 12px;
+  padding: 16px 18px;
+  border: 1px solid #ead6cf;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(90, 65, 55, 0.06);
+  text-align: left;
+}
+
+.top-b-voice-card p {
+  margin: 0;
+  color: #4f403b;
+  font-size: 14px;
+  line-height: 1.75;
+  font-weight: 700;
+}
+
+.top-b-cta-box {
+  margin: 30px -22px 0;
+  padding: 30px 22px 36px;
+  background: linear-gradient(180deg, #eaa2b0 0%, #dd8799 100%);
+  color: #ffffff;
+}
+
+.top-b-cta-box > p {
+  margin: 0 0 18px;
+  font-size: 20px;
+  line-height: 1.75;
+  font-weight: 900;
+  letter-spacing: 0.03em;
 }
 
 .top-b-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   width: 100%;
   border: none;
   border-radius: 999px;
-  padding: 16px 18px;
-  background: #f7d56b;
-  color: #111;
-  font-size: 16px;
+  padding: 17px 20px;
+  background: #ffffff;
+  color: #dd8799;
+  font-size: 18px;
   font-weight: 900;
-  box-shadow: 0 16px 32px rgba(247, 213, 107, 0.25);
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(130, 70, 82, 0.22);
+}
+
+.top-b-cta span {
+  font-size: 26px;
+  line-height: 1;
 }
 
 .top-b-note {
-  margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.58);
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.86);
   font-size: 12px;
+  font-weight: 700;
 }
 
 /* =========================
-   Top B Flow
+   Responsive
 ========================= */
 
-.top-b-flow {
-  margin-top: 22px;
-  padding: 22px 18px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.08);
-}
+@media (max-width: 374px) {
+  .top-b-telop p {
+    font-size: 23px;
+  }
 
-.top-b-flow-title {
-  margin: 0 0 14px;
-  color: #f7d56b;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-}
+  .top-b-telop p.is-pink {
+    font-size: 40px;
+  }
 
-.top-b-flow-item {
-  padding: 14px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: left;
-  font-size: 14px;
-  font-weight: 800;
-}
+  .top-b-section h2 {
+    font-size: 22px;
+  }
 
-.top-b-flow-item:first-of-type {
-  border-top: none;
-}
-
-/* =========================
-   Top B Title
-========================= */
-
-.top-b-video-title {
-  position: absolute;
-  top: 34px;
-  left: 22px;
-  right: 22px;
-  z-index: 3;
-  text-align: center;
-}
-
-.top-b-video-title span {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: #f7d56b;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-}
-
-.top-b-video-title h1 {
-  margin: 0;
-  color: #ffffff;
-  font-size: 31px;
-  line-height: 1.22;
-  font-weight: 900;
+  .top-b-section h2 span {
+    font-size: 30px;
+  }
 }
