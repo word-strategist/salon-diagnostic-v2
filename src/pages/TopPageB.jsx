@@ -1,10 +1,17 @@
-// src/pages/TopPageB.jsx
-
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB.css'
 
-function TopPageB({ onStart }) {
+const TELOPS = [
+  'その集客方法、',
+  '頑張ってるのに',
+  'なぜか',
+  '予約が安定しない…',
+]
+
+export default function TopPageB({ onStart }) {
+  const [step, setStep] = useState(0)
+
   useEffect(() => {
     sendTrackingEvent({
       event_type: 'page_view',
@@ -13,6 +20,12 @@ function TopPageB({ onStart }) {
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
+
+    const timer = setInterval(() => {
+      setStep((prev) => (prev < TELOPS.length - 1 ? prev + 1 : prev))
+    }, 700)
+
+    return () => clearInterval(timer)
   }, [])
 
   const handleStart = () => {
@@ -29,134 +42,74 @@ function TopPageB({ onStart }) {
 
   return (
     <div className="top-b-page">
-      <main className="top-b-phone">
-        <section className="top-b-firstview">
-          <div className="top-b-status">9:41</div>
+      <section className="top-b-firstview">
+        <div className="top-b-status">9:41</div>
 
-          <div className="top-b-hero-image">
-            <img src="/images/top-b-woman.jpg" alt="悩んでいるサロンオーナー" />
-          </div>
+        <div className="top-b-hero-image" />
 
-          <div className="top-b-telop">
-            <p>その集客方法、</p>
-            <p>頑張ってるのに</p>
-            <p className="is-pink">なぜか</p>
-            <p>予約が安定しない…</p>
-          </div>
+        <div className="top-b-telop">
+          {step >= 0 && <p>{TELOPS[0]}</p>}
+          {step >= 1 && <p>{TELOPS[1]}</p>}
+          {step >= 2 && <p className="is-pink">{TELOPS[2]}</p>}
+          {step >= 3 && <p>{TELOPS[3]}</p>}
+        </div>
 
-          <p className="top-b-dark-copy">
-            それ、あなただけじゃないかも。
-          </p>
-
-          <p className="top-b-scroll">スクロールして一緒に整理してみませんか？</p>
-          <div className="top-b-arrow">⌄</div>
-        </section>
-
-        <section className="top-b-section top-b-empathy">
-          <h2>
-            こんなことで
-            <br />
-            <span>悩んでいませんか？</span>
-          </h2>
-
-          <div className="top-b-chat-list">
-            <div className="top-b-chat">
-              <span> SNSも頑張ってるのに新規が増えない…</span>
-            </div>
-            <div className="top-b-chat">
-              <span>ホットペッパーに載せても、反応がイマイチ…</span>
-            </div>
-            <div className="top-b-chat">
-              <span>リピートしてくれる人はいるけど、毎月バラバラ…</span>
-            </div>
-            <div className="top-b-chat">
-              <span>何から手をつければいいのか、よくわからない…</span>
-            </div>
-          </div>
-
-          <p className="top-b-small-note">うんうん、わかります…</p>
-
-          <p className="top-b-message">
-            原因がわかれば、
-            <br />
-            やるべきことが見えてきます。
-          </p>
-
-          <div className="top-b-arrow">⌄</div>
-        </section>
-
-        <section className="top-b-section top-b-benefit">
-          <h2>
-            この診断で
-            <br />
-            わかること
-          </h2>
-
-          <div className="top-b-benefit-cards">
-            <div className="top-b-benefit-card">
-              <span className="top-b-icon">⌕</span>
-              <p>あなたの集客の今の状態</p>
-            </div>
-            <div className="top-b-benefit-card">
-              <span className="top-b-icon">♡</span>
-              <p>あなたのサロンに合った集客タイプ</p>
-            </div>
-            <div className="top-b-benefit-card">
-              <span className="top-b-icon">♢</span>
-              <p>優先して取り組むべきポイント</p>
-            </div>
-          </div>
-
-          <div className="top-b-soft-image">
-            <img src="/images/top-b-desk.jpg" alt="ノートと花のイメージ" />
-          </div>
-
-          <p className="top-b-message">
-            モヤモヤが
-            <br />
-            スッと整理されます。
-          </p>
-
-          <div className="top-b-arrow">⌄</div>
-        </section>
-
-        <section className="top-b-section top-b-cta-section">
-          <h2>
-            診断はたったの10問
-            <br />
-            3分で終わります
-          </h2>
-
-          <div className="top-b-stopwatch">⏱</div>
-
-          <p className="top-b-voice-label">受けた方の声</p>
-
-          <div className="top-b-voice-card">
-            <p>自分のタイプがわかってやることが明確になりました！</p>
-          </div>
-
-          <div className="top-b-voice-card">
-            <p>モヤモヤしていた理由が腑に落ちて、行動できるように！</p>
-          </div>
-
-          <div className="top-b-cta-box">
-            <p>
-              まずは今の状態を
-              <br />
-              整理してみませんか？
+        {step >= 3 && (
+          <>
+            <p className="top-b-dark-copy">
+              それ、あなただけじゃないかも。
             </p>
 
-            <button type="button" className="top-b-cta" onClick={handleStart}>
-              診断をはじめる
-              <span>›</span>
-            </button>
+            <p className="top-b-scroll">
+              スクロールして一緒に整理してみませんか？
+            </p>
 
-            <p className="top-b-note">無料・登録不要・1日1回</p>
+            <div className="top-b-arrow">∨</div>
+          </>
+        )}
+      </section>
+
+      <section className="top-b-section">
+        <h2>
+          <span>こんなお悩み、</span>
+          <br />
+          ありませんか？
+        </h2>
+
+        <div className="top-b-chat-list">
+          <div className="top-b-chat">
+            <span>毎日SNSを更新している…</span>
           </div>
-        </section>
-      </main>
+
+          <div className="top-b-chat">
+            <span>ホットペッパーも続けている…</span>
+          </div>
+
+          <div className="top-b-chat">
+            <span>それでも予約が安定しない…</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="top-b-section">
+        <h2>
+          頑張る量ではなく
+          <br />
+          <span>順番</span>
+          があるかもしれません。
+        </h2>
+
+        <button
+          className="top-b-cta"
+          onClick={handleStart}
+        >
+          60秒でチェックする
+        </button>
+
+        <p className="top-b-note">
+          登録不要・完全無料
+        </p>
+      </section>
     </div>
   )
 }
-
-export default TopPageB

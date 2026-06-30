@@ -4,29 +4,210 @@
 
 .top-b-page {
   min-height: 100vh;
-  background: #fff8f5;
-  color: #3e2f2a;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-    "Yu Gothic", sans-serif;
+  background: #070707;
+  color: #ffffff;
 }
 
 .top-b-phone {
   width: min(100%, 430px);
   margin: 0 auto;
-  background: #fffaf7;
+  background: #070707;
   overflow: hidden;
 }
 
 /* =========================
-   Top B Common
+   First View
+========================= */
+
+.top-b-firstview {
+  position: relative;
+  min-height: 100vh;
+  padding: 16px 18px 28px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(232, 121, 139, 0.28), transparent 32%),
+    linear-gradient(180deg, #1d1718 0%, #090707 72%, #070707 100%);
+  overflow: hidden;
+}
+
+.top-b-status {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.top-b-hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 244, 239, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(255, 248, 245, 0.08), rgba(0, 0, 0, 0.88));
+}
+
+.top-b-hero-image img {
+  display: none;
+}
+
+.top-b-hero-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0.82) 100%),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.top-b-telop {
+  position: relative;
+  z-index: 4;
+  margin-top: 74px;
+  text-align: left;
+}
+
+.top-b-telop p {
+  display: table;
+  margin: 0 0 13px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #161111;
+  font-size: 27px;
+  line-height: 1.28;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+.top-b-telop p:nth-child(1) {
+  animation: topBTelopIn 0.42s ease-out both;
+}
+
+.top-b-telop p:nth-child(2) {
+  animation: topBTelopIn 0.42s ease-out 0.18s both;
+}
+
+.top-b-telop p:nth-child(3) {
+  animation: topBTelopPop 0.42s ease-out 0.38s both;
+}
+
+.top-b-telop p:nth-child(4) {
+  animation: topBTelopIn 0.42s ease-out 0.58s both;
+}
+
+.top-b-telop p.is-pink {
+  padding: 0 4px;
+  background: transparent;
+  color: #ff9bae;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.48);
+  box-shadow: none;
+  transform: rotate(-4deg);
+}
+
+.top-b-dark-copy {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 94px;
+  z-index: 4;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 999px;
+  background: rgba(232, 121, 139, 0.94);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+.top-b-scroll {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 52px;
+  z-index: 4;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.top-b-arrow {
+  margin-top: 22px;
+  color: #e8798b;
+  font-size: 30px;
+  line-height: 1;
+  text-align: center;
+}
+
+.top-b-firstview .top-b-arrow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  z-index: 4;
+  margin: 0;
+  color: #ffffff;
+  animation: topBArrow 1.2s ease-in-out infinite;
+}
+
+@keyframes topBTelopIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes topBTelopPop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-4deg) scale(0.86);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-4deg) scale(1);
+  }
+}
+
+@keyframes topBArrow {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+/* =========================
+   Common Sections
 ========================= */
 
 .top-b-section {
   min-height: 100vh;
   padding: 58px 22px 34px;
-  background:
-    linear-gradient(180deg, rgba(255, 248, 245, 0.96), rgba(255, 255, 255, 0.98)),
-    #fffaf7;
+  background: #fffaf7;
+  color: #3e2f2a;
   text-align: center;
 }
 
@@ -54,126 +235,9 @@
   letter-spacing: 0.04em;
 }
 
-.top-b-arrow {
-  margin-top: 22px;
-  color: #e79bab;
-  font-size: 30px;
-  line-height: 1;
-}
-
-/* =========================
-   First View
-========================= */
-
-.top-b-firstview {
-  position: relative;
-  min-height: 100vh;
-  padding: 16px 18px 28px;
-  background: #f7f2ed;
-  overflow: hidden;
-}
-
-.top-b-status {
-  position: relative;
-  z-index: 5;
-  margin-bottom: 8px;
-  color: #2f2522;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.top-b-hero-image {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.top-b-hero-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 248, 245, 0.28) 48%, rgba(255, 248, 245, 0.92) 100%),
-    linear-gradient(90deg, rgba(255, 248, 245, 0.5), rgba(255, 248, 245, 0.02));
-}
-
-.top-b-hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.top-b-telop {
-  position: relative;
-  z-index: 3;
-  margin-top: 42px;
-  text-align: left;
-}
-
-.top-b-telop p {
-  display: table;
-  margin: 0 0 10px;
-  padding: 5px 9px;
-  background: rgba(255, 255, 255, 0.88);
-  color: #2f2522;
-  font-size: 26px;
-  line-height: 1.35;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-}
-
-.top-b-telop p.is-pink {
-  background: transparent;
-  color: #e79bab;
-  font-size: 46px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  transform: rotate(-3deg);
-}
-
-.top-b-dark-copy {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 84px;
-  z-index: 3;
-  margin: 0;
-  padding: 12px 14px;
-  background: rgba(62, 47, 42, 0.9);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-}
-
-.top-b-scroll {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 46px;
-  z-index: 3;
-  margin: 0;
-  color: #6b5a55;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.top-b-firstview .top-b-arrow {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
-  z-index: 3;
-  margin: 0;
-}
-
 /* =========================
    Empathy
 ========================= */
-
-.top-b-empathy {
-  background: #fffaf7;
-}
 
 .top-b-chat-list {
   display: grid;
@@ -182,7 +246,6 @@
 }
 
 .top-b-chat {
-  position: relative;
   max-width: 330px;
   margin: 0 auto;
   padding: 16px 18px;
@@ -211,10 +274,6 @@
    Benefit
 ========================= */
 
-.top-b-benefit {
-  background: #fffaf7;
-}
-
 .top-b-benefit-cards {
   display: grid;
   gap: 14px;
@@ -224,7 +283,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 18px 18px;
+  padding: 18px;
   border-radius: 18px;
   background: #ffffff;
   box-shadow: 0 10px 28px rgba(90, 65, 55, 0.07);
@@ -253,15 +312,15 @@
 }
 
 .top-b-soft-image {
-  margin: 24px -22px 0;
-  height: 160px;
+  margin: 24px 0 0;
+  height: 128px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff1ed, #f7eee9);
   overflow: hidden;
 }
 
 .top-b-soft-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: none;
 }
 
 /* =========================
@@ -358,7 +417,7 @@
   }
 
   .top-b-telop p.is-pink {
-    font-size: 40px;
+    font-size: 44px;
   }
 
   .top-b-section h2 {
