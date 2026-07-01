@@ -3,7 +3,7 @@ import { RESULTS } from '../data/results'
 import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
-import { isCampaignEnded, CAMPAIGN_END_AT } from '../utils/campaign'
+import { CAMPAIGN_END_AT } from '../utils/campaign'
 import ResultPageAView from './ResultPageAView'
 import ResultPageBView from './ResultPageBView'
 
@@ -262,34 +262,24 @@ const COMMON_COPY = {
   LINE_NOTE: '※LINEで最新のご案内を受け取れます',
 }
 
-const STORAGE_KEYS = {
-  productDeadline: 'product_offer_deadline',
-  consultationDeadline: 'consultation_offer_deadline',
-}
-
 function normalizeProductKeys(value) {
   if (Array.isArray(value)) return value
   if (typeof value === 'string') return [value]
   return []
 }
 
-function getInitialExpired(isConsultation) {
-  const storageKey = isConsultation
-    ? STORAGE_KEYS.consultationDeadline
-    : STORAGE_KEYS.productDeadline
-
-  const deadline = localStorage.getItem(storageKey)
-  if (!deadline) return false
-  return Date.now() >= Number(deadline)
-}
-
 function getResultVariant() {
   const params = new URLSearchParams(window.location.search)
   const queryVariant = params.get('variant')?.toUpperCase()
 
-  if (queryVariant === 'A' || queryVariant === 'B') {
-    localStorage.setItem('result_variant', queryVariant)
-    return queryVariant
+  if (queryVariant === 'B' || queryVariant === 'B2') {
+    localStorage.setItem('result_variant', 'B')
+    return 'B'
+  }
+
+  if (queryVariant === 'A') {
+    localStorage.setItem('result_variant', 'A')
+    return 'A'
   }
 
   const savedVariant = localStorage.getItem('result_variant')
@@ -307,15 +297,13 @@ export default function ResultPage({ result }) {
     RESULT_PRODUCT_MAP[key] ?? RESULT_PRODUCT_MAP['1-A']
   )
 
-  const products = productKeys.map(k => PRODUCTS[k]).filter(Boolean)
+  const products = productKeys.map((k) => PRODUCTS[k]).filter(Boolean)
   const mainProduct = products[0]
 
   const campaignEnded = false
-
   const [isExpired, setIsExpired] = useState(false)
 
   const expiredOrEnded = false
-
   const expiredRedirectUrl = 'https://sendenhi-zero.com/line'
   const ctaUrl = expiredOrEnded ? expiredRedirectUrl : mainProduct?.url
 
@@ -325,7 +313,6 @@ export default function ResultPage({ result }) {
 
   const ctaAreaRef = useRef(null)
   const hasLoggedCtaView = useRef(false)
-
   const variant = getResultVariant()
 
   useEffect(() => {
@@ -336,9 +323,7 @@ export default function ResultPage({ result }) {
       level: result.level,
       type: result.type,
       product_key: productKeys.join(','),
-      answers: JSON.parse(
-        localStorage.getItem('diagnosis_answers') || '[]'
-      ),
+      answers: JSON.parse(localStorage.getItem('diagnosis_answers') || '[]'),
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
@@ -418,6 +403,7 @@ export default function ResultPage({ result }) {
   const viewProps = {
     data,
     copy,
+    resultKey: key,
     mainProduct,
     campaignEnded,
     expiredOrEnded,

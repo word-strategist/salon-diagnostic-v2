@@ -8,10 +8,26 @@ import './QuestionPageB.css'
 
 const choiceMarks = ['A', 'B', 'C', 'D', 'E']
 
+const QUESTION_MESSAGES = [
+  'まずは、今のお店の状態を見ていきましょう。',
+  '売上の現在地を、近いものから選んでください。',
+  '今いちばん重く感じていることを教えてください。',
+  'ここからは、日々の発信について見ていきましょう。',
+  '普段の運営体制に近いものを選んでください。',
+  '集客の入り口について整理していきます。',
+  '新しい取り組みへの向き合い方を見ていきましょう。',
+  'これまでの学びや投資経験を確認します。',
+  '少し先の理想の状態を見ていきましょう。',
+  '最後に、今のあなたに必要だと感じるものを選んでください。',
+]
+
 export default function QuestionPage({ questionIndex, onAnswer }) {
   const [selected, setSelected] = useState(null)
 
   const q = QUESTIONS[questionIndex]
+  const message =
+    QUESTION_MESSAGES[questionIndex] ||
+    'いまの気持ちに近いものを選んでください'
 
   useEffect(() => {
     sendTrackingEvent({
@@ -86,14 +102,12 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
             </div>
           </div>
 
-          <div className="question-b-visual-slot">
+          <div className="question-b-visual-slot" aria-hidden="true">
             <span>IMAGE SLOT</span>
-            <p>質問ごとの画像は後でまとめて差し替え</p>
+            <p>画像は後でまとめて差し替え</p>
           </div>
 
-          <p className="question-b-guide">
-            いまの気持ちに近いものを選んでください
-          </p>
+          <p className="question-b-guide">{message}</p>
 
           <h2 className="question-b-title">{q.text}</h2>
 
@@ -113,7 +127,10 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
 
                 <span className="question-b-choice-text">{option}</span>
 
-                <span className="question-b-choice-image-slot" aria-hidden="true">
+                <span
+                  className="question-b-choice-image-slot"
+                  aria-hidden="true"
+                >
                   img
                 </span>
               </button>

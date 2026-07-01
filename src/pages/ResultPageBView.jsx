@@ -1,6 +1,20 @@
 import './ResultPageBView.css'
 
+const RESULT_LABELS = {
+  A: '発信整理タイプ',
+  B: 'HPB見直しタイプ',
+  C: '相談整理タイプ',
+  D: '時短仕組み化タイプ',
+}
+
+const LEVEL_LABELS = {
+  1: 'まず整える段階',
+  2: '伸ばす準備段階',
+  3: '次のステージ段階',
+}
+
 export default function ResultPageBView({
+  resultKey,
   copy,
   mainProduct,
   expiredOrEnded,
@@ -10,89 +24,161 @@ export default function ResultPageBView({
   handleResetDiagnosis,
   COMMON_COPY,
 }) {
+  const [level, type] = resultKey.split('-')
+  const typeLabel = RESULT_LABELS[type] || '整理タイプ'
+  const levelLabel = LEVEL_LABELS[level] || '現在地確認'
+
   return (
-    <div className="page result-b-page">
-      <section className="mock-section">
-        <div className="phone-card result-b-phone-card">
-          <div className="result-b-hero">
-            <div className="result-b-kicker">
-              セルフチェック結果
+    <div className="result-b-page">
+      <main className="result-b-phone">
+        <section className="result-b-card">
+          {/* =========================
+              Progress
+          ========================= */}
+
+          <div className="result-b-progress">
+            <div className="result-b-progress-label">
+              <span>Salon Check</span>
+              <strong>診断結果</strong>
             </div>
 
-            <h1 className="result-b-title">
-              今のあなたの現在地が
-              見えてきました
-            </h1>
+            <div className="result-b-progress-bar">
+              <span />
+            </div>
+          </div>
 
-            <p className="result-b-lead">
-              まずは、今どこで止まりやすいのかを確認しましょう。
+          {/* =========================
+              Result Hero
+          ========================= */}
+
+          <section className="result-b-hero">
+            <p className="result-b-kicker">
+              診断おつかれさまでした！
+              <br />
+              あなたのタイプはこちら
             </p>
-          </div>
 
-          <div className="result-b-status-card">
-            <div className="result-b-status-label">
-              現在地
+            <div className="result-b-type-box">
+              <span>TYPE</span>
+              <strong>{type}</strong>
             </div>
 
-            <h2>
-              頑張っているのに、
-              次の一手が見えづらい状態です
-            </h2>
-          </div>
+            <h1>{typeLabel}</h1>
 
-          <div className="result-b-step-card">
-            <span>01</span>
+            <p className="result-b-level">
+              {levelLabel}
+            </p>
+
+            <div
+              className="result-b-visual-slot"
+              aria-label="診断タイプ画像の予定位置"
+            />
+          </section>
+
+          {/* =========================
+              Current Cause
+          ========================= */}
+
+          <section className="result-b-info-card">
+            <div className="result-b-icon">○</div>
+
             <div>
-              <h3>今の課題</h3>
+              <h2>今のあなたに起きていること</h2>
               <p>{copy.CAUSE}</p>
             </div>
-          </div>
+          </section>
 
-          <div className="result-b-step-card">
-            <span>02</span>
+          {/* =========================
+              Solution
+          ========================= */}
+
+          <section className="result-b-info-card">
+            <div className="result-b-icon">♡</div>
+
             <div>
-              <h3>見直すポイント</h3>
+              <h2>ここから整えていくこと</h2>
               <p>{copy.SOLUTION}</p>
             </div>
-          </div>
+          </section>
 
-          <div className="result-b-step-card">
-            <span>03</span>
+          {/* =========================
+              Urgency
+          ========================= */}
+
+          <section className="result-b-info-card">
+            <div className="result-b-icon">!</div>
+
             <div>
-              <h3>最初の一手</h3>
+              <h2>今、取り組んでおきたい理由</h2>
               <p>{copy.URGENCY}</p>
             </div>
-          </div>
+          </section>
+
+          {/* =========================
+              Expired
+          ========================= */}
 
           {expiredOrEnded && (
-            <div className="result-b-expired">
+            <section className="result-b-expired">
               <p>{COMMON_COPY.EXPIRED_LABEL}</p>
-              <h3>{COMMON_COPY.EXPIRED_TITLE}</h3>
+              <h2>{COMMON_COPY.EXPIRED_TITLE}</h2>
               <p>{COMMON_COPY.EXPIRED_TEXT}</p>
-            </div>
+            </section>
           )}
+
+          {/* =========================
+              Product Offer
+          ========================= */}
 
           {!expiredOrEnded && mainProduct && (
-            <div className="result-b-offer">
-              <div className="result-b-offer-label">
-                あなたにおすすめ
+            <section
+              className="result-b-offer"
+              ref={ctaAreaRef}
+            >
+              <div className="result-b-card-heading">
+                <div className="result-b-icon">◇</div>
+
+                <h2>
+                  診断者限定のご案内があります
+                </h2>
               </div>
 
-              <h3>{mainProduct.name}</h3>
+              <p className="result-b-offer-copy">
+                {copy.PRE_CTA}
+              </p>
 
-              <p>{mainProduct.description}</p>
+              <div className="result-b-product-box">
+                <span>
+                  あなたに合った次の一歩
+                </span>
 
-              <div ref={ctaAreaRef}>
-                <button
-                  className="result-b-cta"
-                  onClick={handleCtaClick}
-                >
-                  {ctaLabel}
-                  <span>→</span>
-                </button>
+                <strong>
+                  {mainProduct.name}
+                </strong>
+
+                <p>
+                  {mainProduct.description}
+                </p>
               </div>
-            </div>
+
+              <button
+                type="button"
+                className="result-b-cta"
+                onClick={handleCtaClick}
+              >
+                {ctaLabel}
+                <span>›</span>
+              </button>
+
+              <p className="result-b-note">
+                ※画像・イラストは後でまとめて差し替えます
+              </p>
+            </section>
           )}
+
+          {/* =========================
+              Reset
+          ========================= */}
 
           <button
             type="button"
@@ -101,8 +187,8 @@ export default function ResultPageBView({
           >
             もう一度診断する（確認用）
           </button>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   )
 }

@@ -1,17 +1,90 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB.css'
 
 const TELOPS = [
-  'その集客方法、',
-  '頑張ってるのに',
-  'なぜか',
-  '予約が安定しない…',
+  {
+    id: 'method',
+    text: 'その集客方法、',
+    className: 'top-b-telop-normal',
+  },
+  {
+    id: 'effort',
+    text: '頑張ってるのに',
+    className: 'top-b-telop-normal',
+  },
+  {
+    id: 'why',
+    text: 'なぜか',
+    className: 'top-b-telop-accent',
+  },
+  {
+    id: 'unstable',
+    text: '予約が安定しない…',
+    className: 'top-b-telop-normal',
+  },
 ]
 
-export default function TopPageB({ onStart }) {
-  const [step, setStep] = useState(0)
+const EMPATHY_ITEMS = [
+  {
+    id: 'sns',
+    text: 'SNSも頑張ってるのに\n新規が増えない…',
+  },
+  {
+    id: 'hpb',
+    text: 'ホットペッパーも\n載せてる、反応がイマイチ…',
+  },
+  {
+    id: 'repeat',
+    text: 'リピートしてくれる人は\nいるけど、毎月バラバラ…',
+  },
+  {
+    id: 'priority',
+    text: '何から手をつければ\nいいのか、よくわからない…',
+  },
+]
 
+const BENEFIT_ITEMS = [
+  {
+    id: 'status',
+    icon: '○',
+    text: 'あなたの集客の\n今の状態',
+  },
+  {
+    id: 'type',
+    icon: '♡',
+    text: 'あなたのサロンに\n合った集客タイプ',
+  },
+  {
+    id: 'priority',
+    icon: '!',
+    text: '優先して取り組むべき\nポイント',
+  },
+]
+
+const VOICE_ITEMS = [
+  {
+    id: 'voice-1',
+    text: '自分のタイプがわかって\nやることが明確になりました！',
+  },
+  {
+    id: 'voice-2',
+    text: 'モヤモヤしていた理由が\n腑に落ちて、行動できるように！',
+  },
+]
+
+function MultilineText({ text }) {
+  const lines = text.split('\n')
+
+  return lines.map((line, index) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 && <br />}
+    </span>
+  ))
+}
+
+export default function TopPageB({ onStart }) {
   useEffect(() => {
     sendTrackingEvent({
       event_type: 'page_view',
@@ -20,19 +93,13 @@ export default function TopPageB({ onStart }) {
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
-
-    const timer = setInterval(() => {
-      setStep((prev) => (prev < TELOPS.length - 1 ? prev + 1 : prev))
-    }, 700)
-
-    return () => clearInterval(timer)
   }, [])
 
   const handleStart = () => {
     sendTrackingEvent({
       event_type: 'start_click',
       session_id: getSessionId(),
-      page: 'top_b_first_view',
+      page: 'top_b',
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
@@ -40,76 +107,232 @@ export default function TopPageB({ onStart }) {
     onStart()
   }
 
+  const handleScroll = () => {
+    document
+      .getElementById('top-b-empathy')
+      ?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <div className="top-b-page">
-      <section className="top-b-firstview">
-        <div className="top-b-status">9:41</div>
+    <main className="top-b-page">
+      <div className="top-b-phone">
+        {/* =========================
+            First View
+        ========================= */}
 
-        <div className="top-b-hero-image" />
+        <section className="top-b-firstview">
+          <div
+            className="top-b-hero-image top-b-image-slot"
+            aria-label="サロンオーナー写真の予定位置"
+          >
+            <span>KEY VISUAL</span>
+          </div>
 
-        <div className="top-b-telop">
-          {step >= 0 && <p>{TELOPS[0]}</p>}
-          {step >= 1 && <p>{TELOPS[1]}</p>}
-          {step >= 2 && <p className="is-pink">{TELOPS[2]}</p>}
-          {step >= 3 && <p>{TELOPS[3]}</p>}
-        </div>
+          <div className="top-b-hero-overlay" />
 
-        {step >= 3 && (
-          <>
-            <p className="top-b-dark-copy">
+          <div
+            className="top-b-telop-stage"
+            aria-label="集客の悩みを表すテロップ"
+          >
+            {TELOPS.map((telop) => (
+              <p
+                key={telop.id}
+                className={`top-b-telop-item ${telop.className}`}
+              >
+                {telop.text}
+              </p>
+            ))}
+          </div>
+
+          <div className="top-b-firstview-bottom">
+            <p className="top-b-empathy-copy">
               それ、あなただけじゃないかも。
             </p>
 
-            <p className="top-b-scroll">
-              スクロールして一緒に整理してみませんか？
+            <button
+              type="button"
+              className="top-b-scroll-button"
+              onClick={handleScroll}
+            >
+              <span>
+                スクロールして
+                <br />
+                一緒に整理してみませんか？
+              </span>
+
+              <span className="top-b-scroll-arrow" aria-hidden="true">
+                ﹀
+              </span>
+            </button>
+          </div>
+        </section>
+
+        {/* =========================
+            Empathy
+        ========================= */}
+
+        <section
+          id="top-b-empathy"
+          className="top-b-section top-b-empathy-section"
+        >
+          <header className="top-b-section-heading">
+            <p>こんなことで</p>
+            <h2>悩んでいませんか？</h2>
+          </header>
+
+          <div className="top-b-empathy-list">
+            {EMPATHY_ITEMS.map((item, index) => (
+              <article
+                key={item.id}
+                className={`top-b-empathy-item ${
+                  index % 2 === 1 ? 'is-reverse' : ''
+                }`}
+              >
+                <div
+                  className="top-b-person-slot"
+                  aria-label="女性イラストの予定位置"
+                >
+                  ILLUST
+                </div>
+
+                <p>
+                  <MultilineText text={item.text} />
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <p className="top-b-reaction-copy">
+            うんうん、わかります…
+          </p>
+
+          <div className="top-b-section-closing">
+            <p>
+              原因がわかれば、
+              <br />
+              やるべきことが見えてきます。
             </p>
 
-            <div className="top-b-arrow">∨</div>
-          </>
-        )}
-      </section>
+            <span aria-hidden="true">﹀</span>
+          </div>
+        </section>
 
-      <section className="top-b-section">
-        <h2>
-          <span>こんなお悩み、</span>
-          <br />
-          ありませんか？
-        </h2>
+        {/* =========================
+            Diagnosis Benefits
+        ========================= */}
 
-        <div className="top-b-chat-list">
-          <div className="top-b-chat">
-            <span>毎日SNSを更新している…</span>
+        <section className="top-b-section top-b-benefit-section">
+          <header className="top-b-section-heading">
+            <p>この診断で</p>
+            <h2>わかること</h2>
+          </header>
+
+          <div className="top-b-benefit-list">
+            {BENEFIT_ITEMS.map((item) => (
+              <article
+                key={item.id}
+                className="top-b-benefit-card"
+              >
+                <span
+                  className="top-b-benefit-icon"
+                  aria-hidden="true"
+                >
+                  {item.icon}
+                </span>
+
+                <p>
+                  <MultilineText text={item.text} />
+                </p>
+              </article>
+            ))}
           </div>
 
-          <div className="top-b-chat">
-            <span>ホットペッパーも続けている…</span>
+          <div
+            className="top-b-support-image top-b-image-slot"
+            aria-label="ノートや花の写真の予定位置"
+          >
+            <span>SUPPORT VISUAL</span>
           </div>
 
-          <div className="top-b-chat">
-            <span>それでも予約が安定しない…</span>
+          <p className="top-b-benefit-copy">
+            モヤモヤが
+            <br />
+            スッと整理されます。
+          </p>
+
+          <span className="top-b-section-arrow" aria-hidden="true">
+            ﹀
+          </span>
+        </section>
+
+        {/* =========================
+            Voices and CTA
+        ========================= */}
+
+        <section className="top-b-section top-b-cta-section">
+          <div className="top-b-time-copy">
+            <p>診断はたったの10問</p>
+            <h2>3分で終わります</h2>
           </div>
-        </div>
-      </section>
 
-      <section className="top-b-section">
-        <h2>
-          頑張る量ではなく
-          <br />
-          <span>順番</span>
-          があるかもしれません。
-        </h2>
+          <div className="top-b-stopwatch" aria-hidden="true">
+            ◷
+          </div>
 
-        <button
-          className="top-b-cta"
-          onClick={handleStart}
-        >
-          60秒でチェックする
-        </button>
+          <p className="top-b-voice-heading">
+            受けた方の声
+          </p>
 
-        <p className="top-b-note">
-          登録不要・完全無料
-        </p>
-      </section>
-    </div>
+          <div className="top-b-voice-list">
+            {VOICE_ITEMS.map((voice, index) => (
+              <article
+                key={voice.id}
+                className={`top-b-voice-item ${
+                  index % 2 === 1 ? 'is-reverse' : ''
+                }`}
+              >
+                <div className="top-b-voice-card">
+                  <p>
+                    <MultilineText text={voice.text} />
+                  </p>
+                </div>
+
+                <div
+                  className="top-b-voice-person"
+                  aria-label="利用者イラストの予定位置"
+                >
+                  ILLUST
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="top-b-disclaimer">
+            ※個人の感想です
+          </p>
+
+          <div className="top-b-cta-box">
+            <p>
+              まずは今の状態を
+              <br />
+              整理してみませんか？
+            </p>
+
+            <button
+              type="button"
+              className="top-b-cta"
+              onClick={handleStart}
+            >
+              <span>診断をはじめる</span>
+              <span aria-hidden="true">›</span>
+            </button>
+
+            <p className="top-b-note">
+              無料・登録不要・3分で完了
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
   )
 }

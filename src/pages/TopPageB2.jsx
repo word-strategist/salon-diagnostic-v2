@@ -1,10 +1,69 @@
-// src/pages/TopPageB2.jsx
-
 import { useEffect } from 'react'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB2.css'
 
-function TopPageB2({ onStart }) {
+const EMPATHY_ITEMS = [
+  {
+    id: 'sns',
+    title: 'SNS',
+    text: '頑張って発信しているのに、新規が増えない…',
+  },
+  {
+    id: 'hpb',
+    title: 'HPB',
+    text: '掲載や更新を続けても、反応が少ない…',
+  },
+  {
+    id: 'line',
+    title: 'LINE',
+    text: '配信しても、閲覧や反応につながらない…',
+  },
+  {
+    id: 'referral',
+    title: '紹介',
+    text: '紹介に頼りたいけれど、なかなか増えない…',
+  },
+]
+
+const DIAGNOSIS_ITEMS = [
+  {
+    id: 'status',
+    icon: '⌕',
+    text: 'あなたの集客の\n今の状態',
+  },
+  {
+    id: 'type',
+    icon: '♡',
+    text: 'あなたのサロンに\n合った集客タイプ',
+  },
+  {
+    id: 'priority',
+    icon: '!',
+    text: '優先して取り組むべき\nポイント',
+  },
+]
+
+const VOICES = [
+  {
+    id: 'voice-1',
+    text: '自分のタイプがわかって、やることが明確になりました！',
+  },
+  {
+    id: 'voice-2',
+    text: 'モヤモヤしていた理由が腑に落ちて、行動できるようになりました！',
+  },
+]
+
+function MultilineText({ text }) {
+  return text.split('\n').map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 && <br />}
+    </span>
+  ))
+}
+
+export default function TopPageB2({ onStart }) {
   useEffect(() => {
     sendTrackingEvent({
       event_type: 'page_view',
@@ -19,7 +78,7 @@ function TopPageB2({ onStart }) {
     sendTrackingEvent({
       event_type: 'start_click',
       session_id: getSessionId(),
-      page: 'top_b2_first_view',
+      page: 'top_b2',
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
@@ -27,126 +86,274 @@ function TopPageB2({ onStart }) {
     onStart()
   }
 
-  return (
-    <div className="top-b2-page">
-      <main className="top-b2-phone">
-        <section className="top-b2-hero">
-          <div className="top-b2-status">9:41</div>
+  const handleScroll = () => {
+    document
+      .getElementById('top-b2-empathy')
+      ?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-          <div className="top-b2-hero-inner">
-            <div className="top-b2-copy">
+  return (
+    <main className="top-b2-page">
+      <div className="top-b2-phone">
+        {/* =========================
+            First View
+        ========================= */}
+
+        <section className="top-b2-hero">
+          <div className="top-b2-hero-content">
+            <div className="top-b2-hero-copy">
               <p>サロン集客、</p>
               <p>頑張っているのに</p>
               <p>うまくつながらない…</p>
             </div>
 
-            <p className="top-b2-subcopy">
+            <p className="top-b2-hero-subcopy">
               一人で抱え込んでいませんか？
             </p>
 
-            <button type="button" className="top-b2-cta" onClick={handleStart}>
-              診断をはじめる
-              <span>›</span>
+            <button
+              type="button"
+              className="top-b2-main-cta"
+              onClick={handleStart}
+            >
+              <span>診断をはじめる</span>
+              <span aria-hidden="true">›</span>
             </button>
 
-            <p className="top-b2-note">無料・登録不要・3分で完了</p>
+            <p className="top-b2-note">
+              無料・登録不要・3分で完了
+            </p>
           </div>
 
-            <div className="top-b2-next-preview">
-            <p>こんなお悩み、ありませんか？</p>
-            <span>↓</span>
-            </div>
+          <div
+            className="top-b2-hero-visual"
+            aria-label="サロンオーナー写真の予定位置"
+          >
+            <span>KEY VISUAL</span>
+          </div>
 
+          <button
+            type="button"
+            className="top-b2-next-preview"
+            onClick={handleScroll}
+          >
+            <span>こんなお悩み、ありませんか？</span>
+            <span aria-hidden="true">﹀</span>
+          </button>
         </section>
 
-        <section className="top-b2-block">
-          <h2>こんなお悩み、ありませんか？</h2>
+        {/* =========================
+            Empathy
+        ========================= */}
 
-          <div className="top-b2-channel-grid">
-            <div className="top-b2-channel-card">
-              <div className="top-b2-icon">◎</div>
-              <p>SNS</p>
-              <span>発信が続かない</span>
-            </div>
+        <section
+          id="top-b2-empathy"
+          className="top-b2-section top-b2-empathy"
+        >
+          <header className="top-b2-section-heading">
+            <h2>こんなお悩み、ありませんか？</h2>
+          </header>
 
-            <div className="top-b2-channel-card">
-              <div className="top-b2-icon">□</div>
-              <p>HPB</p>
-              <span>反応が少ない</span>
-            </div>
+          <div className="top-b2-empathy-grid">
+            {EMPATHY_ITEMS.map((item) => (
+              <article
+                key={item.id}
+                className="top-b2-empathy-card"
+              >
+                <div
+                  className="top-b2-empathy-icon"
+                  aria-hidden="true"
+                >
+                  ○
+                </div>
 
-            <div className="top-b2-channel-card">
-              <div className="top-b2-icon">◇</div>
-              <p>LINE</p>
-              <span>閲覧・反応が薄い</span>
-            </div>
-
-            <div className="top-b2-channel-card">
-              <div className="top-b2-icon">♧</div>
-              <p>紹介</p>
-              <span>増えない</span>
-            </div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
           </div>
 
-          <p className="top-b2-message">
+          <p className="top-b2-empathy-message">
             いろいろ試しているからこそ、
             <br />
             何から整えるべきか分かりにくくなります。
           </p>
-        </section>
 
-        <section className="top-b2-block top-b2-diagnosis">
-          <h2>この診断で分かること</h2>
+          <div className="top-b2-scroll-hook">
+            <p>
+              だからこそ、
+              <br />
+              まずは今の状態を整理してみませんか？
+            </p>
 
-          <div className="top-b2-diagnosis-box">
-            <div className="top-b2-list-icon">✓</div>
-
-            <ul>
-              <li>あなたの集客タイプ</li>
-              <li>今の強み・弱み</li>
-              <li>優先すべき集客ポイント</li>
-            </ul>
+            <span aria-hidden="true">﹀</span>
           </div>
         </section>
 
-        <section className="top-b2-block top-b2-merit">
-          <h2>診断後は、次の一歩が明確になります</h2>
+        {/* =========================
+            Diagnosis
+        ========================= */}
 
-          <div className="top-b2-merit-grid">
-            <div className="top-b2-merit-card">
-              <span>○</span>
-              <p>やるべきことが<br />スッキリ整理</p>
+        <section className="top-b2-section top-b2-diagnosis">
+          <header className="top-b2-section-heading">
+            <p>この診断で</p>
+            <h2>分かること</h2>
+          </header>
+
+          <div className="top-b2-diagnosis-visual">
+            <div className="top-b2-diagnosis-board">
+              {DIAGNOSIS_ITEMS.map((item) => (
+                <article
+                  key={item.id}
+                  className="top-b2-diagnosis-card"
+                >
+                  <span
+                    className="top-b2-diagnosis-icon"
+                    aria-hidden="true"
+                  >
+                    {item.icon}
+                  </span>
+
+                  <p>
+                    <MultilineText text={item.text} />
+                  </p>
+                </article>
+              ))}
             </div>
 
-            <div className="top-b2-merit-card">
-              <span>◇</span>
-              <p>自分に合う方法が<br />見つかる</p>
-            </div>
-
-            <div className="top-b2-merit-card">
-              <span>✓</span>
-              <p>ムリなく成果に<br />つながる行動がわかる</p>
+            <div
+              className="top-b2-diagnosis-illustration"
+              aria-label="診断イラストの予定位置"
+            >
+              ILLUST
             </div>
           </div>
+
+          <p className="top-b2-diagnosis-message">
+            診断後は、
+            <br />
+            次の一歩が明確になります。
+          </p>
+
+          <span className="top-b2-section-arrow" aria-hidden="true">
+            ﹀
+          </span>
         </section>
 
-        <section className="top-b2-bottom-cta">
+        {/* =========================
+            Benefits
+        ========================= */}
+
+        <section className="top-b2-section top-b2-benefits">
+          <header className="top-b2-section-heading">
+            <p>診断を受けると</p>
+            <h2>こんな変化があります</h2>
+          </header>
+
+          <div className="top-b2-benefit-grid">
+            <article className="top-b2-benefit-card">
+              <span aria-hidden="true">○</span>
+              <p>
+                やるべきことが
+                <br />
+                スッキリ整理
+              </p>
+            </article>
+
+            <article className="top-b2-benefit-card">
+              <span aria-hidden="true">♡</span>
+              <p>
+                自分に合う方法が
+                <br />
+                見つかる
+              </p>
+            </article>
+
+            <article className="top-b2-benefit-card">
+              <span aria-hidden="true">✓</span>
+              <p>
+                ムリなく成果につながる
+                <br />
+                行動が分かる
+              </p>
+            </article>
+          </div>
+
+          <p className="top-b2-benefit-message">
+            今の状態が見えると、
+            <br />
+            次に進みやすくなります。
+          </p>
+
+          <span className="top-b2-section-arrow" aria-hidden="true">
+            ﹀
+          </span>
+        </section>
+
+        {/* =========================
+            Voices
+        ========================= */}
+
+        <section className="top-b2-section top-b2-voices">
+          <header className="top-b2-section-heading">
+            <p>受けた方の声</p>
+            <h2>一人で悩まなくて大丈夫です</h2>
+          </header>
+
+          <div className="top-b2-voice-list">
+            {VOICES.map((voice, index) => (
+              <article
+                key={voice.id}
+                className={`top-b2-voice-item ${
+                  index % 2 === 1 ? 'is-reverse' : ''
+                }`}
+              >
+                <div
+                  className="top-b2-voice-person"
+                  aria-label="利用者イラストの予定位置"
+                >
+                  ILLUST
+                </div>
+
+                <p>{voice.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <p className="top-b2-disclaimer">
+            ※個人の感想です
+          </p>
+
+          <span className="top-b2-section-arrow" aria-hidden="true">
+            ﹀
+          </span>
+        </section>
+
+        {/* =========================
+            CTA
+        ========================= */}
+
+        <section className="top-b2-final-cta">
           <p>
-            まずは、今の状態を
+            まずは今の状態を
             <br />
             一緒に見てみましょう。
           </p>
 
-          <button type="button" className="top-b2-cta" onClick={handleStart}>
-            診断をはじめる
-            <span>›</span>
+          <button
+            type="button"
+            className="top-b2-main-cta"
+            onClick={handleStart}
+          >
+            <span>診断をはじめる</span>
+            <span aria-hidden="true">›</span>
           </button>
 
-          <p className="top-b2-note">無料・登録不要・3分で完了</p>
+          <p className="top-b2-note">
+            無料・登録不要・3分で完了
+          </p>
         </section>
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }
-
-export default TopPageB2

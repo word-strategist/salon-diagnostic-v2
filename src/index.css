@@ -1526,3 +1526,112 @@ body {
   border-radius: 999px;
   margin: 28px auto 30px;
 }
+
+/* =========================
+   QuestionPage B Design Override
+   Bデザイン用：質問ページの見せ方調整
+========================= */
+
+.question-card {
+  background: #fffaf7 !important;
+  border: 1px solid #ead6cf !important;
+  border-radius: 24px !important;
+  box-shadow: 0 14px 36px rgba(90, 65, 55, 0.08) !important;
+}
+
+.step-progress-wrap {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.step-progress-label {
+  justify-content: center !important;
+  gap: 12px !important;
+  color: #6f5c56 !important;
+  font-size: 13px !important;
+}
+
+.step-progress-label span:first-child {
+  display: none !important;
+}
+
+.step-progress {
+  justify-content: center !important;
+  gap: 9px !important;
+}
+
+.step-dot {
+  width: 8px !important;
+  height: 8px !important;
+  font-size: 0 !important;
+  background: #eadbd5 !important;
+}
+
+.step-dot.is-done,
+.step-dot.is-current {
+  width: 11px !important;
+  height: 11px !important;
+  background: #8a5c5c !important;
+}
+
+.question-card .banner.question-banner-fade {
+  margin: 22px -24px 24px !important;
+  width: calc(100% + 48px) !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+.question-card .banner.question-banner-fade img {
+  width: 100% !important;
+  height: 168px !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border-radius: 0 !important;
+}
+
+.question-title {
+  margin: 0 0 22px !important;
+  color: #3e2f2a !important;
+  font-size: 20px !important;
+  line-height: 1.8 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+}
+
+.choice-list {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+.choice-item {
+  min-height: 64px !important;
+  padding: 15px 16px !important;
+  border: 1px solid #ead6cf !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  color: #4f403b !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  box-shadow: 0 8px 22px rgba(90, 65, 55, 0.05) !important;
+}
+
+.choice-item:hover {
+  transform: none !important;
+}
+
+.next-button {
+  margin-top: 26px !important;
+  width: 100% !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 16px 18px !important;
+  background: #bf7a87 !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  box-shadow: 0 14px 28px rgba(191, 122, 135, 0.22) !important;
+}
