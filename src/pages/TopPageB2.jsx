@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Footer from '../components/Footer'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB2.css'
 
@@ -353,6 +354,12 @@ export default function TopPageB2({ onStart }) {
             無料・登録不要・3分で完了
           </p>
         </section>
+
+        {/* =========================
+            Footer
+        ========================= */}
+
+        <Footer />
       </div>
     </main>
   )

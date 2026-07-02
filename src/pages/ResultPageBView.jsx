@@ -1,3 +1,6 @@
+import { useEffect, useMemo, useState } from 'react'
+import Footer from '../components/Footer'
+import { getResultRemainingMs } from '../utils/campaign'
 import './ResultPageBView.css'
 
 const RESULT_LABELS = {
@@ -13,6 +16,51 @@ const LEVEL_LABELS = {
   3: '次のステージ段階',
 }
 
+/* =========================
+   残り時間表示
+========================= */
+
+function formatRemainingTime(remainingMs) {
+  const totalMinutes = Math.max(
+    0,
+    Math.ceil(remainingMs / (60 * 1000))
+  )
+
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+
+  return {
+    hours,
+    minutes,
+  }
+}
+
+/* =========================
+   プレビューモード判定
+========================= */
+
+function isPreviewEnabled() {
+  if (!import.meta.env.DEV) {
+    return false
+  }
+
+  const searchParams = new URLSearchParams(
+    window.location.search
+  )
+
+  const hash = window.location.hash || ''
+  const hashQuery = hash.includes('?')
+    ? hash.split('?')[1]
+    : ''
+
+  const hashParams = new URLSearchParams(hashQuery)
+
+  return (
+    searchParams.get('preview') === '1' ||
+    hashParams.get('preview') === '1'
+  )
+}
+
 export default function ResultPageBView({
   resultKey,
   copy,
@@ -23,10 +71,43 @@ export default function ResultPageBView({
   handleCtaClick,
   handleResetDiagnosis,
   COMMON_COPY,
+  resultExpiresAt,
 }) {
+  const [now, setNow] = useState(Date.now())
+
   const [level, type] = resultKey.split('-')
-  const typeLabel = RESULT_LABELS[type] || '整理タイプ'
-  const levelLabel = LEVEL_LABELS[level] || '現在地確認'
+
+  const typeLabel =
+    RESULT_LABELS[type] || '整理タイプ'
+
+  const levelLabel =
+    LEVEL_LABELS[level] || '現在地確認'
+
+  const previewEnabled = isPreviewEnabled()
+
+  /* =========================
+     Result期限タイマー
+  ========================= */
+
+  useEffect(() => {
+    const timerId = window.setInterval(() => {
+      setNow(Date.now())
+    }, 1000)
+
+    return () => {
+      window.clearInterval(timerId)
+    }
+  }, [])
+
+  const remainingMs = useMemo(
+    () => getResultRemainingMs(resultExpiresAt, now),
+    [resultExpiresAt, now]
+  )
+
+  const remainingTime = useMemo(
+    () => formatRemainingTime(remainingMs),
+    [remainingMs]
+  )
 
   return (
     <div className="result-b-page">
@@ -46,6 +127,32 @@ export default function ResultPageBView({
               <span />
             </div>
           </div>
+
+          {/* =========================
+              Result Deadline
+          ========================= */}
+
+          <section className="result-b-deadline">
+            <p className="result-b-deadline-label">
+              この診断結果を見られるのは
+            </p>
+
+            <p className="result-b-deadline-time">
+              あと
+              <strong>
+                {remainingTime.hours}
+              </strong>
+              時間
+              <strong>
+                {remainingTime.minutes}
+              </strong>
+              分
+            </p>
+
+            <p className="result-b-deadline-note">
+              ※診断完了から24時間限定
+            </p>
+          </section>
 
           {/* =========================
               Result Hero
@@ -80,10 +187,15 @@ export default function ResultPageBView({
           ========================= */}
 
           <section className="result-b-info-card">
-            <div className="result-b-icon">○</div>
+            <div className="result-b-icon">
+              ○
+            </div>
 
             <div>
-              <h2>今のあなたに起きていること</h2>
+              <h2>
+                今のあなたに起きていること
+              </h2>
+
               <p>{copy.CAUSE}</p>
             </div>
           </section>
@@ -93,10 +205,15 @@ export default function ResultPageBView({
           ========================= */}
 
           <section className="result-b-info-card">
-            <div className="result-b-icon">♡</div>
+            <div className="result-b-icon">
+              ♡
+            </div>
 
             <div>
-              <h2>ここから整えていくこと</h2>
+              <h2>
+                ここから整えていくこと
+              </h2>
+
               <p>{copy.SOLUTION}</p>
             </div>
           </section>
@@ -106,10 +223,15 @@ export default function ResultPageBView({
           ========================= */}
 
           <section className="result-b-info-card">
-            <div className="result-b-icon">!</div>
+            <div className="result-b-icon">
+              !
+            </div>
 
             <div>
-              <h2>今、取り組んでおきたい理由</h2>
+              <h2>
+                今、取り組んでおきたい理由
+              </h2>
+
               <p>{copy.URGENCY}</p>
             </div>
           </section>
@@ -120,9 +242,17 @@ export default function ResultPageBView({
 
           {expiredOrEnded && (
             <section className="result-b-expired">
-              <p>{COMMON_COPY.EXPIRED_LABEL}</p>
-              <h2>{COMMON_COPY.EXPIRED_TITLE}</h2>
-              <p>{COMMON_COPY.EXPIRED_TEXT}</p>
+              <p>
+                {COMMON_COPY.EXPIRED_LABEL}
+              </p>
+
+              <h2>
+                {COMMON_COPY.EXPIRED_TITLE}
+              </h2>
+
+              <p>
+                {COMMON_COPY.EXPIRED_TEXT}
+              </p>
             </section>
           )}
 
@@ -136,7 +266,9 @@ export default function ResultPageBView({
               ref={ctaAreaRef}
             >
               <div className="result-b-card-heading">
-                <div className="result-b-icon">◇</div>
+                <div className="result-b-icon">
+                  ◇
+                </div>
 
                 <h2>
                   診断者限定のご案内があります
@@ -177,16 +309,24 @@ export default function ResultPageBView({
           )}
 
           {/* =========================
-              Reset
+              Preview Reset
           ========================= */}
 
-          <button
-            type="button"
-            className="result-b-reset"
-            onClick={handleResetDiagnosis}
-          >
-            もう一度診断する（確認用）
-          </button>
+          {previewEnabled && (
+            <button
+              type="button"
+              className="result-b-reset"
+              onClick={handleResetDiagnosis}
+            >
+              もう一度診断する（確認用）
+            </button>
+          )}
+
+          {/* =========================
+              Footer
+          ========================= */}
+
+          <Footer />
         </section>
       </main>
     </div>

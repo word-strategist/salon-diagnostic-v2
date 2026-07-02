@@ -304,7 +304,9 @@ export default function ResultPage({
       level: result.level,
       type: result.type,
       product_key: productKeys.join(','),
-      answers: JSON.parse(localStorage.getItem('diagnosis_answers') || '[]'),
+      answers: JSON.parse(
+        sessionStorage.getItem('salon_diagnosis_answers') || '[]'
+      ),
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
@@ -367,17 +369,50 @@ export default function ResultPage({
     }
   }
 
-  const handleResetDiagnosis = () => {
-    localStorage.removeItem('diagnosis_answers')
-    localStorage.removeItem('diagnosis_result')
-    localStorage.removeItem('diagnosis_date')
-    localStorage.removeItem('diagnosis_page')
-    localStorage.removeItem('diagnosis_offer_visited')
-    localStorage.removeItem('product_offer_deadline')
-    localStorage.removeItem('consultation_offer_deadline')
+const handleResetDiagnosis = () => {
+  /* =========================
+     現在の入口情報を先に保持
+  ========================= */
 
-    window.location.href = '/'
-  }
+  const savedVariant =
+    sessionStorage.getItem('salon_entry_variant')
+
+  const variant =
+    savedVariant === 'b2' ? 'b2' : 'b'
+
+  /* =========================
+     診断データを削除
+  ========================= */
+
+  sessionStorage.removeItem('salon_diagnosis_answers')
+
+  localStorage.removeItem('salon_diagnosis_result')
+  localStorage.removeItem('salon_diagnosis_completed_at')
+  localStorage.removeItem('salon_result_expires_at')
+  localStorage.removeItem('salon_result_expired')
+  localStorage.removeItem('salon_result_entry_variant')
+  localStorage.removeItem('salon_result_entry_channel')
+
+  /* =========================
+     旧仕様の保存データも削除
+  ========================= */
+
+  localStorage.removeItem('diagnosis_answers')
+  localStorage.removeItem('diagnosis_result')
+  localStorage.removeItem('diagnosis_date')
+  localStorage.removeItem('diagnosis_page')
+  localStorage.removeItem('diagnosis_offer_visited')
+  localStorage.removeItem('product_offer_deadline')
+  localStorage.removeItem('consultation_offer_deadline')
+
+  /* =========================
+     確認用TOPへ戻る
+  ========================= */
+
+  window.location.assign(
+    `${window.location.origin}/#/?variant=${variant}&preview=1`
+  )
+}
 
   if (!data) return null
 

@@ -334,3 +334,46 @@
     font-size: 36px;
   }
 }
+
+/* =========================
+   Result Deadline
+========================= */
+
+.result-b-deadline {
+  margin: 20px 0 28px;
+  padding: 18px 16px;
+  border: 1px solid #ead6d9;
+  border-radius: 16px;
+  background: #fff8f8;
+  text-align: center;
+}
+
+.result-b-deadline-label {
+  margin: 0 0 6px;
+  color: #775f5b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.result-b-deadline-time {
+  margin: 0;
+  color: #4a3531;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.result-b-deadline-time strong {
+  display: inline-block;
+  margin: 0 3px 0 6px;
+  color: #c56f84;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.result-b-deadline-note {
+  margin: 8px 0 0;
+  color: #a58f89;
+  font-size: 11px;
+  line-height: 1.6;
+}
