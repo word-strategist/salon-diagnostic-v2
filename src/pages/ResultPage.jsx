@@ -4,7 +4,6 @@ import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import { CAMPAIGN_END_AT } from '../utils/campaign'
-import ResultPageAView from './ResultPageAView'
 import ResultPageBView from './ResultPageBView'
 
 const RESULT_COPY = {
@@ -268,27 +267,10 @@ function normalizeProductKeys(value) {
   return []
 }
 
-function getResultVariant() {
-  const params = new URLSearchParams(window.location.search)
-  const queryVariant = params.get('variant')?.toUpperCase()
-
-  if (queryVariant === 'B' || queryVariant === 'B2') {
-    localStorage.setItem('result_variant', 'B')
-    return 'B'
-  }
-
-  if (queryVariant === 'A') {
-    localStorage.setItem('result_variant', 'A')
-    return 'A'
-  }
-
-  const savedVariant = localStorage.getItem('result_variant')
-  if (savedVariant === 'A' || savedVariant === 'B') return savedVariant
-
-  return 'A'
-}
-
-export default function ResultPage({ result }) {
+export default function ResultPage({
+  result,
+  resultExpiresAt,
+}) {
   const key = `${result.level}-${result.type}`
   const data = RESULTS[key] ?? RESULTS['1-A']
   const copy = RESULT_COPY[key] || RESULT_COPY['1-A']
@@ -313,7 +295,6 @@ export default function ResultPage({ result }) {
 
   const ctaAreaRef = useRef(null)
   const hasLoggedCtaView = useRef(false)
-  const variant = getResultVariant()
 
   useEffect(() => {
     sendTrackingEvent({
@@ -413,12 +394,9 @@ export default function ResultPage({ result }) {
     handleResetDiagnosis,
     COMMON_COPY,
     CAMPAIGN_END_AT,
+    resultExpiresAt,
     setIsExpired,
   }
 
-  if (variant === 'B') {
-    return <ResultPageBView {...viewProps} />
-  }
-
-  return <ResultPageAView {...viewProps} />
+  return <ResultPageBView {...viewProps} />
 }

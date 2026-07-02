@@ -1,33 +1,113 @@
-// ===============================
-// 【MTGデモ用設定】
-// 本番テスト終了後のため、ローカル確認用に期間を一時延長
-// ※本番デプロイ前に必ず TEST_MODE = false に戻すこと
-// ===============================
+// =========================
+// キャンペーン期間設定
+// =========================
 
-// campaign.js
-const TEST_MODE = true
+export const CAMPAIGN_START_AT =
+  '2026-07-07T08:00:00+09:00'
 
-const TEST_CAMPAIGN_START_AT = '2026-05-20T00:00:00+09:00'
-const TEST_CAMPAIGN_END_AT = '2026-06-03T23:59:59+09:00'
+export const CAMPAIGN_END_AT =
+  '2026-07-08T23:59:59+09:00'
 
-export const CAMPAIGN_START_AT = TEST_MODE
-  ? TEST_CAMPAIGN_START_AT
-  : '2026-04-07T20:00:00+09:00'
+// =========================
+// 結果閲覧期限
+// =========================
 
-export const CAMPAIGN_END_AT = TEST_MODE
-  ? TEST_CAMPAIGN_END_AT
-  : '2026-04-09T23:59:59+09:00'
+export const RESULT_VIEW_DURATION_MS =
+  24 * 60 * 60 * 1000
 
-export function isCampaignEnded() {
-  const now = Date.now()
-  const end = new Date(CAMPAIGN_END_AT).getTime()
-  return now > end
+// =========================
+// 日時変換
+// =========================
+
+function toTimestamp(value) {
+  const timestamp = new Date(value).getTime()
+
+  return Number.isNaN(timestamp) ? null : timestamp
 }
 
-export function shouldShowTopTimer() {
-  const now = Date.now()
-  const start = new Date(CAMPAIGN_START_AT).getTime()
-  const end = new Date(CAMPAIGN_END_AT).getTime()
+// =========================
+// キャンペーン状態
+// =========================
 
-  return now >= start && now <= end
+export function getCampaignStatus(now = Date.now()) {
+  const start = toTimestamp(CAMPAIGN_START_AT)
+  const end = toTimestamp(CAMPAIGN_END_AT)
+
+  if (start === null || end === null) {
+    return 'ended'
+  }
+
+  if (now < start) {
+    return 'before'
+  }
+
+  if (now > end) {
+    return 'ended'
+  }
+
+  return 'active'
+}
+
+export function isCampaignBefore(now = Date.now()) {
+  return getCampaignStatus(now) === 'before'
+}
+
+export function isCampaignActive(now = Date.now()) {
+  return getCampaignStatus(now) === 'active'
+}
+
+export function isCampaignEnded(now = Date.now()) {
+  return getCampaignStatus(now) === 'ended'
+}
+
+export function shouldShowTopTimer(now = Date.now()) {
+  return isCampaignActive(now)
+}
+
+// =========================
+// 結果閲覧期限生成
+// =========================
+
+export function createResultExpiry(
+  completedAt = new Date().toISOString()
+) {
+  const completedTimestamp = toTimestamp(completedAt)
+
+  if (completedTimestamp === null) {
+    return null
+  }
+
+  return new Date(
+    completedTimestamp + RESULT_VIEW_DURATION_MS
+  ).toISOString()
+}
+
+// =========================
+// 結果閲覧期限判定
+// =========================
+
+export function isResultExpired(
+  expiresAt,
+  now = Date.now()
+) {
+  const expiresTimestamp = toTimestamp(expiresAt)
+
+  if (expiresTimestamp === null) {
+    return true
+  }
+
+  return now >= expiresTimestamp
+}
+
+export function getResultRemainingMs(
+  expiresAt,
+  now = Date.now()
+) {
+  const expiresTimestamp = toTimestamp(expiresAt)
+
+  if (expiresTimestamp === null) {
+    return 0
+  }
+
+  return Math.max(0, expiresTimestamp - now)
 }
