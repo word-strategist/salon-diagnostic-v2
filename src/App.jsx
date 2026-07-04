@@ -385,35 +385,37 @@ function AppRoutes() {
      ルート表示
   ========================= */
 
+  const bypassCampaignStatus = previewEnabled
+
   return (
     <Routes>
       <Route
         path="/"
-        element={
-          campaignStatus === 'before' ? (
-            <StatusScreen
-              label="2日間限定"
-              title="この診断はまだ開始していません"
-              text={
-                '2026年7月7日（火）8:00より\n公開を開始します。'
-              }
-            />
-          ) : campaignStatus === 'ended' ? (
-            <StatusScreen
-              label="受付終了"
-              title="この診断は終了しました"
-              text="ご参加ありがとうございました。"
-            />
-          ) : !ActiveTopPage ? (
-            <StatusScreen
-              label="ご案内"
-              title="専用のご案内URLからアクセスしてください"
-              text="このページから診断を開始することはできません。"
-            />
-          ) : (
-            <ActiveTopPage onStart={handleStart} />
-          )
-        }
+element={
+  !bypassCampaignStatus && campaignStatus === 'before' ? (
+    <StatusScreen
+      label="2日間限定"
+      title="この診断はまだ開始していません"
+      text={
+        '2026年7月7日（火）8:00より\n公開を開始します。'
+      }
+    />
+  ) : !bypassCampaignStatus && campaignStatus === 'ended' ? (
+    <StatusScreen
+      label="受付終了"
+      title="この診断は終了しました"
+      text="ご参加ありがとうございました。"
+    />
+  ) : !ActiveTopPage ? (
+    <StatusScreen
+      label="ご案内"
+      title="専用のご案内URLからアクセスしてください"
+      text="このページから診断を開始することはできません。"
+    />
+  ) : (
+    <ActiveTopPage onStart={handleStart} />
+  )
+}
       />
 
       <Route
