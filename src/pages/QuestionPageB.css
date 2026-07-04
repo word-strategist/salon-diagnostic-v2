@@ -209,3 +209,21 @@
     height: 46px;
   }
 }
+
+/* =========================
+   Question Choice Icons
+========================= */
+
+.question-b-choice-image-slot {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.question-b-choice-image-slot img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  opacity: 0.82;
+}

@@ -71,6 +71,14 @@
   inset: 0;
 }
 
+.top-b-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
 .top-b-hero-overlay {
   position: absolute;
   inset: 0;
@@ -722,4 +730,103 @@
   .top-b-phone {
     border-radius: 28px;
   }
+}
+
+/* =========================
+   Question Header Visual
+========================= */
+
+.question-b-visual {
+  width: 100%;
+  margin: 18px 0 18px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f5ebe6;
+}
+
+.question-b-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   Top B Image Integration
+========================= */
+
+.top-b-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.top-b-person-slot {
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b-person-slot img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.top-b-benefit-icon img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.top-b-support-image {
+  margin: 20px -20px 0;
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b-support-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top-b-voice-person {
+  overflow: hidden;
+  background: transparent;
+}
+
+.top-b-voice-person img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   Top B Support Illustration Fix
+========================= */
+
+.top-b-support-image {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 205px;
+  margin: 18px -20px 0;
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b-support-image img {
+  display: block;
+  width: 74%;
+  max-width: 300px;
+  height: auto;
+  transform: translateY(38px);
+}
+
+.top-b-benefit-copy {
+  margin-top: 16px;
+  text-align: center;
+  line-height: 1.7;
 }

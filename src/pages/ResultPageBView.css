@@ -457,3 +457,30 @@
   font-size: 14px;
   line-height: 1.8;
 }
+
+/* =========================
+   Result B Narrative Text
+========================= */
+
+.result-b-text p,
+.result-b-offer-copy p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.95;
+  letter-spacing: 0.03em;
+}
+
+.result-b-text p:last-child,
+.result-b-offer-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.result-b-insight {
+  margin-top: 26px !important;
+  padding-top: 4px;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", serif;
+  font-size: 17px !important;
+  line-height: 2.05 !important;
+  letter-spacing: 0.06em;
+  color: #6f493c;
+}

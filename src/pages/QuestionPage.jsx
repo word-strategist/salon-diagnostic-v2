@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import { QUESTIONS } from '../data/questions'
+import { ICONS } from '../data/icons'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './QuestionPageB.css'
 
+const QUESTION_HEADER_IMAGE =
+  '/images/question/QuestionHeader_v1_2026-07-04.png'
+
 const choiceMarks = ['A', 'B', 'C', 'D', 'E']
+
+const QUESTION_ICONS = [
+  ICONS.person,
+  ICONS.current,
+  ICONS.priority,
+  ICONS.sns,
+  ICONS.person,
+  ICONS.hpb,
+  ICONS.line,
+  ICONS.heart,
+  ICONS.type,
+  ICONS.priority,
+]
 
 const QUESTION_MESSAGES = [
   'まずは、今のお店の状態を見ていきましょう。',
@@ -19,21 +36,15 @@ const QUESTION_MESSAGES = [
   '最後に、今のあなたに必要だと感じるものを選んでください。',
 ]
 
-export default function QuestionPage({
-  questionIndex,
-  onAnswer,
-}) {
+export default function QuestionPage({ questionIndex, onAnswer }) {
   const [selected, setSelected] = useState(null)
 
   const q = QUESTIONS[questionIndex]
+  const questionIcon = QUESTION_ICONS[questionIndex] || ICONS.current
 
   const message =
     QUESTION_MESSAGES[questionIndex] ||
     'いまの気持ちに近いものを選んでください'
-
-  /* =========================
-     質問表示ログ
-  ========================= */
 
   useEffect(() => {
     sendTrackingEvent({
@@ -44,10 +55,6 @@ export default function QuestionPage({
       user_agent: navigator.userAgent,
     })
   }, [questionIndex])
-
-  /* =========================
-     質問離脱ログ
-  ========================= */
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -60,22 +67,12 @@ export default function QuestionPage({
       })
     }
 
-    window.addEventListener(
-      'beforeunload',
-      handleBeforeUnload
-    )
+    window.addEventListener('beforeunload', handleBeforeUnload)
 
     return () => {
-      window.removeEventListener(
-        'beforeunload',
-        handleBeforeUnload
-      )
+      window.removeEventListener('beforeunload', handleBeforeUnload)
     }
   }, [questionIndex])
-
-  /* =========================
-     次の質問へ
-  ========================= */
 
   const handleNext = () => {
     if (selected === null) return
@@ -84,63 +81,34 @@ export default function QuestionPage({
     setSelected(null)
   }
 
-  if (!q) {
-    return null
-  }
+  if (!q) return null
 
   return (
     <div className="question-b-page">
       <main className="question-b-phone">
         <section className="question-b-card">
-          {/* =========================
-              Progress
-          ========================= */}
-
           <div className="question-b-progress">
             <div className="question-b-progress-label">
               <span>Salon Check</span>
-
-              <strong>
-                {questionIndex + 1} / {QUESTIONS.length}
-              </strong>
+              <strong>{questionIndex + 1} / {QUESTIONS.length}</strong>
             </div>
 
             <div className="question-b-progress-bar">
               <span
                 style={{
-                  width: `${
-                    ((questionIndex + 1) /
-                      QUESTIONS.length) *
-                    100
-                  }%`,
+                  width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
                 }}
               />
             </div>
           </div>
 
-          {/* =========================
-              Question Visual
-          ========================= */}
-
-          <div
-            className="question-b-visual-slot"
-            aria-hidden="true"
-          >
-            <span>IMAGE SLOT</span>
-            <p>画像は後でまとめて差し替え</p>
+          <div className="question-b-visual" aria-hidden="true">
+            <img src={QUESTION_HEADER_IMAGE} alt="" loading="eager" />
           </div>
 
-          {/* =========================
-              Question
-          ========================= */}
+          <p className="question-b-guide">{message}</p>
 
-          <p className="question-b-guide">
-            {message}
-          </p>
-
-          <h2 className="question-b-title">
-            {q.text}
-          </h2>
+          <h2 className="question-b-title">{q.text}</h2>
 
           <div className="question-b-choice-list">
             {q.options.map((option, i) => (
@@ -164,15 +132,11 @@ export default function QuestionPage({
                   className="question-b-choice-image-slot"
                   aria-hidden="true"
                 >
-                  img
+                  <img src={questionIcon} alt="" loading="lazy" />
                 </span>
               </button>
             ))}
           </div>
-
-          {/* =========================
-              Next Button
-          ========================= */}
 
           <button
             type="button"
@@ -183,13 +147,8 @@ export default function QuestionPage({
             {questionIndex === QUESTIONS.length - 1
               ? '診断結果を見る'
               : '次へ進む'}
-
             <span>›</span>
           </button>
-
-          {/* =========================
-              Footer
-          ========================= */}
 
           <Footer />
         </section>

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import Footer from '../components/Footer'
 import { getResultRemainingMs } from '../utils/campaign'
+import { RESULT_COPY } from '../data/resultCopy'
 import './ResultPageBView.css'
+import { ICONS } from '../data/icons'
 
 const RESULT_LABELS = {
   A: '発信整理タイプ',
@@ -46,6 +48,28 @@ function isPreviewEnabled() {
   )
 }
 
+function renderNarrativeText(text) {
+  if (!text) return null
+
+  return text.split(/\n\s*\n/).map((block, index) => {
+    const isInsight = index > 0
+
+    return (
+      <p
+        key={`${block.slice(0, 16)}-${index}`}
+        className={isInsight ? 'result-b-insight' : undefined}
+      >
+        {block.split('\n').map((line, lineIndex) => (
+          <span key={`${line.slice(0, 12)}-${lineIndex}`}>
+            {line}
+            {lineIndex < block.split('\n').length - 1 && <br />}
+          </span>
+        ))}
+      </p>
+    )
+  })
+}
+
 export default function ResultPageBView({
   resultKey,
   copy,
@@ -61,6 +85,8 @@ export default function ResultPageBView({
   const [now, setNow] = useState(Date.now())
 
   const [level, type] = resultKey.split('-')
+  const resultCopy = RESULT_COPY[resultKey] || copy
+
   const typeLabel = RESULT_LABELS[type] || '整理タイプ'
   const levelLabel = LEVEL_LABELS[level] || '現在地確認'
   const previewEnabled = isPreviewEnabled()
@@ -176,7 +202,9 @@ export default function ResultPageBView({
 
             <div>
               <h2>今のあなたに起きていること</h2>
-              <p>{copy.CAUSE}</p>
+              <div className="result-b-text">
+                {renderNarrativeText(resultCopy.CAUSE)}
+              </div>
             </div>
           </section>
 
@@ -185,7 +213,9 @@ export default function ResultPageBView({
 
             <div>
               <h2>ここから整えていくこと</h2>
-              <p>{copy.SOLUTION}</p>
+              <div className="result-b-text">
+                {renderNarrativeText(resultCopy.SOLUTION)}
+              </div>
             </div>
           </section>
 
@@ -221,7 +251,9 @@ export default function ResultPageBView({
 
             <div>
               <h2>今、取り組んでおきたい理由</h2>
-              <p>{copy.URGENCY}</p>
+              <div className="result-b-text">
+                {renderNarrativeText(resultCopy.URGENCY)}
+              </div>
             </div>
           </section>
 
@@ -272,9 +304,9 @@ export default function ResultPageBView({
                 </h2>
               </div>
 
-              <p className="result-b-offer-copy">
-                {copy.PRE_CTA}
-              </p>
+              <div className="result-b-offer-copy">
+                {renderNarrativeText(resultCopy.PRE_CTA)}
+              </div>
 
               <div className="result-b-product-box">
                 <span>あなたに合った次の一歩</span>

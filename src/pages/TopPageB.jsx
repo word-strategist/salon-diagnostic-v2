@@ -1,7 +1,17 @@
 import { useEffect } from 'react'
 import Footer from '../components/Footer'
+import { ICONS } from '../data/icons'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB.css'
+
+const TOP_IMAGE =
+  '/images/top/TOP人物_B_v1_2026-07-04.png'
+
+const TOP_SUPPORT_IMAGES = {
+  intro: '/images/result/Result診断説明人物_v1_2026-07-04.png',
+  voiceA: '/images/result/ResultVoice人物_A_v1_2026-07-04.png',
+  voiceB: '/images/result/ResultVoice人物_B_v1_2026-07-04.png',
+}
 
 const TELOPS = [
   {
@@ -29,18 +39,22 @@ const TELOPS = [
 const EMPATHY_ITEMS = [
   {
     id: 'sns',
+    icon: ICONS.sns,
     text: 'SNSも頑張ってるのに\n新規が増えない…',
   },
   {
     id: 'hpb',
+    icon: ICONS.hpb,
     text: 'ホットペッパーも\n載せてる、反応がイマイチ…',
   },
   {
     id: 'repeat',
+    icon: ICONS.heart,
     text: 'リピートしてくれる人は\nいるけど、毎月バラバラ…',
   },
   {
     id: 'priority',
+    icon: ICONS.priority,
     text: '何から手をつければ\nいいのか、よくわからない…',
   },
 ]
@@ -48,17 +62,17 @@ const EMPATHY_ITEMS = [
 const BENEFIT_ITEMS = [
   {
     id: 'status',
-    icon: '○',
+    icon: ICONS.current,
     text: 'あなたの集客の\n今の状態',
   },
   {
     id: 'type',
-    icon: '♡',
+    icon: ICONS.type,
     text: 'あなたのサロンに\n合った集客タイプ',
   },
   {
     id: 'priority',
-    icon: '!',
+    icon: ICONS.priority,
     text: '優先して取り組むべき\nポイント',
   },
 ]
@@ -117,16 +131,16 @@ export default function TopPageB({ onStart }) {
   return (
     <main className="top-b-page">
       <div className="top-b-phone">
-        {/* =========================
-            First View
-        ========================= */}
-
         <section className="top-b-firstview">
           <div
-            className="top-b-hero-image top-b-image-slot"
-            aria-label="サロンオーナー写真の予定位置"
+            className="top-b-hero-image"
+            aria-label="サロンオーナー"
           >
-            <span>KEY VISUAL</span>
+            <img
+              src={TOP_IMAGE}
+              alt=""
+              loading="eager"
+            />
           </div>
 
           <div className="top-b-hero-overlay" />
@@ -168,10 +182,6 @@ export default function TopPageB({ onStart }) {
           </div>
         </section>
 
-        {/* =========================
-            Empathy
-        ========================= */}
-
         <section
           id="top-b-empathy"
           className="top-b-section top-b-empathy-section"
@@ -191,9 +201,14 @@ export default function TopPageB({ onStart }) {
               >
                 <div
                   className="top-b-person-slot"
-                  aria-label="女性イラストの予定位置"
+                  aria-label=""
+                  aria-hidden="true"
                 >
-                  ILLUST
+                  <img
+                    src={item.icon}
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
 
                 <p>
@@ -218,10 +233,6 @@ export default function TopPageB({ onStart }) {
           </div>
         </section>
 
-        {/* =========================
-            Diagnosis Benefits
-        ========================= */}
-
         <section className="top-b-section top-b-benefit-section">
           <header className="top-b-section-heading">
             <p>この診断で</p>
@@ -238,7 +249,11 @@ export default function TopPageB({ onStart }) {
                   className="top-b-benefit-icon"
                   aria-hidden="true"
                 >
-                  {item.icon}
+                  <img
+                    src={item.icon}
+                    alt=""
+                    loading="lazy"
+                  />
                 </span>
 
                 <p>
@@ -249,10 +264,14 @@ export default function TopPageB({ onStart }) {
           </div>
 
           <div
-            className="top-b-support-image top-b-image-slot"
-            aria-label="ノートや花の写真の予定位置"
+            className="top-b-support-image"
+            aria-label="診断で分かることを説明する女性イラスト"
           >
-            <span>SUPPORT VISUAL</span>
+            <img
+              src={TOP_SUPPORT_IMAGES.intro}
+              alt=""
+              loading="lazy"
+            />
           </div>
 
           <p className="top-b-benefit-copy">
@@ -265,10 +284,6 @@ export default function TopPageB({ onStart }) {
             ﹀
           </span>
         </section>
-
-        {/* =========================
-            Voices and CTA
-        ========================= */}
 
         <section className="top-b-section top-b-cta-section">
           <div className="top-b-time-copy">
@@ -300,9 +315,17 @@ export default function TopPageB({ onStart }) {
 
                 <div
                   className="top-b-voice-person"
-                  aria-label="利用者イラストの予定位置"
+                  aria-label="利用者イラスト"
                 >
-                  ILLUST
+                  <img
+                    src={
+                      index % 2 === 0
+                        ? TOP_SUPPORT_IMAGES.voiceA
+                        : TOP_SUPPORT_IMAGES.voiceB
+                    }
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
               </article>
             ))}
@@ -333,10 +356,6 @@ export default function TopPageB({ onStart }) {
             </p>
           </div>
         </section>
-
-        {/* =========================
-            Footer
-        ========================= */}
 
         <Footer />
       </div>
