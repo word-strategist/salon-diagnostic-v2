@@ -16,43 +16,28 @@ const LEVEL_LABELS = {
   3: '次のステージ段階',
 }
 
-/* =========================
-   残り時間表示
-========================= */
+const RESULT_IMAGES = {
+  template: '/images/result/ResultTemplate_v1_2026-07-04.png',
+  intro: '/images/result/Result診断説明人物_v1_2026-07-04.png',
+  future: '/images/result/Result未来人物_v1_2026-07-04.png',
+  voiceA: '/images/result/ResultVoice人物_A_v1_2026-07-04.png',
+  voiceB: '/images/result/ResultVoice人物_B_v1_2026-07-04.png',
+}
 
 function formatRemainingTime(remainingMs) {
-  const totalMinutes = Math.max(
-    0,
-    Math.ceil(remainingMs / (60 * 1000))
-  )
-
+  const totalMinutes = Math.max(0, Math.ceil(remainingMs / (60 * 1000)))
   const hours = Math.floor(totalMinutes / 60)
   const minutes = totalMinutes % 60
 
-  return {
-    hours,
-    minutes,
-  }
+  return { hours, minutes }
 }
 
-/* =========================
-   プレビューモード判定
-========================= */
-
 function isPreviewEnabled() {
-  if (!import.meta.env.DEV) {
-    return false
-  }
+  if (!import.meta.env.DEV) return false
 
-  const searchParams = new URLSearchParams(
-    window.location.search
-  )
-
+  const searchParams = new URLSearchParams(window.location.search)
   const hash = window.location.hash || ''
-  const hashQuery = hash.includes('?')
-    ? hash.split('?')[1]
-    : ''
-
+  const hashQuery = hash.includes('?') ? hash.split('?')[1] : ''
   const hashParams = new URLSearchParams(hashQuery)
 
   return (
@@ -76,18 +61,9 @@ export default function ResultPageBView({
   const [now, setNow] = useState(Date.now())
 
   const [level, type] = resultKey.split('-')
-
-  const typeLabel =
-    RESULT_LABELS[type] || '整理タイプ'
-
-  const levelLabel =
-    LEVEL_LABELS[level] || '現在地確認'
-
+  const typeLabel = RESULT_LABELS[type] || '整理タイプ'
+  const levelLabel = LEVEL_LABELS[level] || '現在地確認'
   const previewEnabled = isPreviewEnabled()
-
-  /* =========================
-     Result期限タイマー
-  ========================= */
 
   useEffect(() => {
     const timerId = window.setInterval(() => {
@@ -113,10 +89,6 @@ export default function ResultPageBView({
     <div className="result-b-page">
       <main className="result-b-phone">
         <section className="result-b-card">
-          {/* =========================
-              Progress
-          ========================= */}
-
           <div className="result-b-progress">
             <div className="result-b-progress-label">
               <span>Salon Check</span>
@@ -128,10 +100,6 @@ export default function ResultPageBView({
             </div>
           </div>
 
-          {/* =========================
-              Result Deadline
-          ========================= */}
-
           <section className="result-b-deadline">
             <p className="result-b-deadline-label">
               この診断結果を見られるのは
@@ -139,13 +107,9 @@ export default function ResultPageBView({
 
             <p className="result-b-deadline-time">
               あと
-              <strong>
-                {remainingTime.hours}
-              </strong>
+              <strong>{remainingTime.hours}</strong>
               時間
-              <strong>
-                {remainingTime.minutes}
-              </strong>
+              <strong>{remainingTime.minutes}</strong>
               分
             </p>
 
@@ -154,15 +118,11 @@ export default function ResultPageBView({
             </p>
           </section>
 
-          {/* =========================
-              Result Hero
-          ========================= */}
-
           <section className="result-b-hero">
             <p className="result-b-kicker">
-              診断おつかれさまでした！
+              診断おつかれさまでした。
               <br />
-              あなたのタイプはこちら
+              あなたの今のタイプはこちらです。
             </p>
 
             <div className="result-b-type-box">
@@ -176,89 +136,128 @@ export default function ResultPageBView({
               {levelLabel}
             </p>
 
-            <div
-              className="result-b-visual-slot"
-              aria-label="診断タイプ画像の予定位置"
-            />
+            <div className="result-b-hero-image">
+              <img
+                src={RESULT_IMAGES.template}
+                alt=""
+                loading="eager"
+              />
+            </div>
           </section>
 
-          {/* =========================
-              Current Cause
-          ========================= */}
-
-          <section className="result-b-info-card">
-            <div className="result-b-icon">
-              ○
+          <section className="result-b-lead-card">
+            <div className="result-b-lead-image">
+              <img
+                src={RESULT_IMAGES.intro}
+                alt=""
+                loading="lazy"
+              />
             </div>
 
             <div>
+              <p className="result-b-section-label">
+                診断で分かること
+              </p>
+
               <h2>
-                今のあなたに起きていること
+                今の集客がうまくいかない理由は、
+                努力不足ではなく「整える順番」にあります。
               </h2>
 
+              <p>
+                この診断では、あなたのサロンが今どの段階にいて、
+                どこを整えると次の一歩につながりやすいのかを見ていきます。
+              </p>
+            </div>
+          </section>
+
+          <section className="result-b-info-card">
+            <div className="result-b-icon">○</div>
+
+            <div>
+              <h2>今のあなたに起きていること</h2>
               <p>{copy.CAUSE}</p>
             </div>
           </section>
 
-          {/* =========================
-              Solution
-          ========================= */}
-
           <section className="result-b-info-card">
-            <div className="result-b-icon">
-              ♡
-            </div>
+            <div className="result-b-icon">♡</div>
 
             <div>
-              <h2>
-                ここから整えていくこと
-              </h2>
-
+              <h2>ここから整えていくこと</h2>
               <p>{copy.SOLUTION}</p>
             </div>
           </section>
 
-          {/* =========================
-              Urgency
-          ========================= */}
-
-          <section className="result-b-info-card">
-            <div className="result-b-icon">
-              !
-            </div>
-
+          <section className="result-b-future-card">
             <div>
+              <p className="result-b-section-label">
+                診断後の未来
+              </p>
+
               <h2>
-                今、取り組んでおきたい理由
+                整える場所が分かると、
+                迷いながら発信する時間が少しずつ減っていきます。
               </h2>
 
+              <p>
+                何を直せばいいか分からない状態から、
+                今やることが見える状態へ。
+                その一歩をつくるための診断結果です。
+              </p>
+            </div>
+
+            <div className="result-b-future-image">
+              <img
+                src={RESULT_IMAGES.future}
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          </section>
+
+          <section className="result-b-info-card">
+            <div className="result-b-icon">!</div>
+
+            <div>
+              <h2>今、取り組んでおきたい理由</h2>
               <p>{copy.URGENCY}</p>
             </div>
           </section>
 
-          {/* =========================
-              Expired
-          ========================= */}
+          <section className="result-b-voice-grid">
+            <div className="result-b-voice-card">
+              <img
+                src={RESULT_IMAGES.voiceA}
+                alt=""
+                loading="lazy"
+              />
+              <p>
+                「何となく頑張る」から、
+                「ここを整える」に変えていく。
+              </p>
+            </div>
+
+            <div className="result-b-voice-card">
+              <img
+                src={RESULT_IMAGES.voiceB}
+                alt=""
+                loading="lazy"
+              />
+              <p>
+                小さな見直しが、
+                予約につながる導線を整えていきます。
+              </p>
+            </div>
+          </section>
 
           {expiredOrEnded && (
             <section className="result-b-expired">
-              <p>
-                {COMMON_COPY.EXPIRED_LABEL}
-              </p>
-
-              <h2>
-                {COMMON_COPY.EXPIRED_TITLE}
-              </h2>
-
-              <p>
-                {COMMON_COPY.EXPIRED_TEXT}
-              </p>
+              <p>{COMMON_COPY.EXPIRED_LABEL}</p>
+              <h2>{COMMON_COPY.EXPIRED_TITLE}</h2>
+              <p>{COMMON_COPY.EXPIRED_TEXT}</p>
             </section>
           )}
-
-          {/* =========================
-              Product Offer
-          ========================= */}
 
           {!expiredOrEnded && mainProduct && (
             <section
@@ -266,9 +265,7 @@ export default function ResultPageBView({
               ref={ctaAreaRef}
             >
               <div className="result-b-card-heading">
-                <div className="result-b-icon">
-                  ◇
-                </div>
+                <div className="result-b-icon">◇</div>
 
                 <h2>
                   診断者限定のご案内があります
@@ -280,17 +277,11 @@ export default function ResultPageBView({
               </p>
 
               <div className="result-b-product-box">
-                <span>
-                  あなたに合った次の一歩
-                </span>
+                <span>あなたに合った次の一歩</span>
 
-                <strong>
-                  {mainProduct.name}
-                </strong>
+                <strong>{mainProduct.name}</strong>
 
-                <p>
-                  {mainProduct.description}
-                </p>
+                <p>{mainProduct.description}</p>
               </div>
 
               <button
@@ -301,16 +292,8 @@ export default function ResultPageBView({
                 {ctaLabel}
                 <span>›</span>
               </button>
-
-              <p className="result-b-note">
-                ※画像・イラストは後でまとめて差し替えます
-              </p>
             </section>
           )}
-
-          {/* =========================
-              Preview Reset
-          ========================= */}
 
           {previewEnabled && (
             <button
@@ -321,10 +304,6 @@ export default function ResultPageBView({
               もう一度診断する（確認用）
             </button>
           )}
-
-          {/* =========================
-              Footer
-          ========================= */}
 
           <Footer />
         </section>
