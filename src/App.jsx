@@ -89,8 +89,6 @@ function getHashSearchParams() {
 }
 
 function isDevelopmentPreviewEnabled() {
-  if (!import.meta.env.DEV) return false
-
   const searchParams = new URLSearchParams(window.location.search)
   const hashParams = getHashSearchParams()
 
