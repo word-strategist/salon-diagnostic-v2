@@ -126,24 +126,6 @@ export default function ResultPageBView({
             </div>
           </div>
 
-          <section className="result-b-deadline">
-            <p className="result-b-deadline-label">
-              この診断結果を見られるのは
-            </p>
-
-            <p className="result-b-deadline-time">
-              あと
-              <strong>{remainingTime.hours}</strong>
-              時間
-              <strong>{remainingTime.minutes}</strong>
-              分
-            </p>
-
-            <p className="result-b-deadline-note">
-              ※診断完了から24時間限定
-            </p>
-          </section>
-
           <section className="result-b-hero">
             <p className="result-b-kicker">
               診断おつかれさまでした。
@@ -315,6 +297,24 @@ export default function ResultPageBView({
 
                 <p>{mainProduct.description}</p>
               </div>
+
+        <section className="result-b-deadline">
+            <p className="result-b-deadline-label">
+              この診断結果を見られるのは
+            </p>
+
+            <p className="result-b-deadline-time">
+              あと
+              <strong>{remainingTime.hours}</strong>
+              時間
+              <strong>{remainingTime.minutes}</strong>
+              分
+            </p>
+
+            <p className="result-b-deadline-note">
+              ※診断完了から24時間限定
+            </p>
+          </section>
 
               <button
                 type="button"

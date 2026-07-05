@@ -215,8 +215,8 @@
 
 .top-b2-section {
   position: relative;
-  min-height: 100svh;
-  padding: 48px 20px 36px;
+  min-height: auto;
+  padding: 36px 20px 18px;
   overflow: hidden;
   background:
     radial-gradient(
@@ -255,7 +255,7 @@
 
 .top-b2-section-arrow {
   display: block;
-  margin: 24px auto 0;
+  margin: 12px auto 0;
   color: #df8193;
   font-size: 25px;
   line-height: 1;
