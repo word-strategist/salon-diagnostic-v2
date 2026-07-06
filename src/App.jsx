@@ -98,6 +98,38 @@ function isDevelopmentPreviewEnabled() {
   )
 }
 
+/* =========================
+   開発・レビュー専用
+   Result直接表示
+========================= */
+
+const PREVIEW_RESULT_KEYS = new Set([
+  '1-A',
+  '2-A',
+  '3-A',
+  '1-B',
+  '2-B',
+  '3-B',
+  '1-C',
+  '2-C',
+  '3-C',
+  '1-D',
+  '2-D',
+])
+
+function getPreviewResultKey() {
+  const searchParams = new URLSearchParams(window.location.search)
+  const hashParams = getHashSearchParams()
+
+  const resultKey =
+    searchParams.get('result') ||
+    hashParams.get('result')
+
+  return PREVIEW_RESULT_KEYS.has(resultKey)
+    ? resultKey
+    : null
+}
+
 function buildRoute(path, variant) {
   const params = new URLSearchParams()
 
@@ -220,61 +252,109 @@ function AppRoutes() {
     return () => window.clearInterval(timerId)
   }, [])
 
-  /* =========================
-     保存データ復元
-  ========================= */
+/* =========================
+   保存データ復元
+========================= */
 
-  useEffect(() => {
-    const savedAnswers = safelyParseJson(
-      sessionStorage.getItem(SESSION_KEYS.answers),
-      []
+useEffect(() => {
+  const previewResultKey = previewEnabled
+    ? getPreviewResultKey()
+    : null
+
+  if (previewResultKey && variant) {
+    const [level, type] = previewResultKey.split('-')
+    const previewResult = { level, type }
+    const completedAt = new Date().toISOString()
+    const expiresAt = createResultExpiry(completedAt)
+    const channel = getEntryChannel()
+
+    setAnswers([])
+    setResult(previewResult)
+    setResultExpiresAt(expiresAt)
+    setResultExpired(false)
+
+    sessionStorage.setItem(
+      SESSION_KEYS.answers,
+      JSON.stringify([])
     )
 
-    const savedResult = safelyParseJson(
-      localStorage.getItem(LOCAL_KEYS.result)
+    localStorage.setItem(
+      LOCAL_KEYS.result,
+      JSON.stringify(previewResult)
     )
-
-    const savedExpiresAt = localStorage.getItem(
-      LOCAL_KEYS.expiresAt
+    localStorage.setItem(
+      LOCAL_KEYS.completedAt,
+      completedAt
     )
-
-    const savedExpired =
-      localStorage.getItem(LOCAL_KEYS.resultExpired) === 'true'
-
-    const savedVariant = localStorage.getItem(
-      LOCAL_KEYS.entryVariant
+    localStorage.setItem(
+      LOCAL_KEYS.expiresAt,
+      expiresAt
     )
-
-    if (savedVariant === 'b' || savedVariant === 'b2') {
-      saveEntryVariant(savedVariant)
-    }
-
-    setAnswers(Array.isArray(savedAnswers) ? savedAnswers : [])
-
-    if (
-      savedResult &&
-      savedExpiresAt &&
-      !isResultExpired(savedExpiresAt)
-    ) {
-      setResult(savedResult)
-      setResultExpiresAt(savedExpiresAt)
-      setResultExpired(false)
-    } else if (
-      savedExpired ||
-      (savedResult &&
-        savedExpiresAt &&
-        isResultExpired(savedExpiresAt))
-    ) {
-      clearSavedResultContent()
-      localStorage.setItem(LOCAL_KEYS.resultExpired, 'true')
-
-      setResult(null)
-      setResultExpiresAt(savedExpiresAt)
-      setResultExpired(true)
-    }
+    localStorage.setItem(
+      LOCAL_KEYS.entryVariant,
+      variant
+    )
+    localStorage.setItem(
+      LOCAL_KEYS.entryChannel,
+      channel
+    )
+    localStorage.removeItem(LOCAL_KEYS.resultExpired)
 
     setIsHydrated(true)
-  }, [])
+    navigate(buildRoute('/result', variant))
+    return
+  }
+
+  const savedAnswers = safelyParseJson(
+    sessionStorage.getItem(SESSION_KEYS.answers),
+    []
+  )
+
+  const savedResult = safelyParseJson(
+    localStorage.getItem(LOCAL_KEYS.result)
+  )
+
+  const savedExpiresAt = localStorage.getItem(
+    LOCAL_KEYS.expiresAt
+  )
+
+  const savedExpired =
+    localStorage.getItem(LOCAL_KEYS.resultExpired) === 'true'
+
+  const savedVariant = localStorage.getItem(
+    LOCAL_KEYS.entryVariant
+  )
+
+  if (savedVariant === 'b' || savedVariant === 'b2') {
+    saveEntryVariant(savedVariant)
+  }
+
+  setAnswers(Array.isArray(savedAnswers) ? savedAnswers : [])
+
+  if (
+    savedResult &&
+    savedExpiresAt &&
+    !isResultExpired(savedExpiresAt)
+  ) {
+    setResult(savedResult)
+    setResultExpiresAt(savedExpiresAt)
+    setResultExpired(false)
+  } else if (
+    savedExpired ||
+    (savedResult &&
+      savedExpiresAt &&
+      isResultExpired(savedExpiresAt))
+  ) {
+    clearSavedResultContent()
+    localStorage.setItem(LOCAL_KEYS.resultExpired, 'true')
+
+    setResult(null)
+    setResultExpiresAt(savedExpiresAt)
+    setResultExpired(true)
+  }
+
+  setIsHydrated(true)
+}, [])
 
   /* =========================
      Result期限監視
