@@ -3,6 +3,8 @@ import Footer from '../components/Footer'
 import { ICONS } from '../data/icons'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB2.css'
+import Timer from '../components/Timer'
+import { CAMPAIGN_END_AT } from '../utils/campaign'
 
 const TOP_IMAGE =
   '/images/top/TOP人物_B2_v1_2026-07-04.png'
@@ -110,7 +112,15 @@ export default function TopPageB2({ onStart }) {
 
   return (
     <main className="top-b2-page">
-      <div className="top-b2-phone">
+    <div className="top-b2-phone">
+        <Timer
+        mode="fixed"
+        targetDate={CAMPAIGN_END_AT}
+        title="無料診断の受付終了まで"
+        subtitle="期間限定で無料公開中"
+        expiredText="終了しました"
+        />
+
         <section className="top-b2-hero">
           <div className="top-b2-hero-content">
             <div className="top-b2-hero-copy">
