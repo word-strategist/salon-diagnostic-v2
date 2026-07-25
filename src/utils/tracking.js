@@ -1,5 +1,6 @@
 import {
   getEntryChannel,
+  getEntryUtmData,
   getEntryVariant,
 } from '../data/abVariant'
 
@@ -8,7 +9,7 @@ import {
 // =========================
 
 const GAS_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzd3ErmD1RsUnTt1OapHcdambFtdhMSMZjRO576WTGl5BaKRo-vTuFK7pWyZeojWSi_/exec'
+  'https://script.google.com/macros/s/AKfycbzVUP5DS311oFbnbFFJlY0JHMxnHsopLPM582vDo7S7QTDy3wIe1tIdRlLB_lrtoHyNsQ/exec'
 
 // =========================
 // セッション管理
@@ -53,6 +54,7 @@ function getCommonTrackingData() {
     session_id: getSessionId(),
     variant: getEntryVariant() || 'unknown',
     channel: getEntryChannel(),
+    ...getEntryUtmData(),
     page_url: window.location.href,
     user_agent: navigator.userAgent,
     tracked_at: new Date().toISOString(),
