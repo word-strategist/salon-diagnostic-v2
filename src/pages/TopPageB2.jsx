@@ -104,6 +104,12 @@ export default function TopPageB2({ onStart }) {
     onStart()
   }
 
+  const handleScroll = () => {
+    document
+      .getElementById('top-b2-empathy')
+      ?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <main className="top-b2-page">
     <div className="top-b2-phone">
