@@ -48,12 +48,12 @@
 .top-b2-hero-content {
   position: relative;
   z-index: 3;
-  width: 60%;
-  padding: 72px 0 150px 28px;
+  width: 64%;
+  padding: 68px 0 150px 26px;
 }
 
 .top-b2-hero-copy {
-  margin-bottom: 17px;
+  margin-bottom: 14px;
 }
 
 .top-b2-hero-copy p {
@@ -66,11 +66,12 @@
 }
 
 .top-b2-hero-subcopy {
-  margin: 0 0 24px;
+  margin: 0 0 18px;
   color: #4e3d37;
-  font-size: 13px;
-  line-height: 1.75;
+  font-size: 12px;
+  line-height: 1.65;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .top-b2-hero-visual {
@@ -176,12 +177,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
-  min-height: 54px;
+  min-height: 52px;
   border: 0;
   border-radius: 999px;
-  padding: 14px 18px;
+  padding: 13px 16px;
   background: linear-gradient(
     180deg,
     #e998a8 0%,
@@ -189,7 +190,7 @@
   );
   color: #ffffff;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 13px 28px rgba(117, 57, 70, 0.18);
@@ -581,8 +582,22 @@
 
 @media (max-width: 374px) {
   .top-b2-hero-content {
-    width: 68%;
-    padding-left: 18px;
+      width: 70%;
+      padding-top: 62px;
+      padding-left: 18px;
+  }
+
+  .top-b2-hero-copy p {
+    font-size: 21px;
+  }
+
+  .top-b2-hero-subcopy {
+    font-size: 11px;
+  }
+
+  .top-b2-main-cta {
+    min-height: 48px;
+    font-size: 14px;
   }
 
   .top-b2-section {

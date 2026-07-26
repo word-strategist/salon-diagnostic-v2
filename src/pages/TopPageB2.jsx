@@ -104,12 +104,6 @@ export default function TopPageB2({ onStart }) {
     onStart()
   }
 
-  const handleScroll = () => {
-    document
-      .getElementById('top-b2-empathy')
-      ?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <main className="top-b2-page">
     <div className="top-b2-phone">
@@ -129,21 +123,25 @@ export default function TopPageB2({ onStart }) {
               <p>うまくつながらない…</p>
             </div>
 
-            <p className="top-b2-hero-subcopy">
-              一人で抱え込んでいませんか？
-            </p>
+          <p className="top-b2-hero-subcopy">
+            10問に答えると、
+            <br />
+            今の集客状態と
+            <br />
+            優先して取り組むポイントが分かります。
+          </p>
 
             <button
               type="button"
               className="top-b2-main-cta"
               onClick={handleStart}
             >
-              <span>診断をはじめる</span>
+              <span>無料診断をはじめる</span>
               <span aria-hidden="true">›</span>
             </button>
 
             <p className="top-b2-note">
-              無料・登録不要・3分で完了
+              無料・登録不要・10問・約1分
             </p>
           </div>
 
@@ -405,7 +403,7 @@ export default function TopPageB2({ onStart }) {
           </button>
 
           <p className="top-b2-note">
-            無料・登録不要・3分で完了
+            無料・登録不要・10問・約1分
           </p>
         </section>
 

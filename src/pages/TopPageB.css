@@ -105,7 +105,7 @@
   position: absolute;
   top: 0;
   right: 20px;
-  bottom: 126px;
+  bottom: 238px;
   left: 20px;
   z-index: 3;
   overflow: hidden;
@@ -219,43 +219,109 @@
   z-index: 4;
 }
 
+.top-b-firstview-action {
+  padding: 13px 20px 14px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 250, 247, 0.94) 0%,
+      rgba(255, 250, 247, 0.99) 100%
+    );
+  text-align: center;
+  box-shadow: 0 -12px 32px rgba(64, 44, 37, 0.12);
+  backdrop-filter: blur(8px);
+}
+
 .top-b-empathy-copy {
   margin: 0;
-  padding: 12px 18px;
-  background: rgba(224, 128, 145, 0.96);
-  color: #ffffff;
+  color: #d8788c;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
   font-size: 13px;
   line-height: 1.5;
-  font-weight: 800;
-  text-align: center;
+  font-weight: 600;
   letter-spacing: 0.05em;
 }
 
-.top-b-scroll-button {
+.top-b-firstview-value {
+  margin: 6px 0 10px;
+  color: #493a34;
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.top-b-firstview-cta {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background:
+    linear-gradient(
+      180deg,
+      #e58fa0 0%,
+      #d9798d 100%
+    );
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px rgba(177, 88, 108, 0.25);
+}
+
+.top-b-firstview-cta span:last-child {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.top-b-firstview-note {
+  margin: 6px 0 0;
+  color: #806c65;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.top-b-scroll-button {
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-height: 86px;
+  width: auto;
+  min-height: 0;
+  margin: 5px auto 0;
   border: 0;
-  padding: 12px 18px 8px;
-  background: rgba(255, 250, 247, 0.97);
-  color: #4a3933;
+  padding: 2px 12px 0;
+  background: transparent;
+  color: #806c65;
   font-family: inherit;
   cursor: pointer;
 }
 
 .top-b-scroll-button span:first-child {
-  font-size: 11px;
-  line-height: 1.65;
+  font-size: 10px;
+  line-height: 1.5;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  text-decoration-color: rgba(216, 121, 141, 0.4);
+  text-underline-offset: 3px;
 }
 
 .top-b-scroll-arrow {
-  margin-top: 3px;
+  margin-top: 1px;
   color: #df8193;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1;
   animation: topBArrow 1.35s ease-in-out infinite;
 }
@@ -687,7 +753,22 @@
 @media (max-width: 374px) {
   .top-b-telop-stage {
     right: 16px;
+    bottom: 230px;
     left: 16px;
+  }
+
+  .top-b-firstview-action {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .top-b-firstview-value {
+    font-size: 12px;
+  }
+
+  .top-b-firstview-cta {
+    min-height: 48px;
+    font-size: 15px;
   }
 
   .top-b-section {

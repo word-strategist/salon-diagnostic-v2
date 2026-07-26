@@ -170,25 +170,31 @@ export default function TopPageB({ onStart }) {
           </div>
 
           <div className="top-b-firstview-bottom">
-            <p className="top-b-empathy-copy">
-              それ、あなただけじゃないかも。
-            </p>
+            <div className="top-b-firstview-action">
+              <p className="top-b-empathy-copy">
+                それ、あなただけじゃないかも。
+              </p>
 
-            <button
-              type="button"
-              className="top-b-scroll-button"
-              onClick={handleScroll}
-            >
-              <span>
-                スクロールして
+              <p className="top-b-firstview-value">
+                今の集客状態と、
                 <br />
-                一緒に整理してみませんか？
-              </span>
+                次に整えるポイントが分かります。
+              </p>
 
-              <span className="top-b-scroll-arrow" aria-hidden="true">
-                ﹀
-              </span>
-            </button>
+              <button
+                type="button"
+                className="top-b-firstview-cta"
+                onClick={handleStart}
+              >
+                <span>無料診断をはじめる</span>
+                <span aria-hidden="true">›</span>
+              </button>
+
+              <p className="top-b-firstview-note">
+                無料・登録不要・10問・約1分
+              </p>
+
+            </div>
           </div>
         </section>
 
@@ -298,7 +304,7 @@ export default function TopPageB({ onStart }) {
         <section className="top-b-section top-b-cta-section">
           <div className="top-b-time-copy">
             <p>診断はたったの10問</p>
-            <h2>3分で終わります</h2>
+            <h2>1分で終わります</h2>
           </div>
 
           <div className="top-b-stopwatch" aria-hidden="true">
@@ -357,12 +363,12 @@ export default function TopPageB({ onStart }) {
               className="top-b-cta"
               onClick={handleStart}
             >
-              <span>診断をはじめる</span>
+              <span>無料診断をはじめる</span>
               <span aria-hidden="true">›</span>
             </button>
 
             <p className="top-b-note">
-              無料・登録不要・3分で完了
+              無料・登録不要・10問・約1分
             </p>
           </div>
         </section>
