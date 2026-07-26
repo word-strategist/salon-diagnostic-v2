@@ -123,13 +123,13 @@ export default function TopPageB2({ onStart }) {
               <p>うまくつながらない…</p>
             </div>
 
-          <p className="top-b2-hero-subcopy">
-            10問に答えると、
-            <br />
-            今の集客状態と
-            <br />
-            優先して取り組むポイントが分かります。
-          </p>
+            <p className="top-b2-hero-subcopy">
+              10問に答えると、
+              <br />
+              今の集客状態と
+              <br />
+              優先して取り組むポイントが分かります。
+            </p>
 
             <button
               type="button"
