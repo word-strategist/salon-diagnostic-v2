@@ -27,11 +27,20 @@ const RESULT_IMAGES = {
 }
 
 function formatRemainingTime(remainingMs) {
-  const totalMinutes = Math.max(0, Math.ceil(remainingMs / (60 * 1000)))
-  const hours = Math.floor(totalMinutes / 60)
-  const minutes = totalMinutes % 60
+  const totalSeconds = Math.max(
+    0,
+    Math.ceil(remainingMs / 1000)
+  )
 
-  return { hours, minutes }
+  const hours = Math.floor(totalSeconds / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+
+  return {
+    hours: String(hours).padStart(2, '0'),
+    minutes: String(minutes).padStart(2, '0'),
+    seconds: String(seconds).padStart(2, '0'),
+  }
 }
 
 function isPreviewEnabled() {
@@ -309,6 +318,8 @@ export default function ResultPageBView({
               時間
               <strong>{remainingTime.minutes}</strong>
               分
+              <strong>{remainingTime.seconds}</strong>
+              秒
             </p>
 
             <p className="result-b-deadline-note">
