@@ -170,7 +170,8 @@ export function getAbVariant() {
     return savedVariant
   }
 
-  return null
+  saveEntryContext('b')
+  return 'b'
 }
 
 export function getEntryVariant() {
