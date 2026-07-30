@@ -472,10 +472,10 @@ useEffect(() => {
 element={
   !bypassCampaignStatus && campaignStatus === 'before' ? (
     <StatusScreen
-      label="2日間限定"
+      label="公開前"
       title="この診断はまだ開始していません"
       text={
-        '2026年7月7日（火）8:00より\n公開を開始します。'
+        '2026年8月1日 0:00より\n公開を開始します。'
       }
     />
   ) : !bypassCampaignStatus && campaignStatus === 'ended' ? (
@@ -511,7 +511,7 @@ element={
               }
               text={
                 campaignStatus === 'before'
-                  ? '2026年7月7日（火）8:00より公開を開始します。'
+                  ? '2026年8月1日 0:00より公開を開始します。'
                   : 'ご参加ありがとうございました。'
               }
             />
@@ -537,9 +537,9 @@ element={
             />
           ) : campaignStatus === 'before' ? (
             <StatusScreen
-              label="2日間限定"
+              label="公開前"
               title="この診断はまだ開始していません"
-              text="2026年7月7日（火）8:00より公開を開始します。"
+              text="2026年8月1日 0:00より公開を開始します。"
             />
           ) : campaignStatus === 'ended' ? (
             <StatusScreen
