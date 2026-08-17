@@ -9,6 +9,7 @@ import {
 
 import TopPageB from './pages/TopPageB'
 import TopPageB2 from './pages/TopPageB2'
+import TopPageB3 from './pages/TopPageB3'
 import QuestionPage from './pages/QuestionPage'
 import ResultPage from './pages/ResultPage'
 import Footer from './components/Footer'
@@ -240,6 +241,10 @@ function AppRoutes() {
     ActiveTopPage = TopPageB2
   }
 
+  if (variant === 'b3') {
+  ActiveTopPage = TopPageB3
+  }
+
   /* =========================
      時刻更新
   ========================= */
@@ -325,7 +330,11 @@ useEffect(() => {
     LOCAL_KEYS.entryVariant
   )
 
-  if (savedVariant === 'b' || savedVariant === 'b2') {
+  if (
+    savedVariant === 'b' ||
+    savedVariant === 'b2' ||
+    savedVariant === 'b3'
+  ) {
     saveEntryVariant(savedVariant)
   }
 

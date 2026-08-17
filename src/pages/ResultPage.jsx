@@ -378,7 +378,11 @@ const handleResetDiagnosis = () => {
     sessionStorage.getItem('salon_entry_variant')
 
   const variant =
-    savedVariant === 'b2' ? 'b2' : 'b'
+    savedVariant === 'b2'
+      ? 'b2'
+      : savedVariant === 'b3'
+        ? 'b3'
+        : 'b'
 
   /* =========================
      診断データを削除

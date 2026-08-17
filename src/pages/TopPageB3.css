@@ -1,0 +1,725 @@
+/* =========================
+   Top B2 Base
+========================= */
+
+.top-b3-page {
+  min-height: 100vh;
+  margin: 0;
+  background: #f4efeb;
+  color: #4a3b35;
+}
+
+.top-b3-page,
+.top-b3-page * {
+  box-sizing: border-box;
+}
+
+.top-b3-phone {
+  width: min(100%, 430px);
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fffaf7;
+  box-shadow: 0 0 40px rgba(74, 51, 43, 0.1);
+}
+
+/* =========================
+   First View
+========================= */
+
+.top-b3-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(255, 255, 255, 0.96),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #fffaf7 0%,
+      #f7ebe5 58%,
+      #ead6cd 100%
+    );
+}
+
+.top-b3-hero-content {
+  position: relative;
+  z-index: 3;
+  width: 72%;
+  padding: 36px 0 120px 24px;
+}
+
+.top-b3-hero-copy {
+  margin-bottom: 10px;
+}
+
+.top-b3-hero-copy p {
+  margin: 0 0 5px;
+  color: #3f302b;
+  font-size: clamp(20px, 6vw, 27px);
+  line-height: 1.42;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.top-b3-hero-subcopy {
+  margin: 0 0 14px;
+  color: #4e3d37;
+  font-size: 12px;
+  line-height: 1.65;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.top-b3-hero-visual {
+  position: absolute;
+  top: 48px;
+  right: -18px;
+  bottom: 116px;
+  z-index: 1;
+  width: 54%;
+  overflow: hidden;
+  border-radius: 120px 0 0 120px;
+  background:
+    radial-gradient(
+      circle at 44% 25%,
+      rgba(255, 255, 255, 0.96),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #ead8cf 0%,
+      #f6e9e3 48%,
+      #d4b7aa 100%
+    );
+}
+
+.top-b3-hero-visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 68% center;
+}
+
+.top-b3-hero-visual::before,
+.top-b3-hero-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.top-b3-hero-visual::before {
+  width: 180px;
+  height: 180px;
+  top: 14%;
+  right: -50px;
+}
+
+.top-b3-hero-visual::after {
+  width: 120px;
+  height: 120px;
+  bottom: 18%;
+  left: -35px;
+}
+
+.top-b3-hero-visual span {
+  position: absolute;
+  right: 28px;
+  bottom: 20px;
+  color: rgba(79, 59, 51, 0.42);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.top-b3-next-preview {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 112px;
+  border: 0;
+  padding: 22px 20px 14px;
+  background: rgba(255, 250, 247, 0.97);
+  color: #4a3b35;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.top-b3-next-preview span:first-child {
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 800;
+}
+
+.top-b3-next-preview span:last-child {
+  margin-top: 8px;
+  color: #df8193;
+  font-size: 25px;
+  line-height: 1;
+  animation: topB3Arrow 1.3s ease-in-out infinite;
+}
+
+/* =========================
+   B3 First View Message
+========================= */
+
+.top-b3-hero-eyebrow {
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #9a5264;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.top-b3-hero-copy strong {
+  color: #9a5264;
+  font-weight: 800;
+}
+
+/* =========================
+   Main CTA
+========================= */
+
+.top-b3-main-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 16px;
+  background: linear-gradient(
+    180deg,
+    #e998a8 0%,
+    #df8093 100%
+  );
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 13px 28px rgba(117, 57, 70, 0.18);
+}
+
+.top-b3-main-cta span:last-child {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.top-b3-note {
+  margin: 10px 0 0;
+  color: #8f7970;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* =========================
+   Common Sections
+========================= */
+
+.top-b3-section {
+  position: relative;
+  min-height: auto;
+  padding: 36px 20px 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 84% 8%,
+      rgba(237, 214, 205, 0.3),
+      transparent 31%
+    ),
+    #fffaf7;
+}
+
+.top-b3-section + .top-b3-section {
+  border-top: 1px solid #f0e2dc;
+}
+
+.top-b3-section-heading {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.top-b3-section-heading p {
+  margin: 0 0 5px;
+  color: #7c655d;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+.top-b3-section-heading h2 {
+  margin: 0;
+  color: #4a3933;
+  font-size: clamp(23px, 7vw, 29px);
+  line-height: 1.55;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.top-b3-section-arrow {
+  display: block;
+  margin: 12px auto 0;
+  color: #df8193;
+  font-size: 25px;
+  line-height: 1;
+  text-align: center;
+  animation: topB3Arrow 1.3s ease-in-out infinite;
+}
+
+/* =========================
+   Empathy
+========================= */
+
+.top-b3-empathy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.top-b3-empathy-card {
+  min-height: 178px;
+  border: 1px solid #ebd9d1;
+  border-radius: 16px;
+  padding: 18px 13px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 26px rgba(87, 62, 52, 0.06);
+  text-align: center;
+}
+
+.top-b3-empathy-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 11px;
+  border-radius: 50%;
+  background: #f8ece7;
+  color: #df8193;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.top-b3-empathy-card h3 {
+  margin: 0 0 7px;
+  color: #463731;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.top-b3-empathy-card p {
+  margin: 0;
+  color: #67534b;
+  font-size: 11px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.top-b3-empathy-message {
+  margin: 27px 0 0;
+  color: #4a3b35;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 700;
+  text-align: center;
+}
+
+.top-b3-scroll-hook {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.top-b3-scroll-hook p {
+  margin: 0;
+  color: #dc8092;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 800;
+}
+
+.top-b3-scroll-hook span {
+  display: inline-block;
+  margin-top: 10px;
+  color: #df8193;
+  font-size: 25px;
+  animation: topB3Arrow 1.3s ease-in-out infinite;
+}
+
+/* =========================
+   Diagnosis
+========================= */
+
+.top-b3-diagnosis-visual {
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  align-items: end;
+  gap: 14px;
+}
+
+.top-b3-diagnosis-board {
+  display: grid;
+  gap: 12px;
+}
+
+.top-b3-diagnosis-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 83px;
+  border: 1px solid #ebddd7;
+  border-radius: 14px;
+  padding: 14px 15px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 9px 24px rgba(91, 65, 55, 0.06);
+}
+
+.top-b3-diagnosis-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  color: #df8193;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: 26px;
+}
+
+.top-b3-diagnosis-card p {
+  margin: 0;
+  color: #493a34;
+  font-size: 12px;
+  line-height: 1.65;
+  font-weight: 700;
+}
+
+.top-b3-diagnosis-illustration {
+  display: grid;
+  place-items: center;
+  height: 220px;
+  border-radius: 60px 60px 20px 20px;
+  background: #f0dfd7;
+  color: #a78579;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.top-b3-diagnosis-message {
+  margin: 29px 0 0;
+  color: #4a3b35;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* =========================
+   Benefits
+========================= */
+
+.top-b3-benefit-grid {
+  display: grid;
+  gap: 13px;
+}
+
+.top-b3-benefit-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 98px;
+  border: 1px solid #ebddd7;
+  border-radius: 16px;
+  padding: 17px 19px;
+  background: #ffffff;
+  box-shadow: 0 9px 24px rgba(91, 65, 55, 0.06);
+}
+
+.top-b3-benefit-card > span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  color: #df8193;
+  font-size: 30px;
+}
+
+.top-b3-benefit-card p {
+  margin: 0;
+  color: #493a34;
+  font-size: 14px;
+  line-height: 1.75;
+  font-weight: 700;
+}
+
+.top-b3-benefit-message {
+  margin: 27px 0 0;
+  color: #4a3b35;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* =========================
+   Voices
+========================= */
+
+.top-b3-voice-list {
+  display: grid;
+  gap: 16px;
+}
+
+.top-b3-voice-item {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.top-b3-voice-item.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.top-b3-voice-person {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 84px;
+  flex: 0 0 66px;
+  border-radius: 50% 50% 18px 18px;
+  background: #f0dfd7;
+  color: #a78579;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.top-b3-voice-item p {
+  margin: 0;
+  border: 1px solid #ead7d0;
+  border-radius: 20px;
+  padding: 15px 17px;
+  background: #ffffff;
+  color: #4a3b35;
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 700;
+  box-shadow: 0 8px 22px rgba(91, 65, 55, 0.06);
+}
+
+.top-b3-disclaimer {
+  margin: 11px 0 0;
+  color: #a38f87;
+  font-size: 9px;
+  text-align: right;
+}
+
+/* =========================
+   Final CTA
+========================= */
+
+.top-b3-final-cta {
+  padding: 38px 22px 34px;
+  background:
+    linear-gradient(
+      180deg,
+      #e293a4 0%,
+      #d8798d 100%
+    );
+  color: #ffffff;
+  text-align: center;
+}
+
+.top-b3-final-cta > p:first-child {
+  margin: 0 0 20px;
+  font-size: 19px;
+  line-height: 1.75;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.top-b3-final-cta .top-b3-main-cta {
+  background: #ffffff;
+  color: #d9798d;
+}
+
+.top-b3-final-cta .top-b3-note {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* =========================
+   Animations
+========================= */
+
+@keyframes topB3Arrow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(7px);
+  }
+}
+
+/* =========================
+   Reduced Motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .top-b3-next-preview span:last-child,
+  .top-b3-scroll-hook span,
+  .top-b3-section-arrow {
+    animation: none;
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 374px) {
+  .top-b3-hero-content {
+      width: 70%;
+      padding-top: 62px;
+      padding-left: 18px;
+  }
+
+  .top-b3-hero-copy p {
+    font-size: 21px;
+  }
+
+  .top-b3-hero-subcopy {
+    font-size: 11px;
+  }
+
+  .top-b3-main-cta {
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  .top-b3-section {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .top-b3-empathy-grid {
+    gap: 9px;
+  }
+
+  .top-b3-empathy-card {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .top-b3-diagnosis-visual {
+    grid-template-columns: 1fr 76px;
+    gap: 9px;
+  }
+
+  .top-b3-diagnosis-card {
+    padding-right: 11px;
+    padding-left: 11px;
+  }
+}
+
+@media (min-width: 431px) {
+  .top-b3-page {
+    padding: 24px 0;
+  }
+
+  .top-b3-phone {
+    border-radius: 28px;
+  }
+}
+
+/* =========================
+   Top B2 Support Illustrations
+========================= */
+
+.top-b3-diagnosis-illustration,
+.top-b3-future-image,
+.top-b3-voice-person {
+  overflow: hidden;
+  background: transparent;
+}
+
+.top-b3-diagnosis-illustration img,
+.top-b3-future-image img,
+.top-b3-voice-person img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top-b3-future-image {
+  width: 72%;
+  margin: 22px auto 0;
+  border-radius: 24px;
+}
+
+/* =========================
+   Top B2 Image Integration
+========================= */
+
+.top-b3-hero-visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.top-b3-empathy-icon img,
+.top-b3-diagnosis-icon img,
+.top-b3-benefit-card > span img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.top-b3-diagnosis-illustration,
+.top-b3-future-image,
+.top-b3-voice-person {
+  overflow: hidden;
+  background: transparent;
+}
+
+.top-b3-diagnosis-illustration img,
+.top-b3-future-image img,
+.top-b3-voice-person img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top-b3-future-image {
+  width: 72%;
+  margin: 22px auto 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
