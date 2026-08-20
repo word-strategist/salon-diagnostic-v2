@@ -34,14 +34,14 @@
   background:
     radial-gradient(
       circle at 18% 18%,
-      rgba(255, 255, 255, 0.96),
-      transparent 30%
+      rgba(255, 255, 255, 0.08),
+      transparent 32%
     ),
     linear-gradient(
       145deg,
-      #fffaf7 0%,
-      #f7ebe5 58%,
-      #ead6cd 100%
+      #171717 0%,
+      #222222 58%,
+      #303030 100%
     );
 }
 
@@ -58,7 +58,7 @@
 
 .top-b3-hero-copy p {
   margin: 0 0 5px;
-  color: #3f302b;
+  color: #ffffff;
   font-size: clamp(20px, 6vw, 27px);
   line-height: 1.42;
   font-weight: 800;
@@ -67,7 +67,7 @@
 
 .top-b3-hero-subcopy {
   margin: 0 0 14px;
-  color: #4e3d37;
+  color: rgba(255, 255, 255, 0.78);
   font-size: 12px;
   line-height: 1.65;
   font-weight: 700;
@@ -149,8 +149,8 @@
   min-height: 112px;
   border: 0;
   padding: 22px 20px 14px;
-  background: rgba(255, 250, 247, 0.97);
-  color: #4a3b35;
+  background: rgba(23, 23, 23, 0.96);
+  color: #ffffff;
   font-family: inherit;
   cursor: pointer;
 }
@@ -177,9 +177,10 @@
   display: inline-block;
   margin: 0 0 18px;
   padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  color: #9a5264;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 11px;
   line-height: 1.4;
   font-weight: 800;
@@ -187,7 +188,7 @@
 }
 
 .top-b3-hero-copy strong {
-  color: #9a5264;
+  color: #f3a3b3;
   font-weight: 800;
 }
 

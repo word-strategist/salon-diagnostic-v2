@@ -382,7 +382,9 @@ const handleResetDiagnosis = () => {
       ? 'b2'
       : savedVariant === 'b3'
         ? 'b3'
-        : 'b'
+        : savedVariant === 'b4'
+          ? 'b4'
+          : 'b'
 
   /* =========================
      診断データを削除

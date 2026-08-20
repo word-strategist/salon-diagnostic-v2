@@ -2,7 +2,7 @@
 // A/B入口判定
 // =========================
 
-const VALID_VARIANTS = ['b', 'b2', 'b3']
+const VALID_VARIANTS = ['b', 'b2', 'b3', 'b4']
 
 const SESSION_KEYS = {
   variant: 'salon_entry_variant',
@@ -63,6 +63,7 @@ function getLegacyChannelByVariant(variant) {
   if (variant === 'b') return 'line'
   if (variant === 'b2') return 'email'
   if (variant === 'b3') return 'preview'
+  if (variant === 'b4') return 'preview'
 
   return 'unknown'
 }

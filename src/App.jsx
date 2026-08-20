@@ -10,6 +10,7 @@ import {
 import TopPageB from './pages/TopPageB'
 import TopPageB2 from './pages/TopPageB2'
 import TopPageB3 from './pages/TopPageB3'
+import TopPageB4 from './pages/TopPageB4'
 import QuestionPage from './pages/QuestionPage'
 import ResultPage from './pages/ResultPage'
 import Footer from './components/Footer'
@@ -245,6 +246,10 @@ function AppRoutes() {
   ActiveTopPage = TopPageB3
   }
 
+  if (variant === 'b4') {
+  ActiveTopPage = TopPageB4
+  }
+
   /* =========================
      時刻更新
   ========================= */
@@ -333,7 +338,8 @@ useEffect(() => {
   if (
     savedVariant === 'b' ||
     savedVariant === 'b2' ||
-    savedVariant === 'b3'
+    savedVariant === 'b3' ||
+    savedVariant === 'b4'
   ) {
     saveEntryVariant(savedVariant)
   }

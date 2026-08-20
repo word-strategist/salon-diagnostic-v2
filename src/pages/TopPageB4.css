@@ -1,0 +1,926 @@
+/* =========================
+   Top B Base
+========================= */
+
+.top-b4-page {
+  min-height: 100vh;
+  margin: 0;
+  background: #f4efeb;
+  color: #4a3b35;
+}
+
+.top-b4-page,
+.top-b4-page * {
+  box-sizing: border-box;
+}
+
+.top-b4-phone {
+  width: min(100%, 430px);
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fffaf7;
+  box-shadow: 0 0 40px rgba(79, 57, 48, 0.1);
+}
+
+/* =========================
+   Image Slots
+========================= */
+
+.top-b4-image-slot {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 70% 18%,
+      rgba(255, 255, 255, 0.92),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #e7d9d1 0%,
+      #f8eee8 48%,
+      #d5bdb2 100%
+    );
+}
+
+.top-b4-image-slot > span {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  color: rgba(80, 62, 54, 0.42);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* =========================
+   First View
+========================= */
+
+.top-b4-firstview {
+  position: relative;
+  min-height: calc(100svh - 160px);
+  overflow: hidden;
+  background: #eadfd8;
+}
+
+.top-b4-hero-image {
+  position: absolute;
+  inset: 0;
+}
+
+.top-b4-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.top-b4-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(61, 43, 35, 0.02) 0%,
+      rgba(61, 43, 35, 0.07) 48%,
+      rgba(61, 43, 35, 0.25) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 250, 247, 0.08),
+      transparent 72%
+    );
+}
+
+/* =========================
+   Continuous Telop
+========================= */
+
+.top-b4-telop-stage {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 238px;
+  left: 20px;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+.top-b4-telop-item {
+  position: absolute;
+  left: 50%;
+  bottom: -76px;
+  width: fit-content;
+  max-width: calc(100% - 12px);
+  margin: 0;
+  opacity: 0;
+  white-space: nowrap;
+  animation: topB4TelopFlow 6s linear infinite;
+  will-change: transform, opacity;
+}
+
+.top-b4-telop-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.top-b4-telop-item:nth-child(2) {
+  animation-delay: 1.5s;
+}
+
+.top-b4-telop-item:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.top-b4-telop-item:nth-child(4) {
+  animation-delay: 4.5s;
+}
+
+.top-b4-telop-diagnosis {
+  border-radius: 3px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #3d2d27;
+  font-size: clamp(18px, 5.2vw, 23px);
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 24px rgba(69, 48, 40, 0.13);
+}
+
+.top-b4-telop-normal {
+  border-radius: 3px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #3d2d27;
+  font-size: clamp(22px, 7vw, 29px);
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow: 0 8px 24px rgba(69, 48, 40, 0.13);
+}
+
+.top-b4-telop-accent {
+  padding: 0 6px 3px;
+  border-radius: 8px;
+  background: rgba(255, 248, 246, 0.66);
+  color: #9a5264;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: clamp(36px, 10vw, 46px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 0;
+  text-shadow:
+    0 2px 8px rgba(95, 55, 63, 0.14);
+}
+
+@keyframes topB4TelopFlow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(
+      -50%,
+      calc(-100svh + 190px)
+    );
+  }
+}
+
+/* =========================
+   First View Bottom
+========================= */
+
+.top-b4-firstview-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+}
+
+.top-b4-firstview-action {
+  padding: 12px 20px 12px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 250, 247, 0.94) 0%,
+      rgba(255, 250, 247, 0.99) 100%
+    );
+  text-align: center;
+  box-shadow: 0 -12px 32px rgba(64, 44, 37, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.top-b4-empathy-copy {
+  margin: 0 0 8px;
+  color: #d8788c;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.top-b4-firstview-value {
+  margin: 6px 0 10px;
+  color: #493a34;
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.top-b4-firstview-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background:
+    linear-gradient(
+      180deg,
+      #e58fa0 0%,
+      #d9798d 100%
+    );
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px rgba(177, 88, 108, 0.25);
+}
+
+.top-b4-firstview-cta span:last-child {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.top-b4-firstview-note {
+  margin: 6px 0 0;
+  color: #806c65;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.top-b4-scroll-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  min-height: 0;
+  margin: 5px auto 0;
+  border: 0;
+  padding: 2px 12px 0;
+  background: transparent;
+  color: #806c65;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.top-b4-scroll-button span:first-child {
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  text-decoration-color: rgba(216, 121, 141, 0.4);
+  text-underline-offset: 3px;
+}
+
+.top-b4-scroll-arrow {
+  margin-top: 1px;
+  color: #df8193;
+  font-size: 18px;
+  line-height: 1;
+  animation: topB4Arrow 1.35s ease-in-out infinite;
+}
+
+/* =========================
+   Common Sections
+========================= */
+
+.top-b4-section {
+  position: relative;
+  min-height: auto;
+  padding: 36px 20px 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 86% 8%,
+      rgba(237, 214, 205, 0.32),
+      transparent 30%
+    ),
+    #fffaf7;
+}
+
+.top-b4-section-heading {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.top-b4-section-heading p {
+  margin: 0 0 4px;
+  color: #493a34;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.top-b4-section-heading h2 {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  color: #dc8092;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: clamp(30px, 9vw, 39px);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.top-b4-section-heading h2::after {
+  content: "";
+  position: absolute;
+  right: 2%;
+  bottom: -5px;
+  left: 2%;
+  height: 2px;
+  border-radius: 999px;
+  background: #dc8092;
+  transform: rotate(-2deg);
+}
+
+.top-b4-section-arrow {
+  display: block;
+  margin: 12px auto 0;
+  color: #df8193;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+  animation: topB4Arrow 1.35s ease-in-out infinite;
+}
+
+/* =========================
+   Empathy Section
+========================= */
+
+.top-b4-empathy-list {
+  display: grid;
+  gap: 13px;
+}
+
+.top-b4-empathy-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.top-b4-empathy-item.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.top-b4-person-slot {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 76px;
+  flex: 0 0 64px;
+  border-radius: 50% 50% 18px 18px;
+  background: #f1e1db;
+  color: #a98679;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.top-b4-empathy-item p {
+  width: min(100%, 280px);
+  margin: 0;
+  border: 1px solid #ead7d0;
+  border-radius: 22px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #4a3b35;
+  font-size: 13px;
+  line-height: 1.7;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(92, 66, 56, 0.05);
+}
+
+.top-b4-reaction-copy {
+  margin: 24px 0 0;
+  color: #dc8797;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.top-b4-section-closing {
+  margin-top: 26px;
+  text-align: center;
+}
+
+.top-b4-section-closing p {
+  margin: 0;
+  color: #4a3b35;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.top-b4-section-closing span {
+  display: inline-block;
+  margin-top: 10px;
+  color: #df8193;
+  font-size: 24px;
+  animation: topB4Arrow 1.35s ease-in-out infinite;
+}
+
+/* =========================
+   Benefit Section
+========================= */
+
+.top-b4-benefit-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.top-b4-benefit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 154px;
+  border: 1px solid #eee0da;
+  border-radius: 12px;
+  padding: 18px 8px 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 9px 24px rgba(92, 66, 56, 0.07);
+}
+
+.top-b4-benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 13px;
+  color: #df8798;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    serif;
+  font-size: 29px;
+  font-weight: 600;
+}
+
+.top-b4-benefit-card p {
+  margin: 0;
+  color: #493a34;
+  font-size: 11px;
+  line-height: 1.7;
+  font-weight: 700;
+  text-align: center;
+}
+
+.top-b4-support-image {
+  height: 132px;
+  margin: 20px -20px 0;
+}
+
+.top-b4-benefit-copy {
+  margin: 18px 0 0;
+  color: #493a34;
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* =========================
+   CTA Section
+========================= */
+
+.top-b4-cta-section {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
+
+.top-b4-time-copy {
+  padding: 0 20px;
+  text-align: center;
+}
+
+.top-b4-time-copy p,
+.top-b4-time-copy h2 {
+  margin: 0;
+  color: #41332e;
+  line-height: 1.55;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.top-b4-time-copy p {
+  font-size: 18px;
+}
+
+.top-b4-time-copy h2 {
+  color: #dc8092;
+  font-size: 27px;
+}
+
+.top-b4-stopwatch {
+  margin: 12px auto 23px;
+  color: #df8798;
+  font-size: 39px;
+  line-height: 1;
+}
+
+.top-b4-voice-heading {
+  position: relative;
+  margin: 0 auto 18px;
+  color: #7e6860;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.top-b4-voice-heading::before,
+.top-b4-voice-heading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 48px;
+  height: 1px;
+  background: #dbc8c0;
+}
+
+.top-b4-voice-heading::before {
+  right: calc(100% + 11px);
+}
+
+.top-b4-voice-heading::after {
+  left: calc(100% + 11px);
+}
+
+.top-b4-voice-list {
+  display: grid;
+  gap: 13px;
+  padding: 0 20px;
+}
+
+.top-b4-voice-item {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 9px;
+}
+
+.top-b4-voice-item.is-reverse {
+  flex-direction: row-reverse;
+}
+
+.top-b4-voice-card {
+  width: min(100%, 274px);
+  border: 1px solid #ead6cf;
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(92, 66, 56, 0.06);
+}
+
+.top-b4-voice-card p {
+  margin: 0;
+  color: #4a3b35;
+  font-size: 12px;
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.top-b4-voice-person {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 78px;
+  flex: 0 0 58px;
+  border-radius: 50% 50% 16px 16px;
+  background: #f1e2dc;
+  color: #a9877b;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.top-b4-disclaimer {
+  margin: 8px 24px 16px;
+  color: #a38f87;
+  font-size: 9px;
+  text-align: right;
+}
+
+.top-b4-cta-box {
+  margin-top: auto;
+  padding: 26px 22px 30px;
+  background:
+    linear-gradient(
+      180deg,
+      #e08fa1 0%,
+      #d8798d 100%
+    );
+  color: #ffffff;
+  text-align: center;
+}
+
+.top-b4-cta-box > p {
+  margin: 0 0 17px;
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.top-b4-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 58px;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 22px;
+  background: #ffffff;
+  color: #d9798d;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 13px 28px rgba(115, 54, 68, 0.2);
+}
+
+.top-b4-cta span:last-child {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.top-b4-note {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+/* =========================
+   Animations
+========================= */
+
+@keyframes topB4Arrow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(7px);
+  }
+}
+
+/* =========================
+   Reduced Motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .top-b4-telop-item {
+    animation-play-state: paused;
+  }
+
+  .top-b4-scroll-arrow,
+  .top-b4-section-arrow,
+  .top-b4-section-closing span {
+    animation: none;
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 374px) {
+  .top-b4-telop-stage {
+    right: 16px;
+    bottom: 230px;
+    left: 16px;
+  }
+
+  .top-b4-firstview-action {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .top-b4-firstview-value {
+    font-size: 12px;
+  }
+
+  .top-b4-firstview-cta {
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  .top-b4-section {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .top-b4-support-image {
+    margin-right: -16px;
+    margin-left: -16px;
+  }
+
+  .top-b4-person-slot {
+    width: 55px;
+    height: 69px;
+    flex-basis: 55px;
+  }
+
+  .top-b4-empathy-item p {
+    padding: 12px 13px;
+    font-size: 12px;
+  }
+
+  .top-b4-benefit-card {
+    min-height: 148px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .top-b4-benefit-card p {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 431px) {
+  .top-b4-page {
+    padding: 24px 0;
+  }
+
+  .top-b4-phone {
+    border-radius: 28px;
+  }
+}
+
+/* =========================
+   Question Header Visual
+========================= */
+
+.question-b-visual {
+  width: 100%;
+  margin: 18px 0 18px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f5ebe6;
+}
+
+.question-b-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   Top B Image Integration
+========================= */
+
+.top-b4-hero-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.top-b4-person-slot {
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b4-person-slot img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.top-b4-benefit-icon img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.top-b4-support-image {
+  margin: 20px -20px 0;
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b4-support-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.top-b4-voice-person {
+  overflow: hidden;
+  background: transparent;
+}
+
+.top-b4-voice-person img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   Top B Support Illustration Fix
+========================= */
+
+.top-b4-support-image {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 205px;
+  margin: 18px -20px 0;
+  overflow: hidden;
+  background: #fff7f3;
+}
+
+.top-b4-support-image img {
+  display: block;
+  width: 74%;
+  max-width: 300px;
+  height: auto;
+  transform: translateY(38px);
+}
+
+.top-b4-benefit-copy {
+  margin-top: 16px;
+  text-align: center;
+  line-height: 1.7;
+}
