@@ -296,6 +296,8 @@ export default function ResultPage({
   const ctaAreaRef = useRef(null)
   const hasLoggedCtaView = useRef(false)
   const hasClickedCta = useRef(false)
+  const [isCtaNavigating, setIsCtaNavigating] =
+    useState(false)
 
   useEffect(() => {
     sendTrackingEvent({
@@ -351,26 +353,29 @@ export default function ResultPage({
     result.type,
   ])
 
-    const handleCtaClick = () => {
-      if (!ctaUrl || hasClickedCta.current) return
+  const handleCtaClick = () => {
+    if (!ctaUrl || hasClickedCta.current) return
 
-      hasClickedCta.current = true
+    hasClickedCta.current = true
+    setIsCtaNavigating(true)
 
-      localStorage.setItem('diagnosis_offer_visited', 'true')
+    localStorage.setItem('diagnosis_offer_visited', 'true')
 
-      void sendTrackingEvent({
-        event_type: 'cta_click',
-        session_id: getSessionId(),
-        result_key: key,
-        product_key: productKeys.join(','),
-        cta_url: ctaUrl,
-        is_expired: expiredOrEnded,
-        page_url: window.location.href,
-        user_agent: navigator.userAgent,
-      })
+    void sendTrackingEvent({
+      event_type: 'cta_click',
+      session_id: getSessionId(),
+      result_key: key,
+      product_key: productKeys.join(','),
+      cta_url: ctaUrl,
+      is_expired: expiredOrEnded,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+    })
 
+    window.requestAnimationFrame(() => {
       window.location.href = ctaUrl
-    }
+    })
+  }
 
 const handleResetDiagnosis = () => {
   /* =========================
@@ -435,6 +440,7 @@ const handleResetDiagnosis = () => {
     ctaLabel,
     ctaAreaRef,
     handleCtaClick,
+    isCtaNavigating,
     handleResetDiagnosis,
     COMMON_COPY,
     CAMPAIGN_END_AT,

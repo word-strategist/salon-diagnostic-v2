@@ -87,6 +87,7 @@ export default function ResultPageBView({
   ctaLabel,
   ctaAreaRef,
   handleCtaClick,
+  isCtaNavigating,
   handleResetDiagnosis,
   COMMON_COPY,
   resultExpiresAt,
@@ -331,8 +332,12 @@ export default function ResultPageBView({
                 type="button"
                 className="result-b-cta"
                 onClick={handleCtaClick}
+                disabled={isCtaNavigating}
+                aria-busy={isCtaNavigating}
               >
-                {ctaLabel}
+                {isCtaNavigating
+                  ? '販売ページを開いています…'
+                  : ctaLabel}
                 <span>›</span>
               </button>
             </section>
