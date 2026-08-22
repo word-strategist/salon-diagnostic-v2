@@ -295,6 +295,7 @@ export default function ResultPage({
 
   const ctaAreaRef = useRef(null)
   const hasLoggedCtaView = useRef(false)
+  const hasClickedCta = useRef(false)
 
   useEffect(() => {
     sendTrackingEvent({
@@ -350,24 +351,26 @@ export default function ResultPage({
     result.type,
   ])
 
-  const handleCtaClick = async () => {
-    localStorage.setItem('diagnosis_offer_visited', 'true')
+    const handleCtaClick = () => {
+      if (!ctaUrl || hasClickedCta.current) return
 
-    await sendTrackingEvent({
-      event_type: 'cta_click',
-      session_id: getSessionId(),
-      result_key: key,
-      product_key: productKeys.join(','),
-      cta_url: ctaUrl || '',
-      is_expired: expiredOrEnded,
-      page_url: window.location.href,
-      user_agent: navigator.userAgent,
-    })
+      hasClickedCta.current = true
 
-    if (ctaUrl) {
+      localStorage.setItem('diagnosis_offer_visited', 'true')
+
+      void sendTrackingEvent({
+        event_type: 'cta_click',
+        session_id: getSessionId(),
+        result_key: key,
+        product_key: productKeys.join(','),
+        cta_url: ctaUrl,
+        is_expired: expiredOrEnded,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+      })
+
       window.location.href = ctaUrl
     }
-  }
 
 const handleResetDiagnosis = () => {
   /* =========================

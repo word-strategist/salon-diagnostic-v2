@@ -9,7 +9,7 @@ import {
 // =========================
 
 const GAS_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzVUP5DS311oFbnbFFJlY0JHMxnHsopLPM582vDo7S7QTDy3wIe1tIdRlLB_lrtoHyNsQ/exec'
+  'https://script.google.com/macros/s/AKfycby--QCizuR5hnU30wHL17PTJiqxRPJw_WsJwxb5cWB-axALS6l0M7Wepc3yneerXJ1gCg/exec'
 
 // =========================
 // セッション管理
@@ -80,6 +80,7 @@ export async function sendTrackingEvent(payload = {}) {
         'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify(trackingPayload),
+      keepalive: true,
     })
 
     const text = await response.text()
