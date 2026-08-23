@@ -296,8 +296,31 @@ export default function ResultPage({
   const ctaAreaRef = useRef(null)
   const hasLoggedCtaView = useRef(false)
   const hasClickedCta = useRef(false)
+  const ctaResetTimerRef = useRef(null)
   const [isCtaNavigating, setIsCtaNavigating] =
     useState(false)
+
+  useEffect(() => {
+    const resetCtaState = () => {
+      hasClickedCta.current = false
+      setIsCtaNavigating(false)
+
+      if (ctaResetTimerRef.current) {
+        window.clearTimeout(ctaResetTimerRef.current)
+        ctaResetTimerRef.current = null
+      }
+    }
+
+    window.addEventListener('pageshow', resetCtaState)
+
+    return () => {
+      window.removeEventListener('pageshow', resetCtaState)
+
+      if (ctaResetTimerRef.current) {
+        window.clearTimeout(ctaResetTimerRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     sendTrackingEvent({
@@ -359,6 +382,12 @@ export default function ResultPage({
     hasClickedCta.current = true
     setIsCtaNavigating(true)
 
+    ctaResetTimerRef.current = window.setTimeout(() => {
+      hasClickedCta.current = false
+      setIsCtaNavigating(false)
+      ctaResetTimerRef.current = null
+    }, 8000)
+
     localStorage.setItem('diagnosis_offer_visited', 'true')
 
     void sendTrackingEvent({
@@ -372,9 +401,9 @@ export default function ResultPage({
       user_agent: navigator.userAgent,
     })
 
-    window.requestAnimationFrame(() => {
-      window.location.href = ctaUrl
-    })
+    window.setTimeout(() => {
+      window.location.assign(ctaUrl)
+    }, 0)
   }
 
 const handleResetDiagnosis = () => {
