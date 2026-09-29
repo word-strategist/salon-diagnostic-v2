@@ -5,6 +5,7 @@ import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import './TopPageB2.css'
 import Timer from '../components/Timer'
 import { CAMPAIGN_END_AT } from '../utils/campaign'
+import TopFvDark from './TopFvDark'
 
 const TOP_IMAGE =
   '/images/top/TOP人物_B2_v1_2026-07-04.png'
@@ -81,28 +82,37 @@ function MultilineText({ text }) {
   ))
 }
 
-export default function TopPageB2({ onStart }) {
+// fvVariant：未指定なら従来のB2 FV。'a' / 'b' は第5回の黒系FV（タイマーA案・B案）
+// pageId：計測用のページ名（未指定なら従来どおり top_b2）
+export default function TopPageB2({
+  onStart,
+  fvVariant = null,
+  pageId = 'top_b2',
+}) {
   useEffect(() => {
     sendTrackingEvent({
       event_type: 'page_view',
       session_id: getSessionId(),
-      page: 'top_b2',
+      page: pageId,
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
-  }, [])
+  }, [pageId])
 
   const handleStart = () => {
     sendTrackingEvent({
       event_type: 'start_click',
       session_id: getSessionId(),
-      page: 'top_b2',
+      page: pageId,
       page_url: window.location.href,
       user_agent: navigator.userAgent,
     })
 
     onStart()
   }
+
+  // 第5回TOP（黒系FV使用時）のみの表記。従来のB2は変更しない
+  const isV5 = Boolean(fvVariant)
 
   const handleScroll = () => {
     document
@@ -111,8 +121,18 @@ export default function TopPageB2({ onStart }) {
   }
 
   return (
-    <main className="top-b2-page">
+    <main
+      className={`top-b2-page${fvVariant ? ' top-b2-page--v5' : ''}`}
+    >
     <div className="top-b2-phone">
+        {fvVariant ? (
+          <TopFvDark
+            layout={fvVariant}
+            onStart={handleStart}
+            onScroll={handleScroll}
+          />
+        ) : (
+        <>
         <Timer
         mode="fixed"
         targetDate={CAMPAIGN_END_AT}
@@ -171,6 +191,8 @@ export default function TopPageB2({ onStart }) {
             <span aria-hidden="true">﹀</span>
           </button>
         </section>
+        </>
+        )}
 
         <section
           id="top-b2-empathy"
@@ -223,7 +245,7 @@ export default function TopPageB2({ onStart }) {
         <section className="top-b2-section top-b2-diagnosis">
           <header className="top-b2-section-heading">
             <p>この診断で</p>
-            <h2>分かること</h2>
+            <h2>{isV5 ? 'わかること' : '分かること'}</h2>
           </header>
 
           <div className="top-b2-diagnosis-visual">
@@ -352,7 +374,9 @@ export default function TopPageB2({ onStart }) {
         <section className="top-b2-section top-b2-voices">
           <header className="top-b2-section-heading">
             <p>受けた方の声</p>
-            <h2>一人で悩まなくて大丈夫です</h2>
+            <h2>
+              {isV5 ? '1人で悩まなくて大丈夫です' : '一人で悩まなくて大丈夫です'}
+            </h2>
           </header>
 
           <div className="top-b2-voice-list">

@@ -1,0 +1,406 @@
+/* =========================
+   第5回TOP 黒系FV
+========================= */
+
+.top-fv-dark {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 18px 18px;
+  background:
+    radial-gradient(
+      circle at 70% 62%,
+      rgba(120, 104, 92, 0.28),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #20242d 0%, #151820 55%, #0e1016 100%);
+  color: #ffffff;
+}
+
+/* =========================
+   Timer（Timer.jsx の layout="row" / "stack"）
+========================= */
+
+.top-fv-dark-timer {
+  position: relative;
+  z-index: 3;
+}
+
+.timer-compact {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.timer-compact p {
+  margin: 0;
+}
+
+.timer-compact-title {
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.timer-compact-subtitle {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.timer-compact-time {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: #ffb938;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.timer-compact-time strong {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.timer-compact-time small {
+  margin-right: 6px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.timer-compact-time.is-expired {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* A案：横長コンパクト */
+.timer-compact--row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.timer-compact--row .timer-compact-labels {
+  min-width: 0;
+}
+
+.timer-compact--row .timer-compact-title,
+.timer-compact--row .timer-compact-subtitle {
+  white-space: nowrap;
+}
+
+.timer-compact--row .timer-compact-title {
+  font-size: 11px;
+}
+
+.timer-compact--row .timer-compact-time strong {
+  font-size: 24px;
+}
+
+.timer-compact--row .timer-compact-time small {
+  margin-right: 4px;
+  font-size: 13px;
+}
+
+/* B案：3段構成の小型化 */
+.timer-compact--stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 9px 14px 10px;
+  text-align: center;
+}
+
+.timer-compact--stack .timer-compact-labels {
+  display: contents;
+}
+
+.timer-compact--stack .timer-compact-title {
+  order: 1;
+}
+
+.timer-compact--stack .timer-compact-time {
+  order: 2;
+  justify-content: center;
+}
+
+.timer-compact--stack .timer-compact-subtitle {
+  order: 3;
+}
+
+.top-fv-dark-dev-note {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  text-align: center;
+}
+
+/* =========================
+   Copy
+========================= */
+
+.top-fv-dark-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.top-fv-dark-rule {
+  display: block;
+  width: 46px;
+  height: 4px;
+  margin: 22px 0 16px;
+  border-radius: 999px;
+  background: #ffb238;
+}
+
+.top-fv-dark--b .top-fv-dark-rule {
+  margin-top: 18px;
+}
+
+/* 採用TOP：FV末尾の案内文を削除したため、CTAの影が切れない最小限の下余白にする */
+.top-fv-dark--b {
+  padding-bottom: 32px;
+}
+
+.top-fv-dark-title {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: clamp(24px, 7.4vw, 30px);
+  line-height: 1.4;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.top-fv-dark-lead {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(12px, 3.5vw, 14px);
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+/* =========================
+   Badges + Photo
+========================= */
+
+.top-fv-dark-stage {
+  position: relative;
+  width: calc(100% + 36px);
+  height: 262px;
+  margin: 14px -18px 0;
+}
+
+.top-fv-dark-badges {
+  position: absolute;
+  top: 26px;
+  left: 18px;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.top-fv-dark-badges li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 6px 14px 6px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(20, 22, 28, 0.72);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.top-fv-dark-badges li span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffb238;
+  color: #1c1c1c;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.top-fv-dark-photo {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  bottom: -40px;
+  width: 64%;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 36%),
+    linear-gradient(to bottom, transparent 0%, #000 16%, #000 62%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 36%),
+    linear-gradient(to bottom, transparent 0%, #000 16%, #000 62%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.top-fv-dark-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 10%;
+  filter: brightness(0.86) saturate(0.95);
+}
+
+/* =========================
+   CTA
+========================= */
+
+.top-fv-dark-cta {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  margin-top: -6px;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  background: linear-gradient(90deg, #ffbd3a 0%, #ff8c1e 100%);
+  color: #1b1712;
+  font-family: inherit;
+  font-size: clamp(17px, 5vw, 20px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(255, 140, 30, 0.28);
+}
+
+.top-fv-dark-cta span:first-child {
+  font-size: 0.9em;
+}
+
+.top-fv-dark-next {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  border: 0;
+  padding: 6px 10px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.top-fv-dark-next span:last-child {
+  color: #ffb238;
+  font-size: 16px;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 374px) {
+  .top-fv-dark {
+    padding-inline: 14px;
+  }
+
+  .top-fv-dark-stage {
+    width: calc(100% + 28px);
+    height: 230px;
+    margin-inline: -14px;
+  }
+
+  .top-fv-dark-badges {
+    top: 14px;
+    left: 14px;
+    gap: 8px;
+  }
+
+  .top-fv-dark-badges li {
+    font-size: 13px;
+  }
+
+  .timer-compact-time strong {
+    font-size: 22px;
+  }
+
+  .timer-compact--row {
+    padding: 9px 10px;
+  }
+
+  .timer-compact--row .timer-compact-title {
+    font-size: 10px;
+  }
+
+  .timer-compact--row .timer-compact-time strong {
+    font-size: 21px;
+  }
+}
+
+/* =========================
+   第5回TOP 下層（B2共通コンテンツ）
+   採用FV使用時のみ（.top-b2-page--v5）。明るい背景・文章・構造は維持し、
+   アクセントと最終CTAだけFVに揃える。従来のB2表示には影響しない。
+========================= */
+
+.top-b2-page--v5 .top-b2-section-arrow,
+.top-b2-page--v5 .top-b2-scroll-hook span,
+.top-b2-page--v5 .top-b2-empathy-icon,
+.top-b2-page--v5 .top-b2-diagnosis-icon,
+.top-b2-page--v5 .top-b2-benefit-card > span {
+  color: var(--v5-accent);
+}
+
+.top-b2-page--v5 .top-b2-scroll-hook p {
+  color: var(--v5-accent-text);
+}
+
+/* 最終CTA：FVと同じ黒系の帯＋オレンジCTA */
+.top-b2-page--v5 .top-b2-final-cta {
+  background: var(--v5-dark-bg);
+  color: #ffffff;
+}
+
+.top-b2-page--v5 .top-b2-final-cta .top-b2-main-cta {
+  min-height: 58px;
+  background: var(--v5-cta-bg);
+  color: var(--v5-cta-text);
+  font-size: clamp(16px, 4.6vw, 18px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: var(--v5-cta-shadow);
+}
+
+.top-b2-page--v5 .top-b2-final-cta .top-b2-note {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* 下層冒頭の見出し「こんなお悩み、ありませんか？」：375〜390px幅で1行に収まる最小限の縮小 */
+.top-b2-page--v5 .top-b2-empathy .top-b2-section-heading h2 {
+  font-size: min(clamp(23px, 7vw, 29px), 6.1vw);
+}
+
+/* 下層見出し「1人で悩まなくて大丈夫です」：375〜390px幅で1行に収まる最小限の縮小（320px幅は従来の最小23pxのまま） */
+.top-b2-page--v5 .top-b2-voices .top-b2-section-heading h2 {
+  font-size: clamp(23px, 6.7vw, 29px);
+}

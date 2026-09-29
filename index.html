@@ -24,8 +24,11 @@
     <!-- =========================
          Microsoft Clarity
     ========================== -->
+    <!-- 本番ビルド以外では読み込まない（%MODE% はViteが置換） -->
     <script type="text/javascript">
       ;(function (c, l, a, r, i, t, y) {
+        if ('%MODE%' !== 'production') return
+
         c[a] =
           c[a] ||
           function () {
@@ -52,6 +55,11 @@
     ========================== -->
     <script>
       ;(function (f, b, e, v, n, t, s) {
+        if ('%MODE%' !== 'production') {
+          f.fbq = function () {}
+          return
+        }
+
         if (f.fbq) return
 
         n = f.fbq = function () {

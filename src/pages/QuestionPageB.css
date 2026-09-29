@@ -180,6 +180,13 @@
   cursor: pointer;
 }
 
+/* 第5回のみ：選択肢が多い設問でも「次へ」を押しやすいよう画面下に固定 */
+.question-b-page--v5 .question-b-next {
+  position: sticky;
+  bottom: 12px;
+  z-index: 5;
+}
+
 .question-b-next:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -226,4 +233,201 @@
   height: 36px;
   object-fit: contain;
   opacity: 0.82;
+}
+/* =========================
+   第5回のみ：スマホで選択肢まで届きやすいよう、見出し画像の高さを抑える
+========================= */
+
+.question-b-page--v5 .question-b-card .question-b-visual {
+  margin: 14px 0 16px;
+  border-radius: 18px;
+}
+
+.question-b-page--v5 .question-b-card .question-b-visual img {
+  height: 120px;
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+/* =========================
+   第5回（.question-b-page--v5）
+   採用TOPのFVに合わせた操作色。設問・写真・カード構造は変えない
+========================= */
+
+.question-b-page--v5 .question-b-progress-label strong {
+  color: var(--v5-accent-text);
+}
+
+.question-b-page--v5 .question-b-progress-bar {
+  background: var(--v5-line);
+}
+
+.question-b-page--v5 .question-b-progress-bar span {
+  background: var(--v5-cta-bg);
+}
+
+.question-b-page--v5 .question-b-guide {
+  color: var(--v5-accent-text);
+}
+
+.question-b-page--v5 .question-b-choice-mark {
+  background: var(--v5-surface-soft);
+  color: var(--v5-accent-text);
+}
+
+/* 選択後：オレンジの枠と記号で、未選択と区別する */
+.question-b-page--v5 .question-b-choice.is-selected {
+  border-color: #ff9a2a;
+  background: var(--v5-accent-tint);
+  box-shadow: 0 0 0 2px rgba(255, 154, 42, 0.35), 0 8px 22px rgba(90, 65, 55, 0.05);
+}
+
+.question-b-page--v5 .question-b-choice.is-selected .question-b-choice-mark {
+  background: var(--v5-dark);
+  color: var(--v5-accent);
+}
+
+/* 次へ進む／診断結果を見る：FVと同じオレンジCTA */
+.question-b-page--v5 .question-b-next {
+  background: var(--v5-cta-bg);
+  color: var(--v5-cta-text);
+  box-shadow: var(--v5-cta-shadow);
+}
+
+/* 押せない状態：色・文字色・影をなくして明確に区別する */
+.question-b-page--v5 .question-b-next:disabled {
+  opacity: 1;
+  background: var(--v5-disabled-bg);
+  color: var(--v5-disabled-text);
+  box-shadow: none;
+}
+
+/* =========================
+   第5回：スマホのファーストビュー内で回答できるレイアウト
+   ・内容が画面に収まればスクロールが発生せず、アドレスバーの伸縮で画面が動かない
+   ・質問文を2行分の高さに固定し、Q1〜Q10で選択肢の開始位置を揃える
+   ・タップ領域は44px以上を維持
+========================= */
+
+html:has(.question-b-page--v5) {
+  overscroll-behavior-y: none;
+}
+
+.question-b-page--v5,
+.question-b-page--v5 .question-b-phone {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.question-b-page--v5 .question-b-card {
+  padding: 12px 16px 16px;
+}
+
+.question-b-page--v5 .question-b-progress {
+  margin-bottom: 10px;
+}
+
+.question-b-page--v5 .question-b-progress-label {
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.question-b-page--v5 .question-b-progress-bar {
+  height: 6px;
+}
+
+.question-b-page--v5 .question-b-card .question-b-visual {
+  margin: 0 0 10px;
+  border-radius: 14px;
+}
+
+.question-b-page--v5 .question-b-card .question-b-visual img {
+  height: 64px;
+}
+
+.question-b-page--v5 .question-b-guide {
+  margin: 0 0 4px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.question-b-page--v5 .question-b-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3em;
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+/* 共通Footerのインライン余白を、第5回の診断ページでのみ詰める */
+.question-b-page--v5 footer {
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+}
+
+.question-b-page--v5 .question-b-choice-list {
+  gap: 8px;
+}
+
+.question-b-page--v5 .question-b-choice {
+  grid-template-columns: 28px 1fr 40px;
+  gap: 10px;
+  min-height: 52px;
+  padding: 7px 12px;
+  border-radius: 14px;
+}
+
+.question-b-page--v5 .question-b-choice-mark {
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+}
+
+.question-b-page--v5 .question-b-choice-text {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.question-b-page--v5 .question-b-choice-image-slot {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.question-b-page--v5 .question-b-choice-image-slot img {
+  width: 28px;
+  height: 28px;
+}
+
+.question-b-page--v5 .question-b-next {
+  margin-top: 12px;
+  padding: 13px 20px;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  font-size: 16px;
+}
+
+/* 高さに余裕のある端末（390×844など）では画像と選択肢を少し大きくする */
+@media (min-height: 760px) {
+  .question-b-page--v5 .question-b-card {
+    padding-top: 18px;
+  }
+
+  .question-b-page--v5 .question-b-card .question-b-visual img {
+    height: 104px;
+  }
+
+  .question-b-page--v5 .question-b-choice-list {
+    gap: 10px;
+  }
+
+  .question-b-page--v5 .question-b-choice {
+    min-height: 60px;
+  }
+
+  .question-b-page--v5 .question-b-next {
+    margin-top: 16px;
+  }
 }

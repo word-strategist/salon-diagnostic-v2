@@ -74,6 +74,11 @@ export async function sendTrackingEvent(payload = {}) {
 
     console.log('tracking payload:', trackingPayload)
 
+    // ローカル開発では本番GASへ送信しない
+    if (import.meta.env.DEV) {
+      return { ok: true, skipped: 'dev' }
+    }
+
     const response = await fetch(GAS_ENDPOINT, {
       method: 'POST',
       headers: {

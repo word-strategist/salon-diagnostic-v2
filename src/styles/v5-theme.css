@@ -1,0 +1,36 @@
+/* =========================
+   第5回 共通ビジュアル
+   採用TOP（variant=b5b）のFV（TopFvDark.css）の値を基準にした共通値。
+   FV本体はこの変数を参照しない（採用済みの見た目を固定するため）。
+========================= */
+
+:root {
+  /* 黒系（FV背景） */
+  --v5-dark-bg: linear-gradient(180deg, #20242d 0%, #151820 55%, #0e1016 100%);
+  --v5-dark: #1b1e25;
+  --v5-dark-soft: #2a2e37;
+
+  /* オレンジ（FVアクセント・CTA） */
+  --v5-accent: #ffb238;
+  --v5-cta-bg: linear-gradient(90deg, #ffbd3a 0%, #ff8c1e 100%);
+  --v5-cta-text: #1b1712;
+  --v5-cta-shadow: 0 12px 26px rgba(255, 140, 30, 0.28);
+
+  /* 明るい背景上で文字に使うオレンジ（白背景でのコントラスト確保用） */
+  --v5-accent-text: #a85600;
+
+  /* 明るい面 */
+  --v5-surface: #ffffff;
+  --v5-surface-soft: #faf7f3;
+  --v5-line: #ece5dd;
+  --v5-accent-tint: #fff6ea;
+
+  /* 文字 */
+  --v5-text: #1f232b;
+  --v5-text-body: #4a4540;
+  --v5-text-muted: #8a817a;
+
+  /* 押せない状態 */
+  --v5-disabled-bg: #e7e2dd;
+  --v5-disabled-text: #9b938c;
+}

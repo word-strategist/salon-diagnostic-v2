@@ -1,16 +1,8 @@
+// Q10の回答（determineType で A〜D に変換済み）→ 案内先
+// 診断結果（パターン）は案内先の決定に使わない
 export const RESULT_PRODUCT_MAP = {
-  '1-A': ['instaAI'],
-  '2-A': ['instaAI'],
-  '3-A': ['instaAI'],
-
-  '1-B': ['hpbBasic'],
-  '2-B': ['hpbBasic'],
-  '3-B': ['hpbPerfect'],
-
-  '1-C': ['consultation'],
-  '2-C': ['consultation'],
-  '3-C': ['consultation'],
-
-  '1-D': ['chatgptManual'],
-  '2-D': ['chatgptManual'],
+  A: ['igBasic'], // Q10=0 自分でできる集客方法
+  B: ['hpbMaster'], // Q10=1 ホットペッパーで集客力を上げる方法
+  C: ['hpbConsultation'], // Q10=2 サロン診断や的確なアドバイス
+  D: ['aiHpbReservation'], // Q10=3 AIで作業時間を減らすこと
 }

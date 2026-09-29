@@ -19,8 +19,11 @@ import { calcResult } from './utils/judgement'
 import {
   getAbVariant,
   getEntryChannel,
+  isKnownEntryVariant,
   saveEntryVariant,
 } from './data/abVariant'
+import { QUESTIONS } from './data/questions'
+import { isCurrentResult } from './utils/resultPattern'
 import {
   createResultExpiry,
   getCampaignStatus,
@@ -102,34 +105,44 @@ function isDevelopmentPreviewEnabled() {
 
 /* =========================
    開発・レビュー専用
-   Result直接表示
+   Result直接表示（回答10個を指定して本物の判定を通す）
+   例：#/?variant=b5a&preview=1&answers=0,0,2,0,0,2,0,0,0,0
 ========================= */
 
-const PREVIEW_RESULT_KEYS = new Set([
-  '1-A',
-  '2-A',
-  '3-A',
-  '1-B',
-  '2-B',
-  '3-B',
-  '1-C',
-  '2-C',
-  '3-C',
-  '1-D',
-  '2-D',
-])
-
-function getPreviewResultKey() {
+function getPreviewAnswers() {
   const searchParams = new URLSearchParams(window.location.search)
   const hashParams = getHashSearchParams()
 
-  const resultKey =
-    searchParams.get('result') ||
-    hashParams.get('result')
+  const raw =
+    searchParams.get('answers') ||
+    hashParams.get('answers')
 
-  return PREVIEW_RESULT_KEYS.has(resultKey)
-    ? resultKey
-    : null
+  if (!raw) return null
+
+  const answers = raw.split(',').map((value) => Number(value))
+
+  const isValid =
+    answers.length === QUESTIONS.length &&
+    answers.every(
+      (value, index) =>
+        Number.isInteger(value) &&
+        value >= 0 &&
+        value < QUESTIONS[index].options.length
+    )
+
+  return isValid ? answers : null
+}
+
+/* =========================
+   第5回TOP：B2の下層を共通にし、FVだけ切り替える
+========================= */
+
+function TopPageB5A(props) {
+  return <TopPageB2 {...props} fvVariant="a" pageId="top_b5a" />
+}
+
+function TopPageB5B(props) {
+  return <TopPageB2 {...props} fvVariant="b" pageId="top_b5b" />
 }
 
 function buildRoute(path, variant) {
@@ -250,6 +263,14 @@ function AppRoutes() {
   ActiveTopPage = TopPageB4
   }
 
+  if (variant === 'b5a') {
+    ActiveTopPage = TopPageB5A
+  }
+
+  if (variant === 'b5b') {
+    ActiveTopPage = TopPageB5B
+  }
+
   /* =========================
      時刻更新
   ========================= */
@@ -267,25 +288,24 @@ function AppRoutes() {
 ========================= */
 
 useEffect(() => {
-  const previewResultKey = previewEnabled
-    ? getPreviewResultKey()
+  const previewAnswers = previewEnabled
+    ? getPreviewAnswers()
     : null
 
-  if (previewResultKey && variant) {
-    const [level, type] = previewResultKey.split('-')
-    const previewResult = { level, type }
+  if (previewAnswers && variant) {
+    const previewResult = calcResult(previewAnswers)
     const completedAt = new Date().toISOString()
     const expiresAt = createResultExpiry(completedAt)
     const channel = getEntryChannel()
 
-    setAnswers([])
+    setAnswers(previewAnswers)
     setResult(previewResult)
     setResultExpiresAt(expiresAt)
     setResultExpired(false)
 
     sessionStorage.setItem(
       SESSION_KEYS.answers,
-      JSON.stringify([])
+      JSON.stringify(previewAnswers)
     )
 
     localStorage.setItem(
@@ -320,9 +340,13 @@ useEffect(() => {
     []
   )
 
-  const savedResult = safelyParseJson(
+  // 第5回形式でない保存結果（旧 {level, type} など）は無効として扱う
+  const parsedResult = safelyParseJson(
     localStorage.getItem(LOCAL_KEYS.result)
   )
+  const savedResult = isCurrentResult(parsedResult)
+    ? parsedResult
+    : null
 
   const savedExpiresAt = localStorage.getItem(
     LOCAL_KEYS.expiresAt
@@ -335,12 +359,7 @@ useEffect(() => {
     LOCAL_KEYS.entryVariant
   )
 
-  if (
-    savedVariant === 'b' ||
-    savedVariant === 'b2' ||
-    savedVariant === 'b3' ||
-    savedVariant === 'b4'
-  ) {
+  if (isKnownEntryVariant(savedVariant)) {
     saveEntryVariant(savedVariant)
   }
 
@@ -515,7 +534,12 @@ element={
         path="/question/:index"
         element={
           campaignStatus === 'active' ? (
-            <QuestionWrapper onAnswer={handleAnswer} />
+            <QuestionWrapper
+              onAnswer={handleAnswer}
+              visualTheme={
+                variant === 'b5a' || variant === 'b5b' ? 'v5' : null
+              }
+            />
           ) : (
             <StatusScreen
               label="受付終了"
@@ -581,7 +605,8 @@ element={
    Questionラッパー
 ========================= */
 
-function QuestionWrapper({ onAnswer }) {
+// visualTheme：見た目の切り替えのみ（'v5' で第5回TOPに合わせた配色）
+function QuestionWrapper({ onAnswer, visualTheme }) {
   const { index } = useParams()
   const questionIndex = Number.parseInt(index, 10)
 
@@ -603,6 +628,7 @@ function QuestionWrapper({ onAnswer }) {
     <QuestionPage
       questionIndex={questionIndex}
       onAnswer={onAnswer}
+      visualTheme={visualTheme}
     />
   )
 }

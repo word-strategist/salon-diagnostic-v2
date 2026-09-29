@@ -2,7 +2,8 @@
 // A/B入口判定
 // =========================
 
-const VALID_VARIANTS = ['b', 'b2', 'b3', 'b4']
+// b5a / b5b：第5回TOP（黒系FV）のタイマーA案・B案
+const VALID_VARIANTS = ['b', 'b2', 'b3', 'b4', 'b5a', 'b5b']
 
 const SESSION_KEYS = {
   variant: 'salon_entry_variant',

@@ -1,73 +1,41 @@
+/* =========================
+   第5回 案内先（Q10の回答で1つに決まる）
+
+   商品名・URLは山田さん提示の内容。
+   description：未確定のため null（旧商品の説明・価格は転用しない）
+   cta：仮の文言
+========================= */
+
 export const PRODUCTS = {
-  instaAI: {
-    name: 'インスタ集客丸投げ君AIツール',
-
-    description: '投稿作成や発信の手間を減らし、集客導線を整えるAIツールです。',
-
-    originalPrice: 9800,
-    price: 1980,
-
-    billingLabel: '月額',
-    priceLabel: '診断者限定価格',
-
-    url: 'https://sendenhi-zero.com/insta-marunagekun',
+  igBasic: {
+    name: 'Instagram集客ベーシックマニュアル',
+    description: null,
+    url: 'https://utage-system.com/p/dTDFwOwiyQKJ',
     isConsultation: false,
-    cta: '診断者限定価格を確認する',
+    cta: '内容を確認する',
   },
 
-  hpbBasic: {
-    name: 'ホットペッパー攻略マニュアル（基礎編）',
-
-    originalPrice: 10000,
-    price: 4980,
-
-    billingLabel: '',
-    priceLabel: '診断者限定価格',
-
+  hpbMaster: {
+    name: 'ホットペッパービューティ徹底攻略マニュアル',
+    description: null,
     url: 'https://sendenhi-zero.com/hpmanyual',
     isConsultation: false,
-    cta: '診断者限定価格を確認する',
+    cta: '内容を確認する',
   },
 
-  hpbPerfect: {
-    name: 'ホットペッパー攻略パーフェクトマニュアル',
-
-    originalPrice: 29800,
-    price: 14900,
-
-    billingLabel: '',
-    priceLabel: '診断者限定価格',
-
-    url: 'https://sendenhi-zero.com/hpgokuhi',
-    isConsultation: false,
-    cta: '診断者限定価格を確認する',
-  },
-
-  chatgptManual: {
-    name: '『ChatGPT』集客マニュアル',
-
-    originalPrice: 19800,
-    price: 9800,
-
-    billingLabel: '',
-    priceLabel: '診断者限定価格',
-
-    url: 'https://sendenhi-zero.com/chatgpt-kyouzai',
-    isConsultation: false,
-    cta: '診断者限定価格を確認する',
-  },
-
-  consultation: {
-    name: 'ホットペッパー診断会＆説明会',
-
-    originalPrice: null,
-    price: 0,
-
-    billingLabel: '',
-    priceLabel: '',
-
-    url: 'https://utage-system.com/p/jBAkSvtQ120H',
+  hpbConsultation: {
+    name: 'ホットペッパー診断会（無料個別相談会）',
+    description: null,
+    url: 'https://utage-system.com/p/Bu7lqAdurRl4',
     isConsultation: true,
-    cta: '診断会＆説明会の詳細を確認する',
+    cta: '無料個別相談会の詳細を確認する',
+  },
+
+  aiHpbReservation: {
+    name: 'AIホットペッパー予約術 完全版',
+    description: null,
+    url: 'https://utage-system.com/p/hymFoj33t2ru',
+    isConsultation: false,
+    cta: '内容を確認する',
   },
 }

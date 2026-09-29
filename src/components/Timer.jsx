@@ -15,6 +15,8 @@ export default function Timer({
   title,
   subtitle,
   expiredText = '終了しました',
+  // 'default'：従来表示／'row'：横長コンパクト／'stack'：3段小型（見た目のみ。計算・終了判定は共通）
+  layout = 'default',
 }) {
   const STORAGE_KEY = useMemo(() => {
     if (mode !== 'offer') return null
@@ -104,6 +106,33 @@ export default function Timer({
     (isConsultation
       ? '期間を過ぎると予約受付が終了します'
       : 'このご案内は期間限定です')
+
+  if (layout === 'row' || layout === 'stack') {
+    return (
+      <div className={`timer-compact timer-compact--${layout}`}>
+        <div className="timer-compact-labels">
+          <p className="timer-compact-title">{displayTitle}</p>
+          {time > 0 && (
+            <p className="timer-compact-subtitle">{displaySubtitle}</p>
+          )}
+        </div>
+
+        {time > 0 ? (
+          <p className="timer-compact-time">
+            {days > 0 && (
+              <>
+                <strong>{d}</strong>
+                <small>日</small>
+              </>
+            )}
+            <strong>{`${h}:${m}:${s}`}</strong>
+          </p>
+        ) : (
+          <p className="timer-compact-time is-expired">{expiredText}</p>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div

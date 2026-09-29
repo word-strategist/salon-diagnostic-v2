@@ -1,0 +1,522 @@
+/* =========================
+   第5回 結果ページ（予約力診断の型）
+   配色は採用TOPのFV（黒系・オレンジ）に合わせる。変数は styles/v5-theme.css
+========================= */
+
+.result-v5-page {
+  min-height: 100vh;
+  background: #f4efeb;
+  color: var(--v5-text);
+}
+
+.result-v5-page,
+.result-v5-page * {
+  box-sizing: border-box;
+}
+
+.result-v5-phone {
+  width: min(100%, 430px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-bottom: 8px;
+  background: #f6f2ee;
+}
+
+/* =========================
+   閲覧期限（FVタイマーと同系統の黒系・控えめな表示）
+   ⑤案内の商品名とCTAの間に配置
+========================= */
+
+.result-v5-deadline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--v5-dark-bg);
+  text-align: left;
+}
+
+.result-v5-deadline-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.result-v5-deadline-boxes {
+  flex: none;
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 2px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.result-v5-deadline-box {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.result-v5-deadline-box strong {
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.result-v5-deadline-box span {
+  white-space: nowrap;
+  margin-right: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.result-v5-deadline-box:last-child span {
+  margin-right: 0;
+}
+
+/* =========================
+   カード
+========================= */
+
+.result-v5-card {
+  margin: 16px 14px 0;
+  padding: 24px 16px 22px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid var(--v5-line);
+  box-shadow: 0 10px 28px rgba(30, 24, 18, 0.07);
+}
+
+.result-v5-draft-badge {
+  margin: -8px 0 16px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #fff5d6;
+  color: #8a5a00;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.result-v5-section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  color: var(--v5-text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* =========================
+   ① 診断結果
+========================= */
+
+.result-v5-summary {
+  text-align: center;
+}
+
+.result-v5-badge {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--v5-dark-bg);
+  color: var(--v5-accent);
+  box-shadow: 0 8px 18px rgba(20, 22, 28, 0.22);
+}
+
+.result-v5-badge strong {
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.result-v5-badge span {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.result-v5-kicker {
+  margin: 0 0 4px;
+  color: var(--v5-text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.result-v5-name {
+  margin: 0 0 14px;
+  color: var(--v5-text);
+  font-size: clamp(19px, 5.6vw, 22px);
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+.result-v5-lead-box {
+  padding: 14px 14px 12px;
+  border: 1px solid var(--v5-line);
+  border-radius: 12px;
+  background: var(--v5-surface-soft);
+  text-align: left;
+}
+
+.result-v5-lead-box > p {
+  margin: 0 0 12px;
+  color: var(--v5-text-body);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.result-v5-facts {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px dashed #dccfc2;
+}
+
+.result-v5-facts div {
+  display: grid;
+  gap: 1px;
+}
+
+.result-v5-facts dt {
+  color: var(--v5-accent-text);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.result-v5-facts dd {
+  margin: 0;
+  color: var(--v5-text);
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+/* =========================
+   ② 改善ポイント3つ
+========================= */
+
+/* 見出しのみ（アイコンなし） */
+.result-v5-points-title {
+  margin-bottom: 12px;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.result-v5-points {
+  margin-top: 22px;
+}
+
+.result-v5-points ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result-v5-points li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 8px;
+  padding: 10px 12px;
+  border-left: 4px solid #ff9a2a;
+  border-radius: 8px;
+  background: var(--v5-accent-tint);
+}
+
+.result-v5-point-mark {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--v5-cta-bg);
+  color: var(--v5-cta-text);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.result-v5-points strong {
+  display: block;
+  color: var(--v5-text);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 900;
+}
+
+.result-v5-points li p {
+  margin: 4px 0 0;
+  color: var(--v5-text-body);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* =========================
+   ③ 最優先事項と理由
+========================= */
+
+.result-v5-priority {
+  margin-top: 22px;
+  padding: 16px 14px;
+  border: 2px dashed #f0a444;
+  border-radius: 14px;
+  background: #fffaf3;
+  text-align: center;
+}
+
+.result-v5-priority-label {
+  margin: 0 0 4px;
+  color: var(--v5-text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.result-v5-priority-title {
+  margin: 0 0 10px;
+  color: var(--v5-accent-text);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 900;
+}
+
+.result-v5-priority-reason {
+  margin: 0;
+  color: var(--v5-text-body);
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.result-v5-priority-reason span {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--v5-dark);
+  color: var(--v5-accent);
+  font-size: 10px;
+  font-weight: 900;
+  vertical-align: 1px;
+}
+
+/* =========================
+   ④ 改善によって期待できること
+========================= */
+
+.result-v5-outcome {
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid var(--v5-line);
+  border-radius: 12px;
+  background: var(--v5-surface-soft);
+}
+
+.result-v5-outcome p {
+  margin: 0;
+  color: var(--v5-text-body);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* =========================
+   ⑤ 商品・相談会案内
+========================= */
+
+.result-v5-offer {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--v5-line);
+  text-align: center;
+}
+
+.result-v5-offer-label {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--v5-dark);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.result-v5-offer-bridge {
+  margin: 0 0 12px;
+  color: var(--v5-text-body);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.result-v5-offer-bridge strong {
+  color: var(--v5-accent-text);
+}
+
+.result-v5-product {
+  margin-bottom: 14px;
+  padding: 14px 12px;
+  border: 1px solid var(--v5-line);
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(30, 24, 18, 0.05);
+}
+
+.result-v5-product strong {
+  display: block;
+  color: var(--v5-text);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 900;
+}
+
+.result-v5-product p {
+  margin: 8px 0 0;
+  color: var(--v5-text-body);
+  font-size: 12px;
+  line-height: 1.75;
+  text-align: left;
+}
+
+.result-v5-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 58px;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  background: var(--v5-cta-bg);
+  color: var(--v5-cta-text);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: var(--v5-cta-shadow);
+}
+
+.result-v5-cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.result-v5-offer-note {
+  margin: 10px 0 0;
+  color: var(--v5-text-muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* =========================
+   開発確認用
+========================= */
+
+.result-v5-preview {
+  margin-top: 24px;
+  padding: 12px;
+  border: 1px dashed #b9a6ad;
+  border-radius: 10px;
+  background: #faf7f8;
+  font-size: 12px;
+}
+
+.result-v5-preview p {
+  margin: 0 0 6px;
+}
+
+.result-v5-preview-title {
+  font-weight: 900;
+}
+
+.result-v5-preview-answers {
+  color: #6b5a60;
+  font-family: ui-monospace, monospace;
+}
+
+.result-v5-preview-label {
+  margin-top: 8px !important;
+  color: #6b5a60;
+  font-weight: 800;
+}
+
+.result-v5-preview-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.result-v5-preview-links button,
+.result-v5-preview-reset {
+  border: 1px solid #d8c7cd;
+  border-radius: 6px;
+  padding: 5px 9px;
+  background: #ffffff;
+  color: #3a2a2e;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.result-v5-preview-reset {
+  margin-top: 12px;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.result-v5-footer {
+  margin: 18px 14px 0;
+  padding: 4px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+@media (min-width: 431px) {
+  .result-v5-page {
+    padding: 24px 0;
+  }
+
+  .result-v5-phone {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 389px) {
+  .result-v5-deadline {
+    padding: 10px 12px;
+  }
+
+  .result-v5-deadline-boxes {
+    padding: 6px 9px;
+  }
+
+  .result-v5-deadline-box strong {
+    font-size: 16px;
+  }
+}

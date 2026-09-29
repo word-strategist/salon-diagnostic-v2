@@ -36,7 +36,11 @@ const QUESTION_MESSAGES = [
   '最後に、今のあなたに必要だと感じるものを選んでください。',
 ]
 
-export default function QuestionPage({ questionIndex, onAnswer }) {
+export default function QuestionPage({
+  questionIndex,
+  onAnswer,
+  visualTheme = null,
+}) {
   const [selected, setSelected] = useState(null)
 
   const q = QUESTIONS[questionIndex]
@@ -45,6 +49,12 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
   const message =
     QUESTION_MESSAGES[questionIndex] ||
     'いまの気持ちに近いものを選んでください'
+
+  // 第5回のみ：次の質問へ進んだとき、スマホで前の質問のスクロール位置が残らないようにする
+  useEffect(() => {
+    if (visualTheme !== 'v5') return
+    window.scrollTo(0, 0)
+  }, [questionIndex, visualTheme])
 
   useEffect(() => {
     sendTrackingEvent({
@@ -84,7 +94,11 @@ export default function QuestionPage({ questionIndex, onAnswer }) {
   if (!q) return null
 
   return (
-    <div className="question-b-page">
+    <div
+      className={`question-b-page${
+        visualTheme === 'v5' ? ' question-b-page--v5' : ''
+      }`}
+    >
       <main className="question-b-phone">
         <section className="question-b-card">
           <div className="question-b-progress">
