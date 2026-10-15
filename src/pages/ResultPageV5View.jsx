@@ -5,11 +5,11 @@ import { PATTERN_COPY_IS_DRAFT } from '../data/patternCopy'
 import './ResultPageV5View.css'
 
 /* =========================
-   第5回 結果ページ
-   ホルダー提供「予約力診断」の型に沿った5区画
-   ①診断結果 ②改善ポイント3つ ③最優先事項と理由
-   ④改善によって期待できること ⑤商品・相談会案内
-   レベル・ランク・点数・動画・人数限定表記は表示しない
+   第5回 結果ページ（正式仕様 v02・01〜06共通）
+   ①診断結果 ②なぜこの結果なのか ③今必要なこと ④あなたに合った進め方 ⑤CTA
+   05・06のみ試作：①の後に写真枠、②の末尾に図解（resultVisuals.js）
+   ＋ システムUIとしての閲覧期限（診断完了から24時間）
+   見た目は承認済み第2案の配色・部品を流用。結果ページに商品名は表示しない。
 ========================= */
 
 function formatRemainingTime(remainingMs) {
@@ -37,27 +37,93 @@ function isPreviewEnabled() {
 }
 
 /* =========================
-   開発確認用：6パターンの代表回答とQ10切替
+   テキスト表示：「\n\n」で段落、「\n」で改行
+========================= */
+
+function splitParagraphs(text) {
+  return (text ?? '').split('\n\n').filter(Boolean)
+}
+
+function renderLines(paragraph) {
+  const lines = paragraph.split('\n')
+
+  return lines.map((line, index) => (
+    <span key={index}>
+      {line}
+      {index < lines.length - 1 && <br />}
+    </span>
+  ))
+}
+
+function Paragraphs({ text, className, emphasis = null }) {
+  return splitParagraphs(text).map((paragraph, index) => (
+    <p
+      key={index}
+      className={paragraph === emphasis ? 'r5-em' : className}
+    >
+      {renderLines(paragraph)}
+    </p>
+  ))
+}
+
+/* =========================
+   写真枠・図解（05・06の試作）
+   写真は装飾扱い（原因の説明には使わない）。src が無い間は仮の枠
+========================= */
+
+function ResultPhoto({ photo }) {
+  return (
+    <div className="r5-photo">
+      {photo.src ? (
+        <img src={photo.src} alt="" decoding="async" />
+      ) : (
+        <span className="r5-photo-placeholder">写真（仮）</span>
+      )}
+    </div>
+  )
+}
+
+// flow：順に進む流れ（矢印でつなぐ）／aspects：同等に並ぶ観点
+function ResultDiagram({ diagram }) {
+  const List = diagram.kind === 'flow' ? 'ol' : 'ul'
+
+  return (
+    <List className={`r5-diagram r5-diagram--${diagram.kind}`}>
+      {diagram.items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </List>
+  )
+}
+
+/* =========================
+   開発確認用：01〜06の代表回答とQ10①〜④切替
+   パラメータは # より前に置き、ページを確実に読み込み直す
 ========================= */
 
 const PREVIEW_EXAMPLES = [
   { label: '01', answers: '0,0,2,0,0,2,0,0,0,0' },
   { label: '02', answers: '2,4,1,1,1,0,0,1,1,1' },
   { label: '03', answers: '1,2,0,0,1,0,0,1,1,2' },
-  { label: '04 準備', answers: '1,1,2,2,0,1,0,0,0,3' },
-  { label: '04 見直し', answers: '1,2,2,1,0,1,0,0,0,0' },
+  { label: '04 Q4=1', answers: '1,2,2,1,0,1,0,0,0,0' },
+  { label: '04 Q4=2', answers: '1,1,2,2,0,1,0,0,0,3' },
   { label: '05', answers: '1,2,0,0,1,2,0,1,1,0' },
   { label: '06', answers: '2,4,2,0,2,2,0,2,2,3' },
 ]
 
 function openPreview(answers) {
   const variant =
-    sessionStorage.getItem('salon_entry_variant') || 'b5a'
+    sessionStorage.getItem('salon_entry_variant') || 'b5b'
+  const search = `?variant=${variant}&preview=1&answers=${answers}`
 
-  // ハッシュだけの変更では再読み込みされないため、明示的に読み込み直す
-  window.location.hash =
-    `#/?variant=${variant}&preview=1&answers=${answers}`
-  window.location.reload()
+  if (window.location.search === search) {
+    // 同じ回答の場合は # 以降だけの変更になるため、明示的に読み込み直す
+    window.location.hash = '#/'
+    window.location.reload()
+    return
+  }
+
+  window.location.href = `${window.location.origin}/${search}#/`
 }
 
 function PreviewPanel({ handleResetDiagnosis }) {
@@ -82,7 +148,7 @@ function PreviewPanel({ handleResetDiagnosis }) {
         </p>
       )}
 
-      <p className="result-v5-preview-label">パターン代表例</p>
+      <p className="result-v5-preview-label">結果の切り替え</p>
       <div className="result-v5-preview-links">
         {PREVIEW_EXAMPLES.map((example) => (
           <button
@@ -101,9 +167,9 @@ function PreviewPanel({ handleResetDiagnosis }) {
             同じ回答でQ10だけ変更
           </p>
           <div className="result-v5-preview-links">
-            {[0, 1, 2, 3].map((q10) => (
+            {['①', '②', '③', '④'].map((label, q10) => (
               <button
-                key={q10}
+                key={label}
                 type="button"
                 onClick={() =>
                   openPreview(
@@ -111,7 +177,7 @@ function PreviewPanel({ handleResetDiagnosis }) {
                   )
                 }
               >
-                Q10={q10}
+                Q10{label}
               </button>
             ))}
           </div>
@@ -131,7 +197,6 @@ function PreviewPanel({ handleResetDiagnosis }) {
 
 export default function ResultPageV5View({
   content,
-  mainProduct,
   ctaLabel,
   ctaAreaRef,
   handleCtaClick,
@@ -152,147 +217,111 @@ export default function ResultPageV5View({
     [resultExpiresAt, now]
   )
 
+  const [resultLead, ...resultMain] = splitParagraphs(content.result)
+  const { bridge, visual } = content
+
   return (
     <div className="result-v5-page">
       <main className="result-v5-phone">
-        <div className="result-v5-card">
-          {previewEnabled && PATTERN_COPY_IS_DRAFT && (
-            <p className="result-v5-draft-badge">
-              仮文言：結果文言・案内文は確認用です
-            </p>
-          )}
+        {previewEnabled && PATTERN_COPY_IS_DRAFT && (
+          <p className="result-v5-draft-badge">
+            仮文言：結果文言・案内文は確認用です
+          </p>
+        )}
 
+        <div className="r5">
           {/* ① 診断結果 */}
-          <section className="result-v5-summary">
-            <div className="result-v5-badge" aria-hidden="true">
-              <strong>{content.pattern}</strong>
-              <span>タイプ</span>
-            </div>
-
-            <p className="result-v5-kicker">あなたの診断結果</p>
-            <h1 className="result-v5-name">{content.name}</h1>
-
-            <div className="result-v5-lead-box">
-              {content.lead && <p>{content.lead}</p>}
-
-              <dl className="result-v5-facts">
-                {content.facts.map((fact) => (
-                  <div key={fact.label}>
-                    <dt>{fact.label}</dt>
-                    <dd>{fact.text}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </section>
-
-          {/* ② 改善ポイント3つ */}
-          <section className="result-v5-points">
-            <h2 className="result-v5-section-title result-v5-points-title">
-              あなたが今すぐ見直したいポイント
-            </h2>
-
-            <ol>
-              {content.points.map((point, index) => (
-                <li key={point?.title ?? index}>
-                  <span className="result-v5-point-mark" aria-hidden="true">
-                    !
-                  </span>
-                  <div>
-                    <strong>{point?.title}</strong>
-                    <p>{point?.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          {/* ③ 最優先事項と理由 */}
-          <section className="result-v5-priority">
-            <p className="result-v5-priority-label">
-              あなたが“最優先で”取り組みたいことは
-            </p>
-            <p className="result-v5-priority-title">
-              「{content.priority?.title}」
-            </p>
-            <p className="result-v5-priority-reason">
-              <span>理由</span>
-              {content.priority?.reason}
-            </p>
-          </section>
-
-          {/* ④ 改善によって期待できること */}
-          <section className="result-v5-outcome">
-            <h2 className="result-v5-section-title">
-              <span aria-hidden="true">✨</span>
-              改善によって期待できること
-            </h2>
-            <p>{content.outcome}</p>
-          </section>
-
-          {/* ⑤ 商品・相談会案内 */}
-          <section className="result-v5-offer">
-            <p className="result-v5-offer-label">あなたへのご案内</p>
-
-            <p className="result-v5-offer-bridge">
-              「今のサロンに最も必要なもの」として選ばれた
-              <strong>「{content.wishText}」</strong>
-              に合わせたご案内です。
-            </p>
-
-            <div className="result-v5-product">
-              <strong>{mainProduct.name}</strong>
-              {mainProduct.description && <p>{mainProduct.description}</p>}
-            </div>
-
-            {/* 閲覧期限（診断完了から24時間）：商品名とCTAの間に表示 */}
-            <section
-              className="result-v5-deadline"
-              aria-label="診断結果の閲覧期限"
-            >
-              <p className="result-v5-deadline-label">
-                診断結果の閲覧期限まで残り
+          <section className="r5-fv">
+            <div className="r5-fv-top">
+              <p className="r5-kicker">あなたの診断結果</p>
+              <p className="r5-result-no">
+                RESULT <strong>{content.pattern}</strong>
               </p>
+            </div>
 
-              <div className="result-v5-deadline-boxes">
-                {[
-                  [remainingTime.hours, '時間'],
-                  [remainingTime.minutes, '分'],
-                  [remainingTime.seconds, '秒'],
-                ].map(([value, unit]) => (
-                  <div key={unit} className="result-v5-deadline-box">
-                    <strong>{value}</strong>
-                    <span>{unit}</span>
-                  </div>
-                ))}
+            <p className="r5-result-lead">{renderLines(resultLead)}</p>
+            <h1 className="r5-result-main">
+              {resultMain.map((paragraph, index) => (
+                <span key={index} className="r5-result-block">
+                  {renderLines(paragraph)}
+                </span>
+              ))}
+            </h1>
+          </section>
+
+          {visual?.photo && <ResultPhoto photo={visual.photo} />}
+
+          {/* ② なぜこの結果なのか */}
+          <section className="r5-why">
+            <h2 className="r5-subheading">なぜこの結果なのか</h2>
+            <div className="r5-why-body">
+              <Paragraphs text={content.why} emphasis={visual?.emphasis} />
+            </div>
+
+            {visual?.diagram && <ResultDiagram diagram={visual.diagram} />}
+          </section>
+
+          {/* ③ 今必要なこと */}
+          <section className="r5-need">
+            <h2 className="r5-need-label">今必要なこと</h2>
+            <p className="r5-need-text">{renderLines(content.need)}</p>
+          </section>
+
+          {/* ④ あなたに合った進め方 */}
+          <section className="r5-path">
+            <h2 className="r5-path-heading">では、どう改善していくか。</h2>
+
+            <p className="r5-path-choice">
+              あなたが選んだのは、
+              <strong>「{content.wishText}」</strong>
+              でした。
+            </p>
+
+            {bridge && (
+              <div className="r5-path-bridge">
+                {bridge.heading && (
+                  <p className="r5-path-bridge-heading">{bridge.heading}</p>
+                )}
+                <p className="r5-path-bridge-body">{bridge.body}</p>
               </div>
-            </section>
+            )}
+          </section>
+
+          {/* システムUI：診断結果の閲覧期限 → ⑤ CTA */}
+          <section className="r5-action">
+            <p className="r5-timer" aria-label="診断結果の閲覧期限">
+              この診断結果は、あと
+              <strong>
+                {remainingTime.hours}:{remainingTime.minutes}:
+                {remainingTime.seconds}
+              </strong>
+              <span className="result-v5-phrase">ご覧いただけます。</span>
+            </p>
 
             <div className="result-v5-cta-area" ref={ctaAreaRef}>
               <button
                 type="button"
-                className="result-v5-cta"
+                className="result-v5-cta r5-cta"
                 onClick={handleCtaClick}
                 disabled={isCtaNavigating}
                 aria-busy={isCtaNavigating}
               >
-                {isCtaNavigating
-                  ? 'ページを開いています…'
-                  : `${ctaLabel} →`}
+                <span>
+                  {isCtaNavigating ? 'ページを開いています…' : ctaLabel}
+                </span>
+                {!isCtaNavigating && <span aria-hidden="true">›</span>}
               </button>
 
-              <p className="result-v5-offer-note">
+              <p className="r5-cta-note">
                 ※詳しい内容は、次のページでご確認いただけます
-                <br />
-                ※この診断結果は、診断完了から24時間ご覧いただけます
               </p>
             </div>
           </section>
-
-          {previewEnabled && (
-            <PreviewPanel handleResetDiagnosis={handleResetDiagnosis} />
-          )}
         </div>
+
+        {previewEnabled && (
+          <PreviewPanel handleResetDiagnosis={handleResetDiagnosis} />
+        )}
 
         <div className="result-v5-footer">
           <Footer />

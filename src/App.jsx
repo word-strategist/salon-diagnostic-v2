@@ -241,6 +241,11 @@ function AppRoutes() {
   const variant = getAbVariant()
   const previewEnabled = isDevelopmentPreviewEnabled()
 
+  // Clarity：入口（variant）をカスタムタグとして渡す（未読み込み時・試用アクセス時は何もしない）
+  useEffect(() => {
+    if (variant) window.clarity?.('set', 'salon_variant', variant)
+  }, [variant])
+
   const campaignStatus = previewEnabled
     ? 'active'
     : getCampaignStatus(now)

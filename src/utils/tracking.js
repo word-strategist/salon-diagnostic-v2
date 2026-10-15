@@ -62,6 +62,26 @@ function getCommonTrackingData() {
 }
 
 // =========================
+// 試用アクセス（preview=1）の判定
+// index.html で一度判定した結果を優先し、念のためURL・タブ内の記録も確認する
+// =========================
+
+const PREVIEW_ACCESS_KEY = 'salon_preview_access'
+
+function isPreviewAccess() {
+  if (window.__SALON_PREVIEW__ === true) return true
+
+  const url = window.location.search + window.location.hash
+  if (/[?&]preview=1(?:[&#]|$)/.test(url)) return true
+
+  try {
+    return sessionStorage.getItem(PREVIEW_ACCESS_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+// =========================
 // GASイベント送信
 // =========================
 
@@ -77,6 +97,11 @@ export async function sendTrackingEvent(payload = {}) {
     // ローカル開発では本番GASへ送信しない
     if (import.meta.env.DEV) {
       return { ok: true, skipped: 'dev' }
+    }
+
+    // 試用アクセス（preview=1）は本番LPログへ送信しない
+    if (isPreviewAccess()) {
+      return { ok: true, skipped: 'preview' }
     }
 
     const response = await fetch(GAS_ENDPOINT, {

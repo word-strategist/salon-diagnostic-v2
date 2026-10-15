@@ -1,8 +1,9 @@
 import { QUESTIONS } from '../data/questions.js'
 import {
-  ANSWER_FACT_LABELS,
+  BRIDGE_COMMON,
   PATTERN_COPY,
 } from '../data/patternCopy.js'
+import { RESULT_VISUALS } from '../data/resultVisuals.js'
 
 /* =========================
    第5回 診断結果パターン
@@ -47,40 +48,57 @@ export function isCurrentResult(result) {
 }
 
 /* =========================
-   表示用の文言を組み立てる
+   表示用の文言を組み立てる（判定・案内先の決定には関与しない）
 ========================= */
-
-function resolve(value, answers) {
-  if (value && typeof value === 'object' && value.by) {
-    return value.variants[answers[value.by]] ?? null
-  }
-
-  return value ?? null
-}
 
 function getOptionText(questionIndex, answerIndex) {
   return QUESTIONS[questionIndex]?.options[answerIndex] ?? ''
+}
+
+// ④あなたに合った進め方：パターン × type（Q10①〜④＝A〜D）の橋渡し文
+function resolveBridge(copy, type) {
+  const cell = copy.bridges?.[type]
+  if (!cell) return null
+
+  if (cell.common) {
+    const common = BRIDGE_COMMON[cell.common]
+    return common
+      ? { kind: 'common', heading: common.heading, body: common.body }
+      : null
+  }
+
+  return { kind: 'dedicated', heading: null, body: cell.text }
+}
+
+// 写真枠・図解・強調（05・06の試作のみ。設定の無いパターンは null）
+function resolveVisual(copy, pattern) {
+  const visual = RESULT_VISUALS[pattern]
+  if (!visual) return null
+
+  // 強調は②の段落と完全一致した場合だけ。文言変更で外れたら開発時に警告する
+  const found =
+    visual.emphasis !== null && copy.why.split('\n\n').includes(visual.emphasis)
+
+  if (visual.emphasis !== null && !found && import.meta.env?.DEV) {
+    console.warn(`[resultVisuals] ${pattern} の強調文が②に見つかりません`)
+  }
+
+  return { ...visual, emphasis: found ? visual.emphasis : null }
 }
 
 export function buildResultContent(result) {
   const copy = PATTERN_COPY[result.pattern]
   if (!copy) return null
 
-  const { answers } = result
-
   return {
     pattern: result.pattern,
     name: copy.name,
-    lead: resolve(copy.lead, answers),
-    facts: [
-      { label: ANSWER_FACT_LABELS.q3, text: getOptionText(2, answers.q3) },
-      { label: ANSWER_FACT_LABELS.q4, text: getOptionText(3, answers.q4) },
-      { label: ANSWER_FACT_LABELS.q6, text: getOptionText(5, answers.q6) },
-    ],
-    points: copy.points.map((point) => resolve(point, answers)),
-    priority: resolve(copy.priority, answers),
-    outcome: resolve(copy.outcome, answers),
-    // Q10で選んだ「今のサロンに最も必要なもの」（案内の見出しで引用）
-    wishText: getOptionText(9, answers.q10),
+    result: copy.result,
+    why: copy.why,
+    need: copy.need,
+    bridge: resolveBridge(copy, result.type),
+    // Q10で選んだ回答（④で「あなたが選んだのは…」として引用）
+    wishText: getOptionText(9, result.answers?.q10),
+    visual: resolveVisual(copy, result.pattern),
   }
 }

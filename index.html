@@ -22,12 +22,35 @@
     />
 
     <!-- =========================
+         試用アクセス（preview=1）の判定
+         preview=1 のタブでは GAS・Clarity・Meta Pixel に送信しない。
+         判定はここで一度だけ行い、タブ内（sessionStorage）にも保持する。
+    ========================== -->
+    <script>
+      ;(function (w) {
+        var KEY = 'salon_preview_access'
+        var url = w.location.search + w.location.hash
+        var preview = /[?&]preview=1(?:[&#]|$)/.test(url)
+
+        try {
+          if (preview) w.sessionStorage.setItem(KEY, '1')
+          else preview = w.sessionStorage.getItem(KEY) === '1'
+        } catch (e) {}
+
+        // Vercelのプレビュー公開（チーム確認用）は、URLに関係なく常に試用アクセス扱い
+        if ('%VITE_VERCEL_ENV%' === 'preview') preview = true
+
+        w.__SALON_PREVIEW__ = preview
+      })(window)
+    </script>
+
+    <!-- =========================
          Microsoft Clarity
     ========================== -->
-    <!-- 本番ビルド以外では読み込まない（%MODE% はViteが置換） -->
+    <!-- 本番ビルド以外・試用アクセスでは読み込まない（%MODE% はViteが置換） -->
     <script type="text/javascript">
       ;(function (c, l, a, r, i, t, y) {
-        if ('%MODE%' !== 'production') return
+        if ('%MODE%' !== 'production' || c.__SALON_PREVIEW__) return
 
         c[a] =
           c[a] ||
@@ -55,7 +78,8 @@
     ========================== -->
     <script>
       ;(function (f, b, e, v, n, t, s) {
-        if ('%MODE%' !== 'production') {
+        // 本番ビルド以外・試用アクセスでは送信しない
+        if ('%MODE%' !== 'production' || f.__SALON_PREVIEW__) {
           f.fbq = function () {}
           return
         }
