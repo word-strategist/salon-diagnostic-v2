@@ -21,7 +21,7 @@ export const RESULT_VISUALS = {
   '05': {
     photo: { src: PHOTO_OWNER_DAILY },
     diagram: { kind: 'flow', items: ['投稿', '興味', '予約'] },
-    emphasis: 'お客さまが迷子になっている可能性があります。',
+    emphasis: '発信を見たお客さまが、予約するまでのどこかで迷っている可能性があります。',
   },
 
   '06': {

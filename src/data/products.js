@@ -17,7 +17,7 @@ export const PRODUCTS = {
     description: null,
     url: 'https://sendenhi-zero.com/hpmanyual',
     isConsultation: false,
-    cta: '自分で改善する方法を確認する',
+    cta: '予約を増やす基本を見る',
   },
 
   // 案内先②（Q10②・type B）
@@ -26,7 +26,7 @@ export const PRODUCTS = {
     description: null,
     url: 'https://utage-system.com/p/cJTrRSHtJVu8',
     isConsultation: false,
-    cta: '無料で情報を受け取る',
+    cta: '無料で集客のコツを受け取る',
   },
 
   // 案内先③（Q10③・type C）
@@ -35,7 +35,7 @@ export const PRODUCTS = {
     description: null,
     url: 'https://utage-system.com/p/KhAsa8VUlFs2',
     isConsultation: false,
-    cta: 'ホットペッパーを改善する方法を確認する',
+    cta: '予約が増えるクーポン例を見る',
   },
 
   // 案内先④（Q10④・type D）
@@ -44,6 +44,6 @@ export const PRODUCTS = {
     description: null,
     url: 'https://utage-system.com/p/Bu7lqAdurRl4',
     isConsultation: true,
-    cta: '今の状態を見てもらう方法を確認する',
+    cta: '理想のサロンへの進め方を確認',
   },
 }
