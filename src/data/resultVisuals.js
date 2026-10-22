@@ -17,11 +17,30 @@
 const PHOTO_OWNER_DAILY =
   '/images/result/a_bright_warm_softly_lit_interior_scene_wide_h_860w.webp'
 
+// variants：表示する入口を限定する場合のみ指定（未指定は入口を問わない）
+// variantEmphasis.{入口}：その入口だけ強調文を差し替える場合に指定
+// 01〜04：2026/10/21 写真の仮設置（比較試作・b5bのみ。05・06と同じ写真）
+const PHOTO_TRIAL_B5B = {
+  photo: { src: PHOTO_OWNER_DAILY },
+  diagram: null,
+  emphasis: null,
+  variants: ['b5b'],
+}
+
 export const RESULT_VISUALS = {
+  '01': PHOTO_TRIAL_B5B,
+  '02': PHOTO_TRIAL_B5B,
+  '03': PHOTO_TRIAL_B5B,
+  '04': PHOTO_TRIAL_B5B,
+
   '05': {
     photo: { src: PHOTO_OWNER_DAILY },
     diagram: { kind: 'flow', items: ['投稿', '興味', '予約'] },
     emphasis: '発信を見たお客さまが、予約するまでのどこかで迷っている可能性があります。',
+    // b5bの試作文章（patternCopy.js の variantCopy.b5b）に合わせた強調文
+    variantEmphasis: {
+      b5b: 'あなたの発信に興味を持ったお客さまは、迷わず予約まで進めるでしょうか。',
+    },
   },
 
   '06': {

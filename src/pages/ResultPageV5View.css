@@ -157,6 +157,12 @@
   margin-top: 12px;
 }
 
+/* b5b のみ：②本文と④橋渡し本文を文節単位で折り返す（2026/10/22 承認） */
+.result-v5-page--b5b .r5-why-body p,
+.result-v5-page--b5b .r5-path-bridge-body {
+  word-break: auto-phrase;
+}
+
 /* =========================
    05・06の試作：写真枠・図解・強調（resultVisuals.js）
    色は既存のもののみ使用（④パネルの背景、既存の強調色、オレンジ）
@@ -317,6 +323,11 @@
   color: var(--v5-text-body);
   font-size: 15px;
   line-height: 1.85;
+}
+
+/* 橋渡し文が複数段落のとき（P01-①の比較試作）。②の段落間隔に合わせる */
+.r5-path-bridge-body + .r5-path-bridge-body {
+  margin-top: 12px;
 }
 
 /* 閲覧期限 → ⑤ CTA */

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { PRODUCTS } from '../data/products'
 import { RESULT_PRODUCT_MAP } from '../data/resultMap'
-import { isKnownEntryVariant } from '../data/abVariant'
+import { getEntryVariant, isKnownEntryVariant } from '../data/abVariant'
 import { getSessionId, sendTrackingEvent } from '../utils/tracking'
 import { buildResultContent } from '../utils/resultPattern'
 import ResultPageV5View from './ResultPageV5View'
@@ -18,7 +18,12 @@ export default function ResultPage({
 }) {
   // 例：P03-C（診断パターン-Q10）。レベルは別項目で計測する
   const key = `P${result.pattern}-${result.type}`
-  const content = useMemo(() => buildResultContent(result), [result])
+  // 写真などを入口（variant）で限定する設定があるため、入口も渡す
+  const entryVariant = getEntryVariant()
+  const content = useMemo(
+    () => buildResultContent(result, entryVariant),
+    [result, entryVariant]
+  )
 
   // 案内先はQ10（type）だけで決める。該当がなければ A
   const productKeys = normalizeProductKeys(
@@ -200,6 +205,7 @@ const handleResetDiagnosis = () => {
   return (
     <ResultPageV5View
       content={content}
+      variant={entryVariant}
       mainProduct={mainProduct}
       ctaLabel={ctaLabel}
       ctaAreaRef={ctaAreaRef}

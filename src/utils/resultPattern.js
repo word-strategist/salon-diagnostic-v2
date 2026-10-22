@@ -67,38 +67,62 @@ function resolveBridge(copy, type) {
       : null
   }
 
-  return { kind: 'dedicated', heading: null, body: cell.text }
+  return {
+    kind: 'dedicated',
+    heading: null,
+    body: cell.text,
+    pathHeading: cell.pathHeading ?? null,
+    choiceBefore: cell.choiceBefore ?? null,
+    choiceAfter: cell.choiceAfter ?? null,
+    choiceQuote: cell.choiceQuote ?? null,
+  }
 }
 
 // 写真枠・図解・強調（05・06の試作のみ。設定の無いパターンは null）
-function resolveVisual(copy, pattern) {
+function resolveVisual(copy, pattern, variant) {
   const visual = RESULT_VISUALS[pattern]
   if (!visual) return null
+  if (visual.variants && !visual.variants.includes(variant)) return null
 
   // 強調は②の段落と完全一致した場合だけ。文言変更で外れたら開発時に警告する
+  const emphasis = visual.variantEmphasis?.[variant] ?? visual.emphasis
   const found =
-    visual.emphasis !== null && copy.why.split('\n\n').includes(visual.emphasis)
+    emphasis !== null && copy.why.split('\n\n').includes(emphasis)
 
-  if (visual.emphasis !== null && !found && import.meta.env?.DEV) {
+  if (emphasis !== null && !found && import.meta.env?.DEV) {
     console.warn(`[resultVisuals] ${pattern} の強調文が②に見つかりません`)
   }
 
-  return { ...visual, emphasis: found ? visual.emphasis : null }
+  return { ...visual, emphasis: found ? emphasis : null }
 }
 
-export function buildResultContent(result) {
-  const copy = PATTERN_COPY[result.pattern]
+// 入口（variant）専用の文言があれば上書きする（bridges はセル単位）
+function resolveCopy(pattern, variant) {
+  const base = PATTERN_COPY[pattern]
+  const override = base?.variantCopy?.[variant]
+  if (!override) return base
+
+  return {
+    ...base,
+    ...override,
+    bridges: { ...base.bridges, ...override.bridges },
+  }
+}
+
+export function buildResultContent(result, variant = null) {
+  const copy = resolveCopy(result.pattern, variant)
   if (!copy) return null
 
   return {
     pattern: result.pattern,
     name: copy.name,
     result: copy.result,
+    whyHeading: copy.whyHeading ?? null,
     why: copy.why,
     need: copy.need,
     bridge: resolveBridge(copy, result.type),
     // Q10で選んだ回答（④で「あなたが選んだのは…」として引用）
     wishText: getOptionText(9, result.answers?.q10),
-    visual: resolveVisual(copy, result.pattern),
+    visual: resolveVisual(copy, result.pattern, variant),
   }
 }

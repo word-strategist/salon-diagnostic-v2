@@ -203,6 +203,7 @@ export default function ResultPageV5View({
   isCtaNavigating,
   handleResetDiagnosis,
   resultExpiresAt,
+  variant,
 }) {
   const [now, setNow] = useState(() => Date.now())
   const [previewEnabled] = useState(isPreviewEnabled)
@@ -221,7 +222,10 @@ export default function ResultPageV5View({
   const { bridge, visual } = content
 
   return (
-    <div className="result-v5-page">
+    // b5b のときだけ入口クラスを付ける（b5b限定の表示調整用。b2 のDOMは変えない）
+    <div
+      className={`result-v5-page${variant === 'b5b' ? ' result-v5-page--b5b' : ''}`}
+    >
       <main className="result-v5-phone">
         {previewEnabled && PATTERN_COPY_IS_DRAFT && (
           <p className="result-v5-draft-badge">
@@ -253,7 +257,9 @@ export default function ResultPageV5View({
 
           {/* ② なぜこの結果なのか */}
           <section className="r5-why">
-            <h2 className="r5-subheading">なぜこの結果なのか</h2>
+            <h2 className="r5-subheading">
+              {content.whyHeading ?? 'なぜこの結果なのか'}
+            </h2>
             <div className="r5-why-body">
               <Paragraphs text={content.why} emphasis={visual?.emphasis} />
             </div>
@@ -269,12 +275,18 @@ export default function ResultPageV5View({
 
           {/* ④ あなたに合った進め方 */}
           <section className="r5-path">
-            <h2 className="r5-path-heading">では、どう改善していくか。</h2>
+            <h2 className="r5-path-heading">
+              {bridge?.pathHeading ?? 'では、どう改善していくか。'}
+            </h2>
 
             <p className="r5-path-choice">
-              あなたが選んだのは、
-              <strong>「{content.wishText}」</strong>
-              でした。
+              {renderLines(bridge?.choiceBefore ?? 'あなたが選んだのは、')}
+              <strong>
+                {bridge?.choiceQuote
+                  ? renderLines(bridge.choiceQuote)
+                  : `「${content.wishText}」`}
+              </strong>
+              {renderLines(bridge?.choiceAfter ?? 'でした。')}
             </p>
 
             {bridge && (
@@ -282,7 +294,7 @@ export default function ResultPageV5View({
                 {bridge.heading && (
                   <p className="r5-path-bridge-heading">{bridge.heading}</p>
                 )}
-                <p className="r5-path-bridge-body">{bridge.body}</p>
+                <Paragraphs text={bridge.body} className="r5-path-bridge-body" />
               </div>
             )}
           </section>

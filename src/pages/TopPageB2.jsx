@@ -17,30 +17,35 @@ const TOP_SUPPORT_IMAGES = {
   voiceB: '/images/result/ResultVoice人物_B_v1_2026-07-04.png',
 }
 
+// textV5：第5回TOP（b5a・b5b）のみの文言。従来のB2は text を使う
 const EMPATHY_ITEMS = [
   {
     id: 'sns',
     title: 'SNS',
     icon: ICONS.sns,
     text: '頑張って発信しているのに、新規が増えない…',
+    textV5: '頑張っているのに\n新規が増えない…',
   },
   {
     id: 'hpb',
     title: 'HPB',
     icon: ICONS.hpb,
     text: '掲載や更新を続けても、反応が少ない…',
+    textV5: '掲載や更新をしても\n反応がほとんどない',
   },
   {
     id: 'line',
     title: 'LINE',
     icon: ICONS.line,
     text: '配信しても、閲覧や反応につながらない…',
+    textV5: '時間をかけて配信しても\n閲覧や反応につながらない',
   },
   {
     id: 'referral',
     title: '紹介',
     icon: ICONS.referral,
     text: '紹介に頼りたいけれど、なかなか増えない…',
+    textV5: '口コミを期待するも\nなかなか増えない…',
   },
 ]
 
@@ -49,6 +54,7 @@ const DIAGNOSIS_ITEMS = [
     id: 'status',
     icon: ICONS.current,
     text: 'あなたの集客の\n今の状態',
+    textV5: 'あなたの現在の集客状態',
   },
   {
     id: 'type',
@@ -59,6 +65,7 @@ const DIAGNOSIS_ITEMS = [
     id: 'priority',
     icon: ICONS.priority,
     text: '優先して取り組むべき\nポイント',
+    textV5: '取り組みの優先ポイント',
   },
 ]
 
@@ -199,7 +206,17 @@ export default function TopPageB2({
           className="top-b2-section top-b2-empathy"
         >
           <header className="top-b2-section-heading">
-            <h2>こんなお悩み、ありませんか？</h2>
+            <h2>
+              {isV5 ? (
+                <>
+                  こんなお悩み、
+                  <br />
+                  ありませんか？
+                </>
+              ) : (
+                'こんなお悩み、ありませんか？'
+              )}
+            </h2>
           </header>
 
           <div className="top-b2-empathy-grid">
@@ -220,22 +237,48 @@ export default function TopPageB2({
                 </div>
 
                 <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <p>
+                  {isV5 && item.textV5 ? (
+                    <MultilineText text={item.textV5} />
+                  ) : (
+                    item.text
+                  )}
+                </p>
               </article>
             ))}
           </div>
 
           <p className="top-b2-empathy-message">
-            いろいろ試しているからこそ、
-            <br />
-            何から整えるべきか分かりにくくなります。
+            {isV5 ? (
+              <>
+                いろいろ頑張って試しているからこそ、
+                <br />
+                何をすれば良いのかわかりませんよね。
+              </>
+            ) : (
+              <>
+                いろいろ試しているからこそ、
+                <br />
+                何から整えるべきか分かりにくくなります。
+              </>
+            )}
           </p>
 
           <div className="top-b2-scroll-hook">
             <p>
-              だからこそ、
-              <br />
-              まずは今の状態を整理してみませんか？
+              {isV5 ? (
+                <>
+                  あなたが今抱えている問題を
+                  <br />
+                  知りたいとは思いませんか？
+                </>
+              ) : (
+                <>
+                  だからこそ、
+                  <br />
+                  まずは今の状態を整理してみませんか？
+                </>
+              )}
             </p>
 
             <span aria-hidden="true">﹀</span>
@@ -267,7 +310,9 @@ export default function TopPageB2({
                   </span>
 
                   <p>
-                    <MultilineText text={item.text} />
+                    <MultilineText
+                      text={isV5 && item.textV5 ? item.textV5 : item.text}
+                    />
                   </p>
                 </article>
               ))}
@@ -288,7 +333,7 @@ export default function TopPageB2({
           <p className="top-b2-diagnosis-message">
             診断後は、
             <br />
-            次の一歩が明確になります。
+            {isV5 ? '次の『一歩』が明確になります。' : '次の一歩が明確になります。'}
           </p>
 
           <span className="top-b2-section-arrow" aria-hidden="true">
@@ -312,9 +357,15 @@ export default function TopPageB2({
                 />
               </span>
               <p>
-                やるべきことが
-                <br />
-                スッキリ整理
+                {isV5 ? (
+                  'すぐにやることがわかります'
+                ) : (
+                  <>
+                    やるべきことが
+                    <br />
+                    スッキリ整理
+                  </>
+                )}
               </p>
             </article>
 
@@ -327,9 +378,15 @@ export default function TopPageB2({
                 />
               </span>
               <p>
-                自分に合う方法が
-                <br />
-                見つかる
+                {isV5 ? (
+                  '自分に合う方法が見つかります'
+                ) : (
+                  <>
+                    自分に合う方法が
+                    <br />
+                    見つかる
+                  </>
+                )}
               </p>
             </article>
 
@@ -342,9 +399,15 @@ export default function TopPageB2({
                 />
               </span>
               <p>
-                ムリなく成果につながる
-                <br />
-                行動が分かる
+                {isV5 ? (
+                  '成果へ向けた行動に移せます'
+                ) : (
+                  <>
+                    ムリなく成果につながる
+                    <br />
+                    行動が分かる
+                  </>
+                )}
               </p>
             </article>
           </div>
