@@ -41,6 +41,24 @@
         if ('%VITE_VERCEL_ENV%' === 'preview') preview = true
 
         w.__SALON_PREVIEW__ = preview
+
+        // 開始前のGAS実測確認モード（2026/10/23 承認）
+        // 確認用URLの4条件がすべてそろい、試用アクセスではなく、開始前のときだけ有効。
+        // GASには通常どおり送信し、Clarity・Meta Pixel は読み込まない。
+        // 開始日時は src/utils/campaign.js の CAMPAIGN_START_AT と同じ値にすること。
+        // App.jsx はこの判定結果を参照する（判定条件はここだけに置く）。
+        var CHECK_START_AT = '2026-10-26T00:00:00+09:00'
+        var q = new URLSearchParams(w.location.search)
+        var v = function (k) {
+          return (q.get(k) || '').toLowerCase()
+        }
+        w.__SALON_GAS_CHECK__ =
+          !preview &&
+          v('variant') === 'b5b' &&
+          v('utm_source') === 'internal' &&
+          v('utm_medium') === 'check' &&
+          v('utm_campaign') === 'salon_test5_check' &&
+          Date.now() < new Date(CHECK_START_AT).getTime()
       })(window)
     </script>
 
@@ -50,7 +68,7 @@
     <!-- 本番ビルド以外・試用アクセスでは読み込まない（%MODE% はViteが置換） -->
     <script type="text/javascript">
       ;(function (c, l, a, r, i, t, y) {
-        if ('%MODE%' !== 'production' || c.__SALON_PREVIEW__) return
+        if ('%MODE%' !== 'production' || c.__SALON_PREVIEW__ || c.__SALON_GAS_CHECK__) return
 
         c[a] =
           c[a] ||
@@ -78,8 +96,8 @@
     ========================== -->
     <script>
       ;(function (f, b, e, v, n, t, s) {
-        // 本番ビルド以外・試用アクセスでは送信しない
-        if ('%MODE%' !== 'production' || f.__SALON_PREVIEW__) {
+        // 本番ビルド以外・試用アクセス・GAS実測確認モードでは送信しない
+        if ('%MODE%' !== 'production' || f.__SALON_PREVIEW__ || f.__SALON_GAS_CHECK__) {
           f.fbq = function () {}
           return
         }

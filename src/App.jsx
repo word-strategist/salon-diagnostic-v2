@@ -199,6 +199,8 @@ function StatusScreen({ label, title, text }) {
                 color: '#3f2d29',
                 fontSize: '28px',
                 lineHeight: 1.5,
+                // 意味のまとまりで改行（例：「（月）か／ら」を避ける）
+                wordBreak: 'auto-phrase',
               }}
             >
               {title}
@@ -246,9 +248,14 @@ function AppRoutes() {
     if (variant) window.clarity?.('set', 'salon_variant', variant)
   }, [variant])
 
-  const campaignStatus = previewEnabled
-    ? 'active'
-    : getCampaignStatus(now)
+  // 開始前のGAS実測確認モード（判定は index.html の __SALON_GAS_CHECK__）。
+  // 期間の例外は campaign.js で「開始前」のときだけ適用し、開始後・終了後は通常どおり。
+  const scheduledStatus = getCampaignStatus(now)
+  const gasCheckActive =
+    window.__SALON_GAS_CHECK__ === true && scheduledStatus === 'before'
+
+  const campaignStatus =
+    previewEnabled || gasCheckActive ? 'active' : scheduledStatus
 
   let ActiveTopPage = null
 
@@ -512,10 +519,8 @@ element={
   !bypassCampaignStatus && campaignStatus === 'before' ? (
     <StatusScreen
       label="公開前"
-      title="この診断はまだ開始していません"
-      text={
-        '2026年10月26日 0:00より\n公開を開始します。'
-      }
+      title="診断は10月26日（月）から開始します"
+      text="開始まで今しばらくお待ちください。"
     />
   ) : !bypassCampaignStatus && campaignStatus === 'ended' ? (
     <StatusScreen
@@ -547,15 +552,15 @@ element={
             />
           ) : (
             <StatusScreen
-              label="受付終了"
+              label={campaignStatus === 'before' ? '公開前' : '受付終了'}
               title={
                 campaignStatus === 'before'
-                  ? 'この診断はまだ開始していません'
+                  ? '診断は10月26日（月）から開始します'
                   : 'この診断は終了しました'
               }
               text={
                 campaignStatus === 'before'
-                  ? '2026年10月26日 0:00より公開を開始します。'
+                  ? '開始まで今しばらくお待ちください。'
                   : 'ご参加ありがとうございました。'
               }
             />
@@ -582,8 +587,8 @@ element={
           ) : campaignStatus === 'before' ? (
             <StatusScreen
               label="公開前"
-              title="この診断はまだ開始していません"
-              text="2026年10月26日 0:00より公開を開始します。"
+              title="診断は10月26日（月）から開始します"
+              text="開始まで今しばらくお待ちください。"
             />
           ) : campaignStatus === 'ended' ? (
             <StatusScreen
@@ -639,10 +644,59 @@ function QuestionWrapper({ onAnswer, visualTheme }) {
 }
 
 /* =========================
+   第5回 本番公開：通常アクセスは b5b に統一（2026/10/23 承認）
+   variant が未指定・b5b 以外のときは、画面を描画する前に ?variant=b5b へ置き換える。
+   UTM・fbclid などのパラメータは引き継ぐ（# の後ろに付いたものも含む）。
+   preview=1 は従来どおり全入口を閲覧できる（計測除外も従来どおり）。
+========================= */
+
+const PUBLIC_VARIANT = 'b5b'
+
+// # 以降のパラメータ（#/?a=1 と #/&a=1 の両方）を取り出す
+function getHashParamsLoose() {
+  const body = (window.location.hash || '').replace(/^#\/?/, '')
+  const index = body.search(/[?&]/)
+
+  return new URLSearchParams(index === -1 ? '' : body.slice(index + 1))
+}
+
+function getPublicRedirectUrl() {
+  if (isDevelopmentPreviewEnabled()) return null
+
+  const searchParams = new URLSearchParams(window.location.search)
+  const hashParams = getHashParamsLoose()
+  const urlVariant = (
+    searchParams.get('variant') ||
+    hashParams.get('variant') ||
+    ''
+  ).toLowerCase()
+
+  if (urlVariant === PUBLIC_VARIANT) return null
+
+  const params = new URLSearchParams({ variant: PUBLIC_VARIANT })
+  for (const source of [searchParams, hashParams]) {
+    for (const [key, value] of source) {
+      if (key !== 'variant' && !params.has(key)) params.set(key, value)
+    }
+  }
+
+  return `${window.location.origin}${window.location.pathname}?${params}#/`
+}
+
+/* =========================
    App
 ========================= */
 
 export default function App() {
+  const [redirectUrl] = useState(getPublicRedirectUrl)
+
+  useEffect(() => {
+    if (redirectUrl) window.location.replace(redirectUrl)
+  }, [redirectUrl])
+
+  // 転送するときは何も描画しない（旧TOPの page_view を送らない）
+  if (redirectUrl) return null
+
   return (
     <BrowserRouter>
       <AppRoutes />
