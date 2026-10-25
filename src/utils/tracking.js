@@ -9,7 +9,7 @@ import {
 // =========================
 
 const GAS_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycby--QCizuR5hnU30wHL17PTJiqxRPJw_WsJwxb5cWB-axALS6l0M7Wepc3yneerXJ1gCg/exec'
+  'https://script.google.com/macros/s/AKfycbzD7rtjeZNrrgxfVO6qetW9ZaHPajaNiI1KJy-uxtSPxAuJsTlH8uI4kzm8a8UIfKhtqA/exec'
 
 // =========================
 // セッション管理
