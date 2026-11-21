@@ -36,6 +36,9 @@ import {
 
 const SESSION_KEYS = {
   answers: 'salon_diagnosis_answers',
+  // Meta Pixel 診断完了（DiagnosisComplete）の重複送信抑制
+  diagnosisId: 'salon_diagnosis_id',
+  completeSentId: 'salon_diagnosis_complete_sent_id',
 }
 
 const LOCAL_KEYS = {
@@ -68,6 +71,8 @@ function clearSavedResultContent() {
 
 function clearAllDiagnosisData() {
   sessionStorage.removeItem(SESSION_KEYS.answers)
+  sessionStorage.removeItem(SESSION_KEYS.diagnosisId)
+  sessionStorage.removeItem(SESSION_KEYS.completeSentId)
 
   localStorage.removeItem(LOCAL_KEYS.result)
   localStorage.removeItem(LOCAL_KEYS.completedAt)
@@ -80,6 +85,77 @@ function clearAllDiagnosisData() {
   localStorage.removeItem('diagnosis_answers')
   localStorage.removeItem('diagnosis_result')
   localStorage.removeItem('diagnosis_date')
+}
+
+/* =========================
+   Meta Pixel 診断完了（DiagnosisComplete）
+   ・10問目の回答確定で結果が正常に計算された時点で、1診断につき1回だけ送信を試みる
+   ・診断IDは開始ボタンで新規発行し、同じ診断でQ10等に戻って再回答しても再送しない
+   ・結果の再表示・再読み込み・別タブでの復元では呼ばれない（回答確定時のみ）
+   ・本番ビルド以外・試用アクセス・GAS実測確認モードでは送信も記録もしない
+   ・付属情報（回答・結果タイプ・案内先など）は送らない
+   ・eventID は付与するが、Meta側での重複排除を前提にはしない
+========================= */
+
+function createDiagnosisId() {
+  if (
+    typeof crypto !== 'undefined' &&
+    typeof crypto.randomUUID === 'function'
+  ) {
+    return `diag_${crypto.randomUUID()}`
+  }
+
+  return `diag_${Date.now()}_${Math.random()
+    .toString(36)
+    .slice(2, 10)}`
+}
+
+function startNewDiagnosisId() {
+  try {
+    sessionStorage.setItem(
+      SESSION_KEYS.diagnosisId,
+      createDiagnosisId()
+    )
+  } catch {
+    // 保存できない環境でも診断は続行する
+  }
+}
+
+// index.html の Meta Pixel 読み込み条件と同じ（＋表示中URLの preview=1）
+function isPixelTrackingEnabled() {
+  return (
+    import.meta.env.PROD &&
+    window.__SALON_PREVIEW__ !== true &&
+    window.__SALON_GAS_CHECK__ !== true &&
+    !isDevelopmentPreviewEnabled()
+  )
+}
+
+function trackDiagnosisComplete() {
+  if (!isPixelTrackingEnabled()) return
+
+  try {
+    // 開始ボタンを通らずに回答した場合は、ここで診断IDを発行する
+    let diagnosisId = sessionStorage.getItem(SESSION_KEYS.diagnosisId)
+
+    if (!diagnosisId) {
+      diagnosisId = createDiagnosisId()
+      sessionStorage.setItem(SESSION_KEYS.diagnosisId, diagnosisId)
+    }
+
+    if (sessionStorage.getItem(SESSION_KEYS.completeSentId) === diagnosisId) {
+      return
+    }
+
+    // 先に送信済みとして記録し、二重送信を防ぐ（Meta側の受信成否は確認できない）
+    sessionStorage.setItem(SESSION_KEYS.completeSentId, diagnosisId)
+
+    if (typeof window.fbq === 'function') {
+      window.fbq('trackCustom', 'DiagnosisComplete', {}, { eventID: diagnosisId })
+    }
+  } catch {
+    // 計測の失敗で診断結果の表示を止めない
+  }
 }
 
 /* =========================
@@ -430,6 +506,7 @@ useEffect(() => {
     if (campaignStatus !== 'active' || !variant) return
 
     clearAllDiagnosisData()
+    startNewDiagnosisId()
 
     setAnswers([])
     setResult(null)
@@ -493,6 +570,11 @@ useEffect(() => {
       channel
     )
     localStorage.removeItem(LOCAL_KEYS.resultExpired)
+
+    // 結果が正常に計算された場合だけ、診断完了として送信を試みる
+    if (isCurrentResult(finalResult)) {
+      trackDiagnosisComplete()
+    }
 
     navigate(buildRoute('/result', variant))
   }
