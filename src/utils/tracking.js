@@ -104,6 +104,11 @@ export async function sendTrackingEvent(payload = {}) {
       return { ok: true, skipped: 'preview' }
     }
 
+    // Meta Pixel 受信確認モード（index.html で判定）は本番LPログへ送信しない
+    if (window.__SALON_PIXEL_CHECK__ === true) {
+      return { ok: true, skipped: 'pixel_check' }
+    }
+
     const response = await fetch(GAS_ENDPOINT, {
       method: 'POST',
       headers: {

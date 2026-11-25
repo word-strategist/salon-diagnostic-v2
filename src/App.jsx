@@ -330,8 +330,16 @@ function AppRoutes() {
   const gasCheckActive =
     window.__SALON_GAS_CHECK__ === true && scheduledStatus === 'before'
 
+  // Meta Pixel 受信確認モード（判定は index.html の __SALON_PIXEL_CHECK__）。
+  // 期限前に開いたタブでも、期限を過ぎたら通常どおりの受付状態に戻す（回答・送信不可）。
+  const pixelCheckActive =
+    window.__SALON_PIXEL_CHECK__ === true &&
+    now <= window.__SALON_PIXEL_CHECK_END__
+
   const campaignStatus =
-    previewEnabled || gasCheckActive ? 'active' : scheduledStatus
+    previewEnabled || gasCheckActive || pixelCheckActive
+      ? 'active'
+      : scheduledStatus
 
   let ActiveTopPage = null
 
