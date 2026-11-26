@@ -9,7 +9,7 @@ import {
 // =========================
 
 const GAS_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzD7rtjeZNrrgxfVO6qetW9ZaHPajaNiI1KJy-uxtSPxAuJsTlH8uI4kzm8a8UIfKhtqA/exec'
+  'https://script.google.com/macros/s/AKfycbxX8Q9g3a5JjpK1VmlkLLboDQBoAgM0nAFLBCNCPq5nl9dRFyoUpTS6d1JI2ZIeDFPf_A/exec'
 
 // =========================
 // セッション管理
@@ -102,11 +102,6 @@ export async function sendTrackingEvent(payload = {}) {
     // 試用アクセス（preview=1）は本番LPログへ送信しない
     if (isPreviewAccess()) {
       return { ok: true, skipped: 'preview' }
-    }
-
-    // Meta Pixel 受信確認モード（index.html で判定）は本番LPログへ送信しない
-    if (window.__SALON_PIXEL_CHECK__ === true) {
-      return { ok: true, skipped: 'pixel_check' }
     }
 
     const response = await fetch(GAS_ENDPOINT, {

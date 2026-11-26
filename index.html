@@ -64,7 +64,7 @@
         // 確認用URLの4条件がすべてそろい、試用アクセスではなく、期限前のときだけ有効。
         // 受付期間外でも診断でき、Meta Pixel は通常どおり送信し、GAS・Clarity には送らない。
         // 期限前に開いたタブも、期限を過ぎたら App.jsx で受付終了として扱う。
-        var PIXEL_CHECK_END_AT = '2026-11-25T23:59:59+09:00'
+        var PIXEL_CHECK_END_AT = '2026-11-27T23:59:59+09:00'
         w.__SALON_PIXEL_CHECK_END__ = new Date(PIXEL_CHECK_END_AT).getTime()
         w.__SALON_PIXEL_CHECK__ =
           !preview &&
