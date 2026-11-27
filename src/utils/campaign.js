@@ -2,6 +2,11 @@
 // キャンペーン期間設定
 // =========================
 
+// 受付期間による制限の有無（2026/11/27 第6回：期間制限なしの本番LPとして解除）
+// false の間は開始前・終了後の制限をかけず、常に受付中として扱う。
+// 期間制限を再設定するときは true に戻し、下の開始・終了日時を設定する。
+export const CAMPAIGN_PERIOD_ENABLED = false
+
 export const CAMPAIGN_START_AT =
   '2026-10-26T00:00:00+09:00'
 
@@ -30,6 +35,10 @@ function toTimestamp(value) {
 // =========================
 
 export function getCampaignStatus(now = Date.now()) {
+  if (!CAMPAIGN_PERIOD_ENABLED) {
+    return 'active'
+  }
+
   const start = toTimestamp(CAMPAIGN_START_AT)
   const end = toTimestamp(CAMPAIGN_END_AT)
 
