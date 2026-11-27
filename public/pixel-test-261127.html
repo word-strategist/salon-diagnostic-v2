@@ -17,14 +17,81 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '274416946098932');
 fbq('track', 'PageView');
-fbq('trackCustom', 'DiagnosisComplete');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=274416946098932&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Facebook Pixel Code -->
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 24px 16px; line-height: 1.7; color: #222; background: #fff; }
+  main { max-width: 560px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 16px; }
+  section { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  h2 { font-size: 16px; margin: 0 0 8px; }
+  p { margin: 0 0 8px; }
+  a { color: #0b57d0; }
+  button { font-size: 16px; padding: 12px 20px; border-radius: 8px; border: 0; background: #0b57d0; color: #fff; cursor: pointer; }
+  .status { margin-top: 12px; padding: 12px; background: #f3f4f6; border-radius: 6px; white-space: pre-line; }
+  .note { font-size: 13px; color: #555; }
+</style>
 </head>
 <body>
-<p>Meta Pixel 受信確認用の一時ページです。</p>
+<main>
+  <h1>Meta Pixel 受信確認用の一時ページです。</h1>
+
+  <section>
+    <h2>1. テストイベント画面</h2>
+    <p><a href="https://business.facebook.com/events_manager2/list/pixel/274416946098932/test_events" target="_blank" rel="noopener">Metaイベントマネージャ（テストイベント）を別タブで開く</a></p>
+    <p class="note">開けない場合：<a href="https://business.facebook.com/events_manager2/" target="_blank" rel="noopener">イベントマネージャのトップを別タブで開く</a>（ピクセル 274416946098932 →「テストイベント」）</p>
+  </section>
+
+  <section>
+    <h2>2. PageView</h2>
+    <p>このページを開いた時点で送信処理を呼び出しています。</p>
+    <p id="script-status" class="status">Pixelスクリプト：読み込みを確認中…</p>
+  </section>
+
+  <section>
+    <h2>3. DiagnosisComplete</h2>
+    <button type="button" id="send-dc">DiagnosisComplete を送信する</button>
+    <p id="dc-status" class="status">まだ送信処理を呼び出していません。</p>
+    <p class="note">この画面では、ブラウザで送信処理を呼び出したことだけが分かります。Meta側で受信できたかは、テストイベント画面で確認してください。</p>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var scriptStatus = document.getElementById('script-status');
+    var dcStatus = document.getElementById('dc-status');
+    var count = 0;
+
+    // fbevents.js の読み込みが終わると fbq.callMethod が設定される
+    var waited = 0;
+    var timer = setInterval(function () {
+      waited += 500;
+      if (window.fbq && window.fbq.callMethod) {
+        clearInterval(timer);
+        scriptStatus.textContent = 'Pixelスクリプト：読み込み済み\n（受信の成否はテストイベント画面で確認してください）';
+      } else if (waited >= 10000) {
+        clearInterval(timer);
+        scriptStatus.textContent = 'Pixelスクリプト：読み込めていません\nブラウザのトラッキング防止機能や拡張機能で遮断されている可能性があります。';
+      }
+    }, 500);
+
+    document.getElementById('send-dc').addEventListener('click', function () {
+      fbq('trackCustom', 'DiagnosisComplete');
+      count += 1;
+      var t = new Date();
+      var hhmmss = [t.getHours(), t.getMinutes(), t.getSeconds()]
+        .map(function (v) { return String(v).padStart(2, '0'); })
+        .join(':');
+      dcStatus.textContent =
+        'DiagnosisComplete の送信処理を呼び出しました（' + count + '回目・' + hhmmss + '）\n' +
+        (window.fbq && window.fbq.callMethod
+          ? 'Meta側での受信はテストイベント画面で確認してください。'
+          : '※Pixelスクリプトが読み込まれていないため、Metaへは送信されていない可能性があります。');
+    });
+  })();
+</script>
 </body>
 </html>
